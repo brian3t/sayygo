@@ -1,0 +1,8 @@
+<html>
+<script type="text/javascript" >
+alert(window.location.href);
+	if (window.location.href === "http://localhost"){
+		window.location.assign("./ce/)
+	}
+</script>
+</html>

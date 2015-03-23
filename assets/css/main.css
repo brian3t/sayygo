@@ -1,0 +1,128 @@
+/* ==|== Custom CSS ========================================
+   Please define your custom styles after this section.
+   ========================================================================== */
+/*.container{max-width: 748px !important;}*/
+html {
+    font-family: "Open Sans";
+}
+
+.btn {
+    margin-bottom: 10px !important;
+}
+
+#map-canvas {
+    height: auto;
+    min-height: 300px;
+    position: fixed !important;
+    top: 287px;
+    left: 500px;
+    width: 593px
+}
+
+div#clipboard {
+    position: fixed;
+    left: 45%;
+    top: 100px;
+    width: 284px;
+}
+
+/*input,textarea{padding: 0px!important;}*/
+
+.control-group {
+    clear: both;
+    /*min-height: 52px;*/
+}
+
+form#nav-bar_login-form {
+    float: left;
+    display: block;
+}
+
+#nav-bar_login-form div.form-group {
+    float: left;
+}
+
+#nav-bar_login-form input {
+    margin: 5px 3px;
+    max-width: 180px;
+}
+
+input#top-login {
+    margin-top: 5px;
+}
+
+.float-left {
+    float: left
+}
+
+.voffset {
+    margin-top: 2px;
+}
+
+.voffset1 {
+    margin-top: 5px;
+}
+
+.voffset2 {
+    margin-top: 10px;
+}
+
+.voffset3 {
+    margin-top: 15px;
+}
+
+.voffset4 {
+    margin-top: 30px;
+}
+
+.voffset5 {
+    margin-top: 40px;
+}
+
+.voffset6 {
+    margin-top: 60px;
+}
+
+.voffset7 {
+    margin-top: 80px;
+}
+
+.voffset8 {
+    margin-top: 100px;
+}
+
+.voffset9 {
+    margin-top: 150px;
+}
+
+ul.operations {
+    list-style: none;
+    margin: 10px 0 0 0;
+}
+
+ul.operations > li {
+    display: inline-block;
+    margin-right: 30px;
+}
+
+textarea.code-snippet.gwt-TextArea-readonly {
+    font-size: 12px;
+    height: 156px !important;
+    width: 312px !important;
+    cursor: pointer !important;
+}
+
+tr.filters {
+    display: none;
+}
+
+#nav-bar_login-form .form-actions {
+    padding: 0px;
+    margin: 0 0 0 0;
+    background-color: inherit;
+    border: none;
+}
+
+input[type="search"] {
+    margin-left: 5px;
+}

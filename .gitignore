@@ -1,0 +1,12 @@
+!assets/.gitignore
+protected/runtime/*
+!protected/runtime/.gitignore
+protected/data/*.db
+themes/classic/views/
+# phpStorm	
+.idea
+#cached contents
+backend/web/assets/*
+frontend/web/assets/*
+.DS_Store
+
