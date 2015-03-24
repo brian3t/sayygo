@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a1b5bbee2f7497939252cc493a873169",
+    "hash": "5d9f6170381738f9e5831b1c70ca7a74",
     "packages": [
         {
             "name": "2amigos/yii2-switch-widget",

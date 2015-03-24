@@ -6,7 +6,7 @@
  * Time: 8:17 AM
  */
 NavBar::begin( [
-	'brandLabel' => 'Real Estate Team App',
+	'brandLabel' => 'Sayygo',
 	'brandUrl'   => Yii::$app->homeUrl,
 	'options'    => [
 		'class' => 'navbar-inverse navbar-fixed-top',

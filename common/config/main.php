@@ -7,8 +7,8 @@ return [
 //			'class' => 'yii\caching\FileCache',
 //		],
 		'request' => [
-			'enableCookieValidation' => false,
-			'enableCsrfValidation'   => false,
+//			'enableCookieValidation' => false,
+//			'enableCsrfValidation'   => false,
 		],
 		'urlManager' => [
 			'class'           => 'yii\web\UrlManager',
@@ -23,7 +23,12 @@ return [
 					'DELETE <controller:\w+>/<id:\d+>' => '<controller>/delete',
 					'<controller:\w+>/<id:\d+>'        => '<controller>/view',
 				]
-		]
+		],
+		'user' => [
+//			'class' => 'dektrium\user\Module',
+			'identityClass' => 'common\models\User',
+			'enableAutoLogin' => true,
+		],
 	],
 	'aliases' => [
 		'@bower' => dirname( dirname( __DIR__ ) ) . '/vendor/bower-asset'
@@ -31,6 +36,9 @@ return [
 //	'bootstrap' => ['debug'],
 	'modules' => [
 		'debug' => 'yii\debug\Module',
+//		'user' => [
+//			'class' => 'dektrium\user\Module',
+//		],
 	],
 ];
 ?>

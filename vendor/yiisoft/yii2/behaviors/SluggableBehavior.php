@@ -137,11 +137,11 @@ class SluggableBehavior extends AttributeBehavior
             $attributes = (array) $this->attribute;
             /* @var $owner BaseActiveRecord */
             $owner = $this->owner;
-            if ( ! empty( $owner->{$this->slugAttribute} ) ) {
+            if (!empty($owner->{$this->slugAttribute})) {
                 $isNewSlug = false;
-                if ( ! $this->immutable ) {
-                    foreach ( $attributes as $attribute ) {
-                        if ( $owner->isAttributeChanged( $attribute ) ) {
+                if (!$this->immutable) {
+                    foreach ($attributes as $attribute) {
+                        if ($owner->isAttributeChanged($attribute)) {
                             $isNewSlug = true;
                             break;
                         }

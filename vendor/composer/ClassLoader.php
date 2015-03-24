@@ -256,7 +256,8 @@ class ClassLoader
      *
      * @param bool $classMapAuthoritative
      */
-	public function setClassMapAuthoritative( $classMapAuthoritative ) {
+    public function setClassMapAuthoritative($classMapAuthoritative)
+    {
         $this->classMapAuthoritative = $classMapAuthoritative;
     }
 
@@ -265,7 +266,8 @@ class ClassLoader
      *
      * @return bool
      */
-	public function isClassMapAuthoritative() {
+    public function isClassMapAuthoritative()
+    {
         return $this->classMapAuthoritative;
     }
 
@@ -320,7 +322,7 @@ class ClassLoader
         if (isset($this->classMap[$class])) {
             return $this->classMap[$class];
         }
-	    if ( $this->classMapAuthoritative ) {
+        if ($this->classMapAuthoritative) {
             return false;
         }
 

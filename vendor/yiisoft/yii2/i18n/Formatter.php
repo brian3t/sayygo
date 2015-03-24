@@ -122,7 +122,7 @@ class Formatter extends Component
      */
     public $timeFormat = 'medium';
     /**
-     * @var string the default format string to be used to format a [[asDateTime()|date and time]].
+     * @var string the default format string to be used to format a [[asDatetime()|date and time]].
      * This can be "short", "medium", "long", or "full", which represents a preset format of different lengths.
      *
      * It can also be a custom format as specified in the [ICU manual](http://userguide.icu-project.org/formatparse/datetime#TOC-Date-Time-Format-Syntax).
@@ -547,8 +547,8 @@ class Formatter extends Component
         }
 
         // intl does not work with dates >=2038 or <=1901 on 32bit machines, fall back to PHP
-        $year = $timestamp->format( 'Y' );
-        if ( $this->_intlLoaded && ! ( PHP_INT_SIZE == 4 && ( $year <= 1901 || $year >= 2038 ) ) ) {
+        $year = $timestamp->format('Y');
+        if ($this->_intlLoaded && !(PHP_INT_SIZE == 4 && ($year <= 1901 || $year >= 2038))) {
             if (strncmp($format, 'php:', 4) === 0) {
                 $format = FormatConverter::convertDatePhpToIcu(substr($format, 4));
             }

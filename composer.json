@@ -13,6 +13,7 @@
         "2amigos/yii2-switch-widget": "*",
       "kartik-v/yii2-widgets": "dev-master",
       "bower-asset/bootstrap": "*",
-      "yiisoft/yii2-debug": "~2.0"
+      "yiisoft/yii2-debug": "~2.0",
+      "dektrium/yii2-user": "0.9.*@dev"
     }
 }

@@ -131,7 +131,7 @@ class UrlRule extends Object implements UrlRuleInterface
         }
 
         $this->pattern = trim($this->pattern, '/');
-        $this->route = trim( $this->route,'/' );
+        $this->route = trim($this->route, '/');
 
         if ($this->host !== null) {
             $this->host = rtrim($this->host, '/');

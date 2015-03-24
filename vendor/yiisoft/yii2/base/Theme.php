@@ -123,24 +123,23 @@ class Theme extends Component
     /**
      * Converts a file to a themed file if possible.
      * If there is no corresponding themed file, the original file will be returned.
-     *
-*@param string $path the file to be themed
-     *
-*@return string the themed file, or the original file if the themed version is not available.
+     * @param string $path the file to be themed
+     * @return string the themed file, or the original file if the themed version is not available.
      * @throws InvalidConfigException if [[basePath]] is not set
      */
-    public function applyTo($path) {
+    public function applyTo($path)
+    {
         $pathMap = $this->pathMap;
-        if ( empty( $pathMap ) ) {
-            if ( ( $basePath = $this->getBasePath() ) === null ) {
-                throw new InvalidConfigException( 'The "basePath" property must be set.' );
+        if (empty($pathMap)) {
+            if (($basePath = $this->getBasePath()) === null) {
+                throw new InvalidConfigException('The "basePath" property must be set.');
             }
-            $pathMap = [ Yii::$app->getBasePath() => [ $basePath ] ];
+            $pathMap = [Yii::$app->getBasePath() => [$basePath]];
         }
 
-        $path = FileHelper::normalizePath($path );
+        $path = FileHelper::normalizePath($path);
 
-        foreach ( $pathMap as $from => $tos) {
+        foreach ($pathMap as $from => $tos) {
             $from = FileHelper::normalizePath(Yii::getAlias($from)) . DIRECTORY_SEPARATOR;
             if (strpos($path, $from) === 0) {
                 $n = strlen($from);

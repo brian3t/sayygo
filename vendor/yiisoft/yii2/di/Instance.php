@@ -102,22 +102,20 @@ class Instance
      * If the "class" value is not specified in the configuration array, it will use the value of `$type`.
      * @param string $type the class/interface name to be checked. If null, type check will not be performed.
      * @param ServiceLocator|Container $container the container. This will be passed to [[get()]].
-     *
-*@return object the object referenced by the Instance, or `$reference` itself if it is an object.
+     * @return object the object referenced by the Instance, or `$reference` itself if it is an object.
      * @throws InvalidConfigException if the reference is invalid
      */
     public static function ensure($reference, $type = null, $container = null)
     {
         if ($reference instanceof $type) {
             return $reference;
-        } elseif ( is_array( $reference ) ) {
-            $class = isset( $reference['class'] ) ? $reference['class'] : $type;
-            if ( ! $container instanceof Container ) {
+        } elseif (is_array($reference)) {
+            $class = isset($reference['class']) ? $reference['class'] : $type;
+            if (!$container instanceof Container) {
                 $container = Yii::$container;
             }
-            unset( $reference['class'] );
-
-            return $container->get( $class,[ ],$reference);
+            unset($reference['class']);
+            return $container->get($class, [], $reference);
         } elseif (empty($reference)) {
             throw new InvalidConfigException('The required component is not specified.');
         }

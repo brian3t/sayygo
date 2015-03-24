@@ -74,7 +74,7 @@ class AssetController extends Controller
      * For example:
      *
      * ~~~
-     * 'app\config\AllShared' => [
+     * 'allShared' => [
      *     'js' => 'js/all-shared-{hash}.js',
      *     'css' => 'css/all-shared-{hash}.css',
      *     'depends' => [
@@ -83,7 +83,7 @@ class AssetController extends Controller
      *         'app\assets\SharedAsset',
      *     ],
      * ],
-     * 'app\config\AllBackEnd' => [
+     * 'allBackEnd' => [
      *     'js' => 'js/all-{hash}.js',
      *     'css' => 'css/all-{hash}.css',
      *     'depends' => [
@@ -91,7 +91,7 @@ class AssetController extends Controller
      *         'app\assets\AdminAsset'
      *     ],
      * ],
-     * 'app\config\AllFrontEnd' => [
+     * 'allFrontEnd' => [
      *     'js' => 'js/all-{hash}.js',
      *     'css' => 'css/all-{hash}.css',
      *     'depends' => [], // Include all remaining assets
@@ -330,9 +330,9 @@ class AssetController extends Controller
 
         foreach ($target->depends as $name) {
             if (isset($bundles[$name])) {
-                if ( ! $this->isBundleExternal( $bundles[ $name ] ) ) {
-                    foreach ( $bundles[ $name ]->$type as $file ) {
-                        $inputFiles[] = $bundles[ $name ]->basePath . '/' . $file;
+                if (!$this->isBundleExternal($bundles[$name])) {
+                    foreach ($bundles[$name]->$type as $file) {
+                        $inputFiles[] = $bundles[$name]->basePath . '/' . $file;
                     }
                 }
             } else {
@@ -386,9 +386,9 @@ class AssetController extends Controller
         }
 
         foreach ($map as $bundle => $target) {
-            $sourceBundle = $bundles[ $bundle ];
-            $depends      = $sourceBundle->depends;
-            if ( ! $this->isBundleExternal( $sourceBundle ) ) {
+            $sourceBundle = $bundles[$bundle];
+            $depends = $sourceBundle->depends;
+            if (!$this->isBundleExternal($sourceBundle)) {
                 $depends[] = $target;
             }
             $targets[$bundle] = Yii::createObject([
@@ -441,14 +441,14 @@ class AssetController extends Controller
                     'css' => $target->css,
                 ];
             } else {
-                if ( $this->isBundleExternal( $target ) ) {
-                    $array[ $name ] = $this->composeBundleConfig( $target );
+                if ($this->isBundleExternal($target)) {
+                    $array[$name] = $this->composeBundleConfig($target);
                 } else {
-                    $array[ $name ] = [
+                    $array[$name] = [
                         'sourcePath' => null,
-                        'js'         => [ ],
-                        'css'        => [ ],
-                        'depends'    => $target->depends,
+                        'js' => [],
+                        'css' => [],
+                        'depends' => $target->depends,
                     ];
                 }
             }
@@ -613,6 +613,9 @@ EOD;
             if (strpos($inputUrl, '/') === 0 || preg_match('/^https?:\/\//is', $inputUrl) || preg_match('/^data:/is', $inputUrl)) {
                 return $fullMatch;
             }
+            if ($inputFileRelativePathParts === $outputFileRelativePathParts) {
+                return $fullMatch;
+            }
 
             if (empty($outputFileRelativePathParts)) {
                 $outputUrlParts = [];
@@ -729,22 +732,21 @@ EOD;
 
     /**
      * @param AssetBundle $bundle
-     *
      * @return boolean whether asset bundle external or not.
      */
-    private function isBundleExternal( $bundle ) {
-        return ( empty( $bundle->sourcePath ) && empty( $bundle->basePath ) );
+    private function isBundleExternal($bundle)
+    {
+        return (empty($bundle->sourcePath) && empty($bundle->basePath));
     }
 
     /**
      * @param AssetBundle $bundle asset bundle instance.
-     *
      * @return array bundle configuration.
      */
-    private function composeBundleConfig( $bundle ) {
-        $config          = Yii::getObjectVars( $bundle );
-        $config['class'] = get_class( $bundle );
-
+    private function composeBundleConfig($bundle)
+    {
+        $config = Yii::getObjectVars($bundle);
+        $config['class'] = get_class($bundle);
         return $config;
     }
 }

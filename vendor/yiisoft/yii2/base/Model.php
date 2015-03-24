@@ -582,14 +582,15 @@ class Model extends Component implements IteratorAggregate, ArrayAccess, Arrayab
      * You may use the result of [[getErrors()]] as the value for this parameter.
      * @since 2.0.2
      */
-    public function addErrors( array $items ) {
-        foreach ( $items as $attribute => $errors ) {
-            if ( is_array( $errors ) ) {
-                foreach ( $errors as $error ) {
-                    $this->addError( $attribute,$error );
+    public function addErrors(array $items)
+    {
+        foreach ($items as $attribute => $errors) {
+            if (is_array($errors)) {
+                foreach($errors as $error) {
+                    $this->addError($attribute, $error);
                 }
             } else {
-                $this->addError( $attribute,$errors );
+                $this->addError($attribute, $errors);
             }
         }
     }
@@ -760,7 +761,7 @@ class Model extends Component implements IteratorAggregate, ArrayAccess, Arrayab
     public function load($data, $formName = null)
     {
         $scope = $formName === null ? $this->formName() : $formName;
-        if ( $scope === '' && ! empty( $data ) ) {
+        if ($scope === '' && !empty($data)) {
             $this->setAttributes($data);
 
             return true;

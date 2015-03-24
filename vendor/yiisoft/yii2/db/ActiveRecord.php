@@ -100,14 +100,12 @@ class ActiveRecord extends BaseActiveRecord
     /**
      * Loads default values from database table schema
      *
-     * To enable loading defaults for every newly created record, you can add a call to this method to [[init()]]:
+     * You may call this method to load default values after creating a new instance:
      *
      * ```php
-     * public function init()
-     * {
-     *     parent::init();
-     *     $this->loadDefaultValues();
-     * }
+     * // class Customer extends \yii\db\ActiveRecord
+     * $customer = new Customer();
+     * $customer->loadDefaultValues();
      * ```
      *
      * @param boolean $skipIfSet whether existing value should be preserved.
@@ -165,12 +163,11 @@ class ActiveRecord extends BaseActiveRecord
      * Finds ActiveRecord instance(s) by the given condition.
      * This method is internally called by [[findOne()]] and [[findAll()]].
      * @param mixed $condition please refer to [[findOne()]] for the explanation of this parameter
-     * @param boolean $one whether this method is called by [[findOne()]] or [[findAll()]]
-     * @return static|static[]
+     * @return ActiveQueryInterface the newly created [[ActiveQueryInterface|ActiveQuery]] instance. 
      * @throws InvalidConfigException if there is no primary key defined
      * @internal
      */
-    protected static function findByCondition($condition, $one)
+    protected static function findByCondition($condition)
     {
         $query = static::find();
 
@@ -184,11 +181,11 @@ class ActiveRecord extends BaseActiveRecord
                 }
                 $condition = [$pk => $condition];
             } else {
-                throw new InvalidConfigException( '"' . get_called_class() . '" must have a primary key.' );
+                throw new InvalidConfigException('"' . get_called_class() . '" must have a primary key.');
             }
         }
 
-        return $one ? $query->andWhere($condition)->one() : $query->andWhere($condition)->all();
+        return $query->andWhere($condition);
     }
 
     /**
@@ -421,21 +418,20 @@ class ActiveRecord extends BaseActiveRecord
             return false;
         }
 
-        if ( ! $this->isTransactional( self::OP_INSERT ) ) {
-            return $this->insertInternal( $attributes );
+        if (!$this->isTransactional(self::OP_INSERT)) {
+            return $this->insertInternal($attributes);
         }
 
         $transaction = static::getDb()->beginTransaction();
         try {
-            $result = $this->insertInternal( $attributes );
-            if ( $result === false ) {
+            $result = $this->insertInternal($attributes);
+            if ($result === false) {
                 $transaction->rollBack();
             } else {
                 $transaction->commit();
             }
-
             return $result;
-        } catch ( \Exception $e ) {
+        } catch (\Exception $e) {
             $transaction->rollBack();
             throw $e;
         }
@@ -539,21 +535,20 @@ class ActiveRecord extends BaseActiveRecord
             return false;
         }
 
-        if ( ! $this->isTransactional( self::OP_UPDATE ) ) {
-            return $this->updateInternal( $attributeNames );
+        if (!$this->isTransactional(self::OP_UPDATE)) {
+            return $this->updateInternal($attributeNames);
         }
 
         $transaction = static::getDb()->beginTransaction();
         try {
-            $result = $this->updateInternal( $attributeNames );
-            if ( $result === false ) {
+            $result = $this->updateInternal($attributeNames);
+            if ($result === false) {
                 $transaction->rollBack();
             } else {
                 $transaction->commit();
             }
-
             return $result;
-        } catch ( \Exception $e ) {
+        } catch (\Exception $e) {
             $transaction->rollBack();
             throw $e;
         }
@@ -572,7 +567,7 @@ class ActiveRecord extends BaseActiveRecord
      * In the above step 1 and 3, events named [[EVENT_BEFORE_DELETE]] and [[EVENT_AFTER_DELETE]]
      * will be raised by the corresponding methods.
      *
-     * @return integer|boolean the number of rows deleted, or false if the deletion is unsuccessful for some reason.
+     * @return integer|false the number of rows deleted, or false if the deletion is unsuccessful for some reason.
      * Note that it is possible the number of rows deleted is 0, even though the deletion execution is successful.
      * @throws StaleObjectException if [[optimisticLock|optimistic locking]] is enabled and the data
      * being deleted is outdated.
@@ -580,21 +575,20 @@ class ActiveRecord extends BaseActiveRecord
      */
     public function delete()
     {
-        if ( ! $this->isTransactional( self::OP_DELETE ) ) {
+        if (!$this->isTransactional(self::OP_DELETE)) {
             return $this->deleteInternal();
         }
 
         $transaction = static::getDb()->beginTransaction();
         try {
             $result = $this->deleteInternal();
-            if ( $result === false ) {
+            if ($result === false) {
                 $transaction->rollBack();
             } else {
                 $transaction->commit();
             }
-
             return $result;
-        } catch ( \Exception $e ) {
+        } catch (\Exception $e) {
             $transaction->rollBack();
             throw $e;
         }
@@ -602,28 +596,28 @@ class ActiveRecord extends BaseActiveRecord
 
     /**
      * Deletes an ActiveRecord without considering transaction.
-     * @return integer|boolean the number of rows deleted, or false if the deletion is unsuccessful for some reason.
+     * @return integer|false the number of rows deleted, or false if the deletion is unsuccessful for some reason.
      * Note that it is possible the number of rows deleted is 0, even though the deletion execution is successful.
      * @throws StaleObjectException
      */
     protected function deleteInternal()
     {
-        if ( ! $this->beforeDelete() ) {
+        if (!$this->beforeDelete()) {
             return false;
         }
 
         // we do not check the return value of deleteAll() because it's possible
         // the record is already deleted in the database and thus the method will return 0
-        $condition = $this->getOldPrimaryKey( true );
-        $lock      = $this->optimisticLock();
-        if ( $lock !== null ) {
-            $condition[ $lock ] = $this->$lock;
+        $condition = $this->getOldPrimaryKey(true);
+        $lock = $this->optimisticLock();
+        if ($lock !== null) {
+            $condition[$lock] = $this->$lock;
         }
-        $result = $this->deleteAll( $condition );
-        if ( $lock !== null && ! $result ) {
-            throw new StaleObjectException( 'The object being deleted is outdated.' );
+        $result = $this->deleteAll($condition);
+        if ($lock !== null && !$result) {
+            throw new StaleObjectException('The object being deleted is outdated.');
         }
-        $this->setOldAttributes( null );
+        $this->setOldAttributes(null);
         $this->afterDelete();
 
         return $result;

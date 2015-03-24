@@ -78,14 +78,15 @@ class Widget extends \yii\base\Widget
      * Registers JS event handlers that are listed in [[clientEvents]].
      * @since 2.0.2
      */
-    protected function registerClientEvents() {
+    protected function registerClientEvents()
+    {
         if (!empty($this->clientEvents)) {
             $id = $this->options['id'];
             $js = [];
             foreach ($this->clientEvents as $event => $handler) {
                 $js[] = "jQuery('#$id').on('$event', $handler);";
             }
-            $this->getView()->registerJs( implode( "\n",$js ) );
+            $this->getView()->registerJs(implode("\n", $js));
         }
     }
 }

@@ -191,7 +191,7 @@ module.exports = function (grunt) {
         src: 'dist/css/<%= pkg.name %>-theme.css'
       },
       docs: {
-        src: 'docs/assets/css/src/docs.css'
+        src: ['docs/assets/css/anchor.css', 'docs/assets/css/src/docs.css']
       },
       examples: {
         expand: true,
@@ -223,6 +223,8 @@ module.exports = function (grunt) {
 
     cssmin: {
       options: {
+        // TODO: disable `zeroUnits` optimization once clean-css 3.2 is released
+        //    and then simplify the fix for https://github.com/twbs/bootstrap/issues/14837 accordingly
         compatibility: 'ie8',
         keepSpecialComments: '*',
         advanced: false
@@ -237,8 +239,10 @@ module.exports = function (grunt) {
       },
       docs: {
         src: [
-          'docs/assets/css/src/docs.css',
-          'docs/assets/css/src/pygments-manni.css'
+          'docs/assets/css/src/pygments-manni.css',
+          'docs/assets/css/src/anchor.css',
+          'docs/assets/css/src/docs.css'
+
         ],
         dest: 'docs/assets/css/docs.min.css'
       }
@@ -278,12 +282,17 @@ module.exports = function (grunt) {
 
     copy: {
       fonts: {
+        expand: true,
         src: 'fonts/*',
         dest: 'dist/'
       },
       docs: {
-        src: 'dist/*/*',
-        dest: 'docs/'
+        expand: true,
+        cwd: 'dist/',
+        src: [
+          '**/*'
+        ],
+        dest: 'docs/dist/'
       }
     },
 
@@ -323,22 +332,15 @@ module.exports = function (grunt) {
       }
     },
 
-    validation: {
+    htmllint: {
       options: {
-        charset: 'utf-8',
-        doctype: 'HTML5',
-        failHard: true,
-        reset: true,
-        relaxerror: [
-          'Element img is missing required attribute src.',
-          'Attribute autocomplete not allowed on element input at this point.',
-          'Attribute autocomplete not allowed on element button at this point.',
-          'Bad value separator for attribute role on element li.'
+        ignore: [
+          'Attribute "autocomplete" not allowed on element "button" at this point.',
+          'Attribute "autocomplete" not allowed on element "input" at this point.',
+          'Element "img" is missing required attribute "src".'
         ]
       },
-      files: {
-        src: '_gh_pages/**/*.html'
-      }
+      src: '_gh_pages/**/*.html'
     },
 
     watch: {
@@ -374,7 +376,7 @@ module.exports = function (grunt) {
           throttled: 10,
           maxRetries: 3,
           maxPollRetries: 4,
-          urls: ['http://127.0.0.1:3000/js/tests/index.html'],
+          urls: ['http://127.0.0.1:3000/js/tests/index.html?hidepassed'],
           browsers: grunt.file.readYAML('grunt/sauce_browsers.yml')
         }
       }
@@ -413,7 +415,7 @@ module.exports = function (grunt) {
   require('time-grunt')(grunt);
 
   // Docs HTML validation task
-  grunt.registerTask('validate-html', ['jekyll:docs', 'validation']);
+  grunt.registerTask('validate-html', ['jekyll:docs', 'htmllint']);
 
   var runSubset = function (subset) {
     return !process.env.TWBS_TEST || process.env.TWBS_TEST === subset;
@@ -426,7 +428,7 @@ module.exports = function (grunt) {
   var testSubtasks = [];
   // Skip core tests if running a different subset of the test suite
   if (runSubset('core') &&
-        // Skip core tests if this is a Savage build
+      // Skip core tests if this is a Savage build
       process.env.TRAVIS_REPO_SLUG !== 'twbs-savage/bootstrap') {
     testSubtasks = testSubtasks.concat(['dist-css', 'dist-js', 'csslint:dist', 'test-js', 'docs']);
   }
@@ -466,9 +468,7 @@ module.exports = function (grunt) {
   // This can be overzealous, so its changes should always be manually reviewed!
   grunt.registerTask('change-version-number', 'sed');
 
-  grunt.registerTask('build-glyphicons-data', function () {
-    generateGlyphiconsData.call(this, grunt);
-  });
+  grunt.registerTask('build-glyphicons-data', function () { generateGlyphiconsData.call(this, grunt); });
 
   // task for building customizer
   grunt.registerTask('build-customizer', ['build-customizer-html', 'build-raw-files']);
