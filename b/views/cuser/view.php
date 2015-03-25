@@ -46,7 +46,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
             'avatar',
-            'phone',
             'email:email',
             'points',
             'lastactive',

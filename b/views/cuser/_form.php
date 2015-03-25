@@ -16,8 +16,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'avatar')->textInput(['maxlength' => 255]) ?>
 
-    <?= $form->field($model, 'phone')->textInput(['maxlength' => 20]) ?>
-
     <?= $form->field($model, 'email')->textInput(['maxlength' => 100]) ?>
 
     <?= $form->field($model, 'points')->textInput(['maxlength' => 45]) ?>

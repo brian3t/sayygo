@@ -31,7 +31,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             'avatar',
-            'phone',
             'email:email',
 	        [
 		        'attribute' => 'teams',

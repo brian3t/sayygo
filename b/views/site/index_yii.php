@@ -12,9 +12,9 @@ $this->title = 'My Yii Application';
         <a href="" class="glyphicons glass"></a>
         <a href="" class="glyphicons white glass"></a>
         
-        <p class="lead">You have successfully created your Yii-powered application.</p>
+        <p class="lead">Welcome to Sayygo.</p>
 
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
+        <p><a class="btn btn-lg btn-success" href="http://sayygo.com">Post a Sayygo</a></p>
     </div>
 
     <div class="body-content">
