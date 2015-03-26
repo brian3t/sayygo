@@ -4347,3 +4347,8 @@ h3.page-title {
     border-color: #caced1 #caced1 black;
     border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
 }
+
+/*
+for sayygo temp fix
+*/
+#top_menu, .sidebar-scroll, .breadcrumb {display: none}

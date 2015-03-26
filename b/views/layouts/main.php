@@ -158,7 +158,7 @@ AppAsset::register( $this );
 								<a href="#">
 									<span class="photo"><img src="/assets/img/avatar-mini.png" alt="avatar"></span>
 									<span class="subject">
-									<span class="from">Brian</span>
+									<span class="from"><?= Yii::$app->user->id ?></span>
 									<span class="time">10 mins</span>
 									</span>
 									<span class="message">
@@ -255,26 +255,26 @@ AppAsset::register( $this );
 			<div class="top-nav hidden-xs">
 				<ul class="pull-right top-menu nav navbar-nav">
 					<!-- BEGIN SUPPORT -->
-					<li class="dropdown mtop5">
-
-						<a class="dropdown-toggle element" data-placement="bottom" data-toggle="tooltip" href="#"
-						   data-original-title="Chat">
-							<i class="icon-comments-alt"></i>
-						</a>
-					</li>
-					<li class="dropdown mtop5">
-						<a class="dropdown-toggle element" data-placement="bottom" data-toggle="tooltip" href="#"
-						   data-original-title="Help">
-							<i class="icon-headphones"></i>
-						</a>
-					</li>
+<!--					<li class="dropdown mtop5">-->
+<!---->
+<!--						<a class="dropdown-toggle element" data-placement="bottom" data-toggle="tooltip" href="#"-->
+<!--						   data-original-title="Chat">-->
+<!--							<i class="icon-comments-alt"></i>-->
+<!--						</a>-->
+<!--					</li>-->
+<!--					<li class="dropdown mtop5">-->
+<!--						<a class="dropdown-toggle element" data-placement="bottom" data-toggle="tooltip" href="#"-->
+<!--						   data-original-title="Help">-->
+<!--							<i class="icon-headphones"></i>-->
+<!--						</a>-->
+<!--					</li>-->
 					<!-- END SUPPORT -->
 					<!-- BEGIN USER LOGIN DROPDOWN -->
 					<?php if ( ! Yii::$app->user->getIsGuest() ): ?>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 								<img src="/assets/img/avatar1_small.jpg" alt="">
-								<span class="username">Brian</span>
+								<span class="username"><?= Yii::$app->user->identity->username ?></span>
 								<b class="caret"></b>
 							</a>
 							<ul class="dropdown-menu extended logout">
