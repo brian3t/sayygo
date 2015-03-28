@@ -3,16 +3,16 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\models\Sayygo;
+use backend\models\Keyword;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * SayygoController implements the CRUD actions for Sayygo model.
+ * KeywordController implements the CRUD actions for Keyword model.
  */
-class SayygoController extends Controller
+class KeywordController extends Controller
 {
     public function behaviors()
     {
@@ -26,15 +26,34 @@ class SayygoController extends Controller
         ];
     }
 
-    /**
-     * Lists all Sayygo models.
+	/*
+* Return models' data in json format
+*/
+	public function actionGet() {
+		$models            = Keyword::find()->all();
+		$data              = array_map( function ( $model ) {
+			$attrs         = $model->attributes;
+			$attrs['text'] = substr( $attrs['description'],0,20 ) . "...";
+			unset ( $attrs['description'] );
+
+			return $attrs;
+		},$models );
+		$response          = Yii::$app->response;
+		$return            = [ ];
+		$return['results'] = $data;
+		$response->data    = json_encode( $return );
+	}
+
+
+
+	/**
+     * Lists all Keyword models.
      * @return mixed
      */
     public function actionIndex()
     {
-
         $dataProvider = new ActiveDataProvider([
-            'query' => Sayygo::find()->where(['user_id'=>Yii::$app->user->id]),
+            'query' => Keyword::find(),
         ]);
 
         return $this->render('index', [
@@ -43,7 +62,7 @@ class SayygoController extends Controller
     }
 
     /**
-     * Displays a single Sayygo model.
+     * Displays a single Keyword model.
      * @param integer $id
      * @return mixed
      */
@@ -55,14 +74,13 @@ class SayygoController extends Controller
     }
 
     /**
-     * Creates a new Sayygo model.
+     * Creates a new Keyword model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Sayygo();
-	    $model->user_id = Yii::$app->user->id;
+        $model = new Keyword();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -74,7 +92,7 @@ class SayygoController extends Controller
     }
 
     /**
-     * Updates an existing Sayygo model.
+     * Updates an existing Keyword model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -93,7 +111,7 @@ class SayygoController extends Controller
     }
 
     /**
-     * Deletes an existing Sayygo model.
+     * Deletes an existing Keyword model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -106,15 +124,15 @@ class SayygoController extends Controller
     }
 
     /**
-     * Finds the Sayygo model based on its primary key value.
+     * Finds the Keyword model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Sayygo the loaded model
+     * @return Keyword the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Sayygo::findOne($id)) !== null) {
+        if (($model = Keyword::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

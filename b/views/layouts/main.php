@@ -278,6 +278,7 @@ AppAsset::register( $this );
 								<b class="caret"></b>
 							</a>
 							<ul class="dropdown-menu extended logout">
+								<li><a href="/b/web/sayygo/index"><i class="icon-user"></i> My Sayygos</a></li>
 								<li><a href="#"><i class="icon-user"></i> My Profile</a></li>
 								<li><a href="#"><i class="icon-cog"></i> My Settings</a></li>
 								<li><a class="yii-controls" type="button" data-method="post"
@@ -288,7 +289,7 @@ AppAsset::register( $this );
 					<?php else: ?>
 						<li class="dropdown mtop5">
 							<a class="element" data-placement="bottom" data-toggle="tooltip"
-							   href="/b/web/site/login" data-original-title="Help">
+							   href="/b/web/user/security/login" data-original-title="Help">
 								Log In
 							</a>
 						</li>
