@@ -10,6 +10,7 @@ $this->title = 'My Yii Application';
         <p class="lead">Welcome to Sayygo.</p>
 
 	    <p><a class="btn btn-lg btn-success" href="/b/web/sayygo/create">Post a Sayygo</a></p>
+	    <p><a class="btn btn-lg btn-success" href="/b/web/sayygo/index">View my Sayygo(s)</a></p>
     </div>
 
     <div class="body-content">

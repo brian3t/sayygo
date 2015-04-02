@@ -4356,3 +4356,16 @@ h3.page-title {
 for sayygo temp fix
 */
 #top_menu, .sidebar-scroll, .breadcrumb {display: none}
+[id$=info] {
+    display: none;
+}
+/*
+for sayygo temp fix //
+*/
+
+ul.select2-choices span {
+    padding: 4px;
+    margin-right: 4px;
+    color: cadetblue;
+    border: 1px dotted;
+}

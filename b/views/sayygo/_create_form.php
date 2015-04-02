@@ -19,7 +19,7 @@ use yii\web\JsExpression;
 	<?= $form->field( $model,'full_text' )->textarea( [
 		'maxlength' => 10000,
 		'rows'      => 6
-	] )->label( 'Tell us where you want to travel to. Type # to begin hashtag. When you are done hastagging, type # to finish. You can have multiple hashtags.' ) ?>
+	] )->label( "Tell us where you want to travel to. Type # to begin hashtag. When you are done hashtagging, type # to finish. You can have multiple hashtags. For example, you can type: <br/><br/> <i>I want to go to #ShangHai# and #San Francisco# around this fall 2015 when there is World Food Convention.</i><br/><br/>Begin here:" ) ?>
 
 	<?= BaseHtml::activeHiddenInput( $model,'user_id' ) ?>
 
@@ -41,12 +41,13 @@ function (element, callback) {
      callback(initKeywords);
     }
 SCRIPT;
-	echo $form->field( $model,'keywordIds' )->label( 'Keywords' )->widget( Select2::classname(),[
+	echo $form->field( $model,'keywordIds' )->label( 'Keywords in this sayygo:' )->widget( Select2::classname(),[
 		'language'      => 'en',
 		'options'       => [
+			'disabled'           => true
 		],
 		'pluginOptions' => [
-			'placeholder'        => 'Select keyword(s)..',
+			'placeholder'        => '',
 			'minimumInputLength' => 0,
 			'ajax'               => [
 				'url'      => yii\helpers\Url::to( [ 'keyword/get' ] ),
@@ -54,7 +55,7 @@ SCRIPT;
 				'data'     => new JsExpression( 'function(term, page) { return {id:term}; }' ),
 				'results'  => new JsExpression( 'function(data, page) { return {results: data.results}; }' )
 			],
-			'initSelection'      => new JsExpression( $initScriptKeywords ),
+//			'initSelection'      => new JsExpression( $initScriptKeywords ),
 			'multiple'           => true,
 			'allowClear'         => true,
 		],
@@ -65,10 +66,17 @@ SCRIPT;
 	?>
 
 	<div class="form-group">
-		<?= Html::button( 'Cancel',[ 'class' => 'btn btn-cancel','onclick' => 'location.href="/f/web/"' ] ) ?>
-		<?= Html::submitButton( $model->isNewRecord ? 'Create' : 'Update',[ 'class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary' ] ) ?>
+		<?= Html::button( '<i class="icon-ban-circle icon-white"></i> Cancel',[ 'class'   => 'btn btn-info',
+		                                                                        'onclick' => 'location.href="/f/web/"'
+		] ) ?>
+		<?= Html::submitButton( $model->isNewRecord ? 'Create' : 'Update',[
+			'id'    => 'create_save_btn',
+			'class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary',
+			'onClick' => 'submitHandler()'
+		] ) ?>
 	</div>
 
-	<?php ActiveForm::end(); ?>
-
+	<?php ActiveForm::end();
+	$this->registerJsFile( '/assets/js/sayygo_create_form.js',[ 'depends' => [ \kartik\base\AssetBundle::className() ] ] );
+	?>
 </div>

@@ -18,6 +18,7 @@ use yii\helpers\ArrayHelper;
  *
  * @property KeywordSayygo[] $keywordSayygos
  * @property Keyword[] $keywords
+ * @property User $user
  *
  * @property string keywordIds;
  */
@@ -103,6 +104,13 @@ class Sayygo extends \yii\db\ActiveRecord
 			$this->link( 'keywords',$keyword );
 		}
 		$this->populateKeywordIds();
+	}
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getUser()
+	{
+		return $this->hasOne(User::className(), ['id' => 'user_id']);
 	}
 
 

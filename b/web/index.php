@@ -17,6 +17,7 @@ $config = yii\helpers\ArrayHelper::merge(
 );
 
 $application = new yii\web\Application($config);
+\Yii::$app->homeUrl = '/';
 $application->run();
 //Yii::setAlias('@bower', '/vendor/bower-asset');
 //\Yii::$app->setAliases(['@bower'=>$this->_ven])

@@ -89,3 +89,12 @@ a.desc:after {
     padding: 10px 20px;
     margin: 0 0 15px 0;
 }
+/*
+for sayygo temp fix
+*/
+[id$=info] {
+    display: none;
+}
+/*
+for sayygo temp fix//
+*/

@@ -465,6 +465,7 @@ AppAsset::register( $this );
 
 <!--common script for all pages-->
 <script src="/assets/js/common-scripts.js"></script>
+<script src="/assets/js/underscore-min.js"></script>
 
 <!--script for this page only-->
 
