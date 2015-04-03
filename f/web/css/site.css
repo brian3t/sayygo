@@ -89,12 +89,44 @@ a.desc:after {
     padding: 10px 20px;
     margin: 0 0 15px 0;
 }
+
 /*
 for sayygo temp fix
 */
 [id$=info] {
     display: none;
 }
+
 /*
 for sayygo temp fix//
 */
+div.home-pic {
+    margin: 0;
+}
+
+div.home-pic {
+    margin: 0;
+    padding: 0;
+    width: 25%;
+    float: left;
+}
+
+.home-pic img {
+    max-width: 300px;
+    clip: rect(0px, 300px, 200px, 0px);
+    opacity: 0.7;
+    width: 100%;
+}
+
+#home-page .jumbotron {
+    position: fixed;
+    top: 100px;
+    background: transparent;
+    width: 100%;
+    z-index: 20;
+}
+
+#home-page h1 {
+    color: rgb(255, 255, 255);
+    text-shadow: black 1px 1px 1px;
+}
