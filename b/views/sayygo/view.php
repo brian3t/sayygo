@@ -33,6 +33,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'updated_at',
 //            'type_id',
 //            'status',
+
+	        'start_date',
+	        'end_date',
+	        'is_active_mode',
+	        'notification_frequency',
+	        'partner_sex',
+	        'partner_experience',
+	        'partner_num_preference',
+	        'num_of_partner',
         ],
     ]) ?>
 

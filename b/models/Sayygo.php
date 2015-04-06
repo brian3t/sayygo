@@ -16,6 +16,15 @@ use yii\helpers\ArrayHelper;
  * @property integer $type_id
  * @property string $status
  *
+ * @property string $start_date
+ * @property string $end_date
+ * @property integer $is_active_mode
+ * @property string $notification_frequency
+ * @property string $partner_sex
+ * @property string $partner_experience
+ * @property string $partner_num_preference
+ * @property integer $num_of_partner
+
  * @property KeywordSayygo[] $keywordSayygos
  * @property Keyword[] $keywords
  * @property User $user
@@ -55,10 +64,9 @@ class Sayygo extends \yii\db\ActiveRecord
     {
         return [
             [['full_text', 'user_id'], 'required'],
-            [['user_id', 'type_id'], 'integer'],
-            [['created_at', 'updated_at'], 'safe'],
-	        [['keywordIds'],'safe'],
-            [['status'], 'string'],
+	        [['user_id', 'type_id', 'is_active_mode', 'num_of_partner'], 'integer'],
+	        [['created_at', 'updated_at', 'start_date', 'end_date'], 'safe'],
+	        [['status', 'notification_frequency', 'partner_sex', 'partner_experience', 'partner_num_preference'], 'string'],
             [['full_text'], 'string', 'max' => 10000]
         ];
     }
@@ -76,6 +84,14 @@ class Sayygo extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
             'type_id' => 'Type ID',
             'status' => 'Status',
+            'start_date' => 'Preferred Start Date',
+            'end_date' => 'Preferred End Date',
+            'is_active_mode' => 'Is Active Mode',
+            'notification_frequency' => 'Notification Frequency',
+            'partner_sex' => 'Partner\' sex',
+            'partner_experience' => 'Partner\'s Experience',
+            'partner_num_preference' => 'How many Partners Preferred',
+            'num_of_partner' => '#Partner',
         ];
     }
 

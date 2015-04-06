@@ -4355,7 +4355,7 @@ h3.page-title {
 /*
 for sayygo temp fix
 */
-#top_menu, .sidebar-scroll, .breadcrumb {display: none}
+.sidebar-scroll, .breadcrumb {display: none}
 [id$=info] {
     display: none;
 }
@@ -4369,3 +4369,4 @@ ul.select2-choices span {
     color: cadetblue;
     border: 1px dotted;
 }
+

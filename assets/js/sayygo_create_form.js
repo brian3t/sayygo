@@ -21,7 +21,7 @@ var enable_btn = function (id) {
 
 //Watch #sayygo-full_text Enable the "Create" btn only when there is at least 1 keyword in this field #sayygo-full_text
 var sft = $('#sayygo-full_text');
-sft.on('keypress', function () {
+sft.on('keyup', function () {
     cf.keywords = cf.getKeywords($(this).val(), cf.re);
     var keywordsHtml = $('<div>');
     _.each(cf.keywords, function (e, i, l) {

@@ -2,6 +2,7 @@
 
 return [
 	'vendorPath' => dirname( dirname( __DIR__ ) ) . '/vendor',
+	'name' => 'Sayygo',
 	'components' => [
 //		'cache'   => [
 //			'class' => 'yii\caching\FileCache',

@@ -1,9 +1,9 @@
 /*!
 * jquery.inputmask.date.extensions.js
 * http://github.com/RobinHerbots/jquery.inputmask
- * Copyright (c) 2010 - 2015 Robin Herbots
+* Copyright (c) 2010 - 2015 Robin Herbots
 * Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
- * Version: 3.1.61
+* Version: 3.1.62
 */
 !function(factory) {
     "function" == typeof define && define.amd ? define([ "jquery", "./jquery.inputmask" ], factory) : factory(jQuery);
@@ -92,7 +92,7 @@
                 }
                 return currentyear;
             },
-            onKeyDown: function (e) {
+            onKeyDown: function(e) {
                 var $input = $(this);
                 if (e.ctrlKey && e.keyCode == $.inputmask.keyCode.RIGHT) {
                     var today = new Date();
@@ -128,13 +128,13 @@
                             isNaN(maskset.buffer[pos + 1]) || (pchrs += maskset.buffer[pos + 1]);
                             var isValid = 1 == pchrs.length ? opts.regex.val1pre.test(pchrs) : opts.regex.val1.test(pchrs);
                             if (!strict && !isValid) {
-                                if (isValid = opts.regex.val1.test(chrs + "0")) return maskset.buffer[pos] = chrs,
-                                    maskset.buffer[++pos] = "0", {
+                                if (isValid = opts.regex.val1.test(chrs + "0")) return maskset.buffer[pos] = chrs, 
+                                maskset.buffer[++pos] = "0", {
                                     pos: pos,
                                     c: "0"
                                 };
-                                if (isValid = opts.regex.val1.test("0" + chrs)) return maskset.buffer[pos] = "0",
-                                    pos++, {
+                                if (isValid = opts.regex.val1.test("0" + chrs)) return maskset.buffer[pos] = "0", 
+                                pos++, {
                                     pos: pos
                                 };
                             }
@@ -265,7 +265,7 @@
                 val1: new RegExp("0[1-9]|1[012]")
             },
             leapday: "02/29/",
-            onKeyDown: function (e) {
+            onKeyDown: function(e) {
                 var $input = $(this);
                 if (e.ctrlKey && e.keyCode == $.inputmask.keyCode.RIGHT) {
                     var today = new Date();
@@ -279,7 +279,7 @@
             placeholder: "yyyy/mm/dd",
             alias: "mm/dd/yyyy",
             leapday: "/02/29",
-            onKeyDown: function (e) {
+            onKeyDown: function(e) {
                 var $input = $(this);
                 if (e.ctrlKey && e.keyCode == $.inputmask.keyCode.RIGHT) {
                     var today = new Date();

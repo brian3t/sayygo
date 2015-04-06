@@ -45,6 +45,9 @@ $this->params['breadcrumbs'][] = $this->title;
 					<button class="close" data-dismiss="alert">×</button>
 					<strong>Notice:</strong> By signing up, you consent that you are over 18 years old.
 				</div>
+				<div class="alert alert-info">
+					Don't worry. You'll have time later to provide your real name and other preferences after you sign up.
+				</div>
 				<?= Html::submitButton(Yii::t('user', 'Sign up'), ['class' => 'btn btn-success btn-block']) ?>
 
 				<?php ActiveForm::end(); ?>

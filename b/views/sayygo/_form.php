@@ -24,6 +24,22 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'status')->dropDownList([ 'Active' => 'Active', 'Inactive' => 'Inactive', ], ['prompt' => '']) ?>
 
+    <?= $form->field($model, 'start_date')->textInput() ?>
+
+    <?= $form->field($model, 'end_date')->textInput() ?>
+
+    <?= $form->field($model, 'is_active_mode')->textInput() ?>
+
+    <?= $form->field($model, 'notification_frequency')->dropDownList([ 'Instant Email' => 'Instant Email', 'Instant SMS' => 'Instant SMS', 'Instant Email and SMS' => 'Instant Email and SMS', 'Daily' => 'Daily', 'Weekly' => 'Weekly', 'Never' => 'Never', ], ['prompt' => '']) ?>
+
+    <?= $form->field($model, 'partner_sex')->dropDownList([ 'Male' => 'Male', 'Female' => 'Female', 'TS/TG' => 'TS/TG', 'Doesn\'\'t matter' => 'Doesn\'\'t matter', ], ['prompt' => '']) ?>
+
+    <?= $form->field($model, 'partner_experience')->dropDownList([ 'Been around the world' => 'Been around the world', 'Experienced international' => 'Experienced international', 'Experienced domestic/regional' => 'Experienced domestic/regional', 'Moderate experience' => 'Moderate experience', 'Little experience' => 'Little experience', 'Never traveled' => 'Never traveled', ], ['prompt' => '']) ?>
+
+    <?= $form->field($model, 'partner_num_preference')->dropDownList([ 'One' => 'One', '2 to 10' => '2 to 10', 'More than 10' => 'More than 10', '' => '', ], ['prompt' => '']) ?>
+
+    <?= $form->field($model, 'num_of_partner')->textInput() ?>
+
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

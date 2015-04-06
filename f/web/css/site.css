@@ -93,9 +93,9 @@ a.desc:after {
 /*
 for sayygo temp fix
 */
-[id$=info] {
-    display: none;
-}
+/*[id$=info] {*/
+    /*display: none;*/
+/*}*/
 
 /*
 for sayygo temp fix//
@@ -107,7 +107,7 @@ div.home-pic {
 div.home-pic {
     margin: 0;
     padding: 0;
-    width: 25%;
+    width: 20%;
     float: left;
 }
 
@@ -120,7 +120,8 @@ div.home-pic {
 
 #home-page .jumbotron {
     position: fixed;
-    top: 100px;
+    top: 368px;
+    left: 0;
     background: transparent;
     width: 100%;
     z-index: 20;
@@ -129,4 +130,7 @@ div.home-pic {
 #home-page h1 {
     color: rgb(255, 255, 255);
     text-shadow: black 1px 1px 1px;
+}
+#home-page #top > img{
+    width: 100%;
 }

@@ -17,7 +17,7 @@ use yii\filters\VerbFilter;
 class SayygoController extends Controller {
 	public function behaviors() {
 		return [
-			'verbs' => [
+			'verbs'  => [
 				'class'   => VerbFilter::className(),
 				'actions' => [
 					'delete' => [ 'post' ],
@@ -27,14 +27,14 @@ class SayygoController extends Controller {
 				'class' => AccessControl::className(),
 				'rules' => [
 					[
-						'allow' => true,
-						'actions' => [''],
-						'roles' => ['?'],
+						'allow'   => true,
+						'actions' => [ '' ],
+						'roles'   => [ '?' ],
 					],
 					[
-						'allow' => true,
-						'actions' => ['create', 'index', 'delete', 'view', 'update'],
-						'roles' => ['@'],
+						'allow'   => true,
+						'actions' => [ 'create','index','delete','view','update' ],
+						'roles'   => [ '@' ],
 					],
 				],
 			],
@@ -49,8 +49,8 @@ class SayygoController extends Controller {
 	public function actionIndex() {
 
 		$dataProvider = new ActiveDataProvider( [
-			'query' => Sayygo::find()->where( [ 'user_id' => Yii::$app->user->id ] ),
-		] );
+			                                        'query' => Sayygo::find()->where( [ 'user_id' => Yii::$app->user->id ] ),
+		                                        ] );
 
 		return $this->render( 'index',[
 			'dataProvider' => $dataProvider,
@@ -81,20 +81,20 @@ class SayygoController extends Controller {
 
 		if ( $model->load( Yii::$app->request->post() ) ) {
 			//get plain keywords here
-			$keywords = $_POST['keywords'];
-			$keywords = explode(',',$keywords);
-			$keywordIds = [];
-			foreach ($keywords as $kw){
-				$kwModel = Keyword::findOne(['description'=>$kw]);
-				if ($kwModel == null){
-					$kwModel = new Keyword();
+			$keywords   = $_POST['keywords'];
+			$keywords   = explode( ',',$keywords );
+			$keywordIds = [ ];
+			foreach ( $keywords as $kw ) {
+				$kwModel = Keyword::findOne( [ 'description' => $kw ] );
+				if ( $kwModel == null ) {
+					$kwModel              = new Keyword();
 					$kwModel->description = $kw;
 					$kwModel->save();
 				}
-				array_push($keywordIds,$kwModel->id);
+				array_push( $keywordIds,$kwModel->id );
 			}
 			//apply new keywords ID to Sayygo so that they will be linked
-			$model->keywordIds = implode(',',$keywordIds);
+			$model->keywordIds = implode( ',',$keywordIds );
 			//get plain keywords//
 			if ( $model->save() ) {
 				return $this->redirect( [ 'view','id' => $model->id ] );
@@ -103,8 +103,7 @@ class SayygoController extends Controller {
 					'model' => $model,
 				] );
 			}
-		}
-		else {
+		} else {
 			return $this->render( 'create',[
 				'model' => $model,
 			] );
@@ -117,16 +116,35 @@ class SayygoController extends Controller {
 	 *
 	 * @param integer $id
 	 *
+	 * @var Sayygo $model
+	 *
 	 * @return mixed
 	 */
 	public
-	function actionUpdate(
-		$id
-	) {
+	function actionUpdate( $id ) {
 		$model = $this->findModel( $id );
 
-		if ( $model->load( Yii::$app->request->post() ) && $model->save() ) {
-			return $this->redirect( [ 'view','id' => $model->id ] );
+		if ( $model->load( Yii::$app->request->post() ) ) {
+			//get plain keywords here
+			$keywords   = $_POST['keywords'];
+			$keywords   = explode( ',',$keywords );
+			$keywordIds = [ ];
+			foreach ( $keywords as $kw ) {
+				$kwModel = Keyword::findOne( [ 'description' => $kw ] );
+				if ( $kwModel == null ) {
+					$kwModel              = new Keyword();
+					$kwModel->description = $kw;
+					$kwModel->save();
+				}
+				array_push( $keywordIds,$kwModel->id );
+			}
+			//apply new keywords ID to Sayygo so that they will be linked
+			$model->keywordIds = implode( ',',$keywordIds );
+			//get plain keywords//
+
+			if ( $model->save() ) {
+				return $this->redirect( [ 'view','id' => $model->id ] );
+			}
 		} else {
 			return $this->render( 'update',[
 				'model' => $model,
@@ -143,9 +161,7 @@ class SayygoController extends Controller {
 	 * @return mixed
 	 */
 	public
-	function actionDelete(
-		$id
-	) {
+	function actionDelete( $id ) {
 		$this->findModel( $id )->delete();
 
 		return $this->redirect( [ 'index' ] );
@@ -161,9 +177,7 @@ class SayygoController extends Controller {
 	 * @throws NotFoundHttpException if the model cannot be found
 	 */
 	protected
-	function findModel(
-		$id
-	) {
+	function findModel( $id ) {
 		if ( ( $model = Sayygo::findOne( $id ) ) !== null ) {
 			return $model;
 		} else {
