@@ -49,24 +49,24 @@ var Script = function () {
     //});
 
 // custom scrollbar
-    $(".sidebar-scroll").niceScroll({
-        styler: "fb",
-        cursorcolor: "#4A8BC2",
-        cursorwidth: '5',
-        cursorborderradius: '0px',
-        background: '#404040',
-        cursorborder: ''
-    });
-
-    $("html").niceScroll({
-        styler: "fb",
-        cursorcolor: "#4A8BC2",
-        cursorwidth: '8',
-        cursorborderradius: '0px',
-        background: '#404040',
-        cursorborder: '',
-        zindex: '1000'
-    });
+//    $(".sidebar-scroll").niceScroll({
+//        styler: "fb",
+//        cursorcolor: "#4A8BC2",
+//        cursorwidth: '5',
+//        cursorborderradius: '0px',
+//        background: '#404040',
+//        cursorborder: ''
+//    });
+//
+//    $("html").niceScroll({
+//        styler: "fb",
+//        cursorcolor: "#4A8BC2",
+//        cursorwidth: '8',
+//        cursorborderradius: '0px',
+//        background: '#404040',
+//        cursorborder: '',
+//        zindex: '1000'
+//    });
 
 
 // theme switcher
@@ -145,9 +145,9 @@ var Script = function () {
 
 // scroller
 
-    $('.scroller').slimscroll({
-        height: 'auto'
-    });
+    //$('.scroller').slimscroll({
+    //    height: 'auto'
+    //});
 
     $(document).ready(function () {
         //yii.init();

@@ -1,7 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+//use yii\widgets\ActiveForm;
+use kartik\widgets\ActiveForm;
 use yii\helpers\BaseHtml;
 use kartik\select2\Select2;
 use yii\web\JsExpression;
@@ -61,60 +62,72 @@ SCRIPT;
 		],
 	] );
 
-
-
 	?>
-	<?php
-	echo 'Preferred Travel Start Date';
-	echo DatePicker::widget([
-		                        'name' => 'start_date',
-		                        'type' => DatePicker::TYPE_COMPONENT_APPEND,
-		                        'pluginOptions' => [
-			                        'autoclose'=>true,
-			                        'format' => 'mm-dd-yyyy',
-		                        ]
-	                        ]);
+	<?= $form->field( $model,'start_date' )->widget( DatePicker::classname(),[
+		'options'       => [
+//			'placeholder' => 'yyyy-mm-dd',
+		],
+		'pluginOptions' => [
+			'autoclose' => true,
+			'format'    => 'yyyy-mm-dd',
+			'startDate' => '+0d',
+			'todayBtn'  => true
+		]
+	] )->label( 'When do you prefer to start this travel? (optional)' ); ?>
 
-	?>
-	<?= $form->field( $model,'end_date' )->textInput() ?>
 
-	<?= $form->field( $model,'is_active_mode' )->textInput() ?>
+	<?= $form->field( $model,'end_date' )->widget( DatePicker::classname(),[
+		'options'       => [
+//			'placeholder' => 'yyyy-mm-dd',
+		],
+		'pluginOptions' => [
+			'autoclose' => true,
+			'format'    => 'yyyy-mm-dd',
+			'startDate' => '+0d',
+			'todayBtn'  => true
+		]
+	] )->label( 'When do you prefer to end this travel? (optional)' ); ?>
 
-	<?= $form->field( $model,'notification_frequency' )->dropDownList( [ 'Instant Email'         => 'Instant Email',
-	                                                                     'Instant SMS'           => 'Instant SMS',
-	                                                                     'Instant Email and SMS' => 'Instant Email and SMS',
-	                                                                     'Daily'                 => 'Daily',
-	                                                                     'Weekly'                => 'Weekly',
-	                                                                     'Never'                 => 'Never',
-	                                                                   ],[ 'prompt' => '' ] ) ?>
+	<?= $form->field( $model,'is_active_mode' )->dropDownList( ['0' => 'No, keep me in listen-only mode', '1' => 'Yes, I want to listen and receive pings from other people' ])->label('Do you want other people to contact you regarding your sayygo?') ?>
 
-	<?= $form->field( $model,'partner_sex' )->dropDownList( [ 'Male'              => 'Male',
-	                                                          'Female'            => 'Female',
-	                                                          'TS/TG'             => 'TS/TG',
-	                                                          'Doesn\'\'t matter' => 'Doesn\'\'t matter',
-	                                                        ],[ 'prompt' => '' ] ) ?>
+	<?= $form->field( $model,'notification_frequency' )->dropDownList( [
+		                                                                   'Never'                 => 'Never',
+		                                                                   'Instant Email'         => 'Instant Email',
+		                                                                   'Instant SMS'           => 'Instant SMS',
+		                                                                   'Instant Email and SMS' => 'Instant Email and SMS',
+		                                                                   'Daily'                 => 'Daily',
+		                                                                   'Weekly'                => 'Weekly',
+	                                                                   ] ) ?>
 
-	<?= $form->field( $model,'partner_experience' )->dropDownList( [ 'Been around the world'         => 'Been around the world',
-	                                                                 'Experienced international'     => 'Experienced international',
-	                                                                 'Experienced domestic/regional' => 'Experienced domestic/regional',
-	                                                                 'Moderate experience'           => 'Moderate experience',
-	                                                                 'Little experience'             => 'Little experience',
-	                                                                 'Never traveled'                => 'Never traveled',
-	                                                               ],[ 'prompt' => '' ] ) ?>
+	<?= $form->field( $model,'partner_sex' )->dropDownList( [
+		                                                        'Doesn\'\'t matter' => 'Doesn\'\'t matter',
+		                                                        'Male'              => 'Male',
+		                                                        'Female'            => 'Female',
+		                                                        'TS/TG'             => 'TS/TG',
+	                                                        ]) ?>
 
-	<?= $form->field( $model,'partner_num_preference' )->dropDownList( [ 'One'          => 'One',
-	                                                                     '2 to 10'      => '2 to 10',
-	                                                                     'More than 10' => 'More than 10',
-	                                                                     ''             => '',
-	                                                                   ],[ 'prompt' => '' ] ) ?>
+	<?= $form->field( $model,'partner_experience' )->dropDownList( [
+		                                                               'Moderate experience'           => 'Moderate experience',
+		                                                               'Been around the world'         => 'Been around the world',
+		                                                               'Experienced international'     => 'Experienced international',
+		                                                               'Experienced domestic/regional' => 'Experienced domestic/regional',
+		                                                               'Little experience'             => 'Little experience',
+		                                                               'Never traveled'                => 'Never traveled',
+	                                                               ]) ?>
 
-	<?= $form->field( $model,'num_of_partner' )->textInput() ?>
+	<?= $form->field( $model,'partner_num_preference' )->dropDownList( [
+		                                                                   'One'          => 'One',
+		                                                                   '2 to 10'      => '2 to 10',
+		                                                                   'More than 10' => 'More than 10',
+	                                                                   ]) ?>
+
+	<?= $form->field( $model,'num_of_partner', ['options'=>$model->partner_num_preference === '2 to 10'?[]:['class'=>'hidden']])->textInput()->label('Number of travel partners preferred:') ?>
 	<div class="form-group">
 		<?php
 		$request = new \yii\web\Request();
 		echo Html::button( '<i class="icon-ban-circle icon-white"></i> Cancel',[
 			'class'   => 'btn btn-info',
-			'onclick' => 'location.href="'.$request->getReferrer().'"'
+			'onclick' => 'location.href="' . $request->getReferrer() . '"'
 		] ) ?>
 		<?= Html::submitButton( $model->isNewRecord ? 'Create' : 'Update',[
 			'id'      => 'create_save_btn',

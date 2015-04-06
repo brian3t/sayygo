@@ -29,10 +29,26 @@ sft.on('keyup', function () {
     });
     $('#s2id_sayygo-keywordids .select2-search-field span').remove();
     $('#s2id_sayygo-keywordids .select2-search-field').append(keywordsHtml.html());
+    if (cf.keywords.length > 0){
+        enable_btn('create_save_btn');
+    }
 });
 
 $(document).ready(function () {
-    setTimeout(function(){sft.trigger('keypress');},500);
+    var numOfPartners = $('div.field-sayygo-num_of_partner');
+    var selectNumPartnerPref = $('#sayygo-partner_num_preference');
+    setTimeout(function(){sft.trigger('keyup');},500);
+    disable_btn('create_save_btn');
+    selectNumPartnerPref.on('change',function(e){
+        if (e.target.value === "2 to 10"){
+            numOfPartners.removeClass('hidden');
+        } else {
+            numOfPartners.addClass('hidden');
+            $(numOfPartners.children('input')).val(null);
+        }
+
+    })
+
 });
 
 function submitHandler() {
@@ -40,4 +56,3 @@ function submitHandler() {
     cf.keywords + "' />");
     return true;
 }
-
