@@ -26,9 +26,6 @@ return [
 				]
 		],
 	],
-	'aliases'    => [
-		'@bower' => dirname( dirname( __DIR__ ) ) . '/vendor/bower-asset',
-	],
 	'bootstrap'  => [ 'debug' ],
 	'modules'    => [
 		'debug' => 'yii\debug\Module',
