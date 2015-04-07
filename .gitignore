@@ -9,4 +9,4 @@ themes/classic/views/
 backend/web/assets/*
 frontend/web/assets/*
 .DS_Store
-
+vendor
