@@ -4,74 +4,8 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "177eeaaf2520ed7b90f28727805d24de",
+    "hash": "54b109f90e5f5dc4ea55e779acabeeac",
     "packages": [
-        {
-            "name": "2amigos/yii2-switch-widget",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/2amigos/yii2-switch-widget.git",
-                "reference": "51db39f0cb8570baac8f2cd2ef9d1057b6851df5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/2amigos/yii2-switch-widget/zipball/51db39f0cb8570baac8f2cd2ef9d1057b6851df5",
-                "reference": "51db39f0cb8570baac8f2cd2ef9d1057b6851df5",
-                "shasum": ""
-            },
-            "require": {
-                "bower-asset/bootstrap-switch": "~3.3.2",
-                "yiisoft/yii2": "~2.0.0",
-                "yiisoft/yii2-bootstrap": "~2.0.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.0"
-            },
-            "type": "yii2-extension",
-            "extra": {
-                "asset-installer-paths": {
-                    "npm-asset-library": "vendor/npm",
-                    "bower-asset-library": "vendor/bower"
-                },
-                "branch-alias": {
-                    "dev-master": "1.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "dosamigos\\switchinput\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "2amigOS! Consulting Group",
-                    "email": "hola@2amigos.us",
-                    "homepage": "http://2amigos.us",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Alexander Kochetov",
-                    "email": "creocoder@gmail.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "The bootstrap switch widget for the Yii framework",
-            "homepage": "https://github.com/2amigos/yii2-selectize-widget",
-            "keywords": [
-                "2amigos",
-                "switch",
-                "widget",
-                "yii",
-                "yii 2",
-                "yii2"
-            ],
-            "time": "2015-03-20 20:10:20"
-        },
         {
             "name": "bower-asset/bootstrap",
             "version": "v3.3.4",
@@ -123,49 +57,6 @@
                 "responsive",
                 "web"
             ]
-        },
-        {
-            "name": "bower-asset/bootstrap-switch",
-            "version": "v3.3.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nostalgiaz/bootstrap-switch.git",
-                "reference": "ec69b5dd914dacb19cf1fa8e1be7eea6bcc7b083"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nostalgiaz/bootstrap-switch/zipball/ec69b5dd914dacb19cf1fa8e1be7eea6bcc7b083",
-                "reference": "ec69b5dd914dacb19cf1fa8e1be7eea6bcc7b083",
-                "shasum": ""
-            },
-            "require": {
-                "bower-asset/bootstrap": ">=2.3.2",
-                "bower-asset/jquery": ">=1.9.0"
-            },
-            "require-dev": {
-                "bower-asset/bootstrap": ">=3.3,<3.4",
-                "bower-asset/jquery": ">=2.1,<2.2"
-            },
-            "type": "bower-asset-library",
-            "extra": {
-                "bower-asset-main": [
-                    "./dist/js/bootstrap-switch.js",
-                    "./dist/css/bootstrap3/bootstrap-switch.css"
-                ],
-                "bower-asset-ignore": [
-                    "docs",
-                    "test",
-                    "CNAME",
-                    "coffeelint.json",
-                    "composer.json",
-                    "CONTRIBUTING.md",
-                    "gulpfile.coffee",
-                    "gulpfile.js",
-                    "index.html",
-                    "package.json"
-                ]
-            },
-            "description": "Turn checkboxes and radio buttons in toggle switches."
         },
         {
             "name": "bower-asset/jquery",
@@ -441,12 +332,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dektrium/yii2-user.git",
-                "reference": "e7ff2737af895d0376c3570b692e57ba75870a77"
+                "reference": "891fe6c3957bde7f3a7893775fd304fc84140599"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dektrium/yii2-user/zipball/e7ff2737af895d0376c3570b692e57ba75870a77",
-                "reference": "e7ff2737af895d0376c3570b692e57ba75870a77",
+                "url": "https://api.github.com/repos/dektrium/yii2-user/zipball/891fe6c3957bde7f3a7893775fd304fc84140599",
+                "reference": "891fe6c3957bde7f3a7893775fd304fc84140599",
                 "shasum": ""
             },
             "require": {
@@ -497,7 +388,7 @@
                 "yii2",
                 "yii2-user"
             ],
-            "time": "2015-04-04 08:09:57"
+            "time": "2015-04-06 09:21:39"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -2225,7 +2116,148 @@
             "time": "2015-03-01 06:22:44"
         }
     ],
-    "packages-dev": [],
+    "packages-dev": [
+        {
+            "name": "fzaninotto/faker",
+            "version": "v1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fzaninotto/Faker.git",
+                "reference": "010c7efedd88bf31141a02719f51fb44c732d5a0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/010c7efedd88bf31141a02719f51fb44c732d5a0",
+                "reference": "010c7efedd88bf31141a02719f51fb44c732d5a0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0",
+                "squizlabs/php_codesniffer": "~1.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": []
+            },
+            "autoload": {
+                "psr-0": {
+                    "Faker": "src/",
+                    "Faker\\PHPUnit": "test/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "François Zaninotto"
+                }
+            ],
+            "description": "Faker is a PHP library that generates fake data for you.",
+            "keywords": [
+                "data",
+                "faker",
+                "fixtures"
+            ],
+            "time": "2014-06-04 14:43:02"
+        },
+        {
+            "name": "yiisoft/yii2-codeception",
+            "version": "2.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yiisoft/yii2-codeception.git",
+                "reference": "c2fdee4e7e9846e141ceddeb4386325e921e375a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yiisoft/yii2-codeception/zipball/c2fdee4e7e9846e141ceddeb4386325e921e375a",
+                "reference": "c2fdee4e7e9846e141ceddeb4386325e921e375a",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "yii\\codeception\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Mark Jebri",
+                    "email": "mark.github@yandex.ru"
+                }
+            ],
+            "description": "The Codeception integration for the Yii framework",
+            "keywords": [
+                "codeception",
+                "yii2"
+            ],
+            "time": "2015-03-01 06:22:44"
+        },
+        {
+            "name": "yiisoft/yii2-faker",
+            "version": "2.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yiisoft/yii2-faker.git",
+                "reference": "b88ca69ee226a3610b2c26c026c3203d7ac50f6c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yiisoft/yii2-faker/zipball/b88ca69ee226a3610b2c26c026c3203d7ac50f6c",
+                "reference": "b88ca69ee226a3610b2c26c026c3203d7ac50f6c",
+                "shasum": ""
+            },
+            "require": {
+                "fzaninotto/faker": "*",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "yii\\faker\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Mark Jebri",
+                    "email": "mark.github@yandex.ru"
+                }
+            ],
+            "description": "Fixture generator. The Faker integration for the Yii framework.",
+            "keywords": [
+                "Fixture",
+                "faker",
+                "yii2"
+            ],
+            "time": "2015-03-01 06:22:44"
+        }
+    ],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
@@ -2234,6 +2266,8 @@
     },
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "php": ">=5.4.0"
+    },
     "platform-dev": []
 }

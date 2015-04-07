@@ -14,6 +14,10 @@ return [
     'modules' => [
 	    'gii'   => 'yii\gii\Module',
 	    'debug' => 'yii\debug\Module',
+//	    'user' => [
+		    // following line will restrict access to admin page
+//		    'as backend' => 'dektrium\user\filters\BackendFilter',
+//	    ],
     ],
     'components' => [
         'log' => [

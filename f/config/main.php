@@ -25,5 +25,11 @@ return [
             'errorAction' => 'site/error',
         ],
     ],
+    'modules' => [
+//	    'user' => [
+		    // following line will restrict access to admin page
+//		    'as frontend' => 'dektrium\user\filters\FrontendFilter',
+//	    ],
+    ],
     'params' => $params,
 ];

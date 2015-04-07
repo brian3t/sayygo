@@ -92,9 +92,8 @@ AppAsset::register( $this );
 								<b class="caret"></b>
 							</a>
 							<ul class="dropdown-menu extended logout">
-								<li><a href="/b/web/sayygo/index"><i class="icon-user"></i> My Sayygos</a></li>
-								<li class="disabled"><a href="#"><i class="icon-user"></i> My Profile</a></li>
-								<li class="disabled"><a href="#"><i class="icon-cog"></i> My Settings</a></li>
+								<li><a href="/b/web/sayygo/index">My Sayygos</a></li>
+								<li><a href="/b/web/user/settings/profile"><i class="icon-user"></i> My Settings</a></li>
 								<li><a class="yii-controls" type="button" data-method="post"
 								       href="/b/web/site/logout"><i class="icon-key"></i> Log
 										Out</a></li>
