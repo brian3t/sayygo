@@ -135,13 +135,13 @@ var Script = function () {
 
 //    tool tips
 
-    $('.element').tooltip();
+    //$('.element').tooltip();
 
-    $('.tooltips').tooltip();
+    //$('.tooltips').tooltip();
 
 //    popovers
 
-    $('.popovers').popover();
+    //$('.popovers').popover();
 
 // scroller
 

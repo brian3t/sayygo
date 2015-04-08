@@ -24,6 +24,20 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+/* for different sessions on backend and frontend
+//        'user' => [
+//	        'identityClass' => 'common\models\User',
+//	        'enableAutoLogin' => true,
+//	        'identityCookie' => [
+//		        'name' => '_frontendUser', // unique for front
+//		        'path'=>'/f/web'  // correct path for the front app.
+//	        ]
+//        ],
+//        'session' => [
+//	        'name' => 'PHPFRONTSESSID',
+//	        'savePath' => __DIR__ . '/../tmp',
+//        ],
+*/
     ],
     'modules' => [
 //	    'user' => [
@@ -32,4 +46,5 @@ return [
 //	    ],
     ],
     'params' => $params,
+
 ];

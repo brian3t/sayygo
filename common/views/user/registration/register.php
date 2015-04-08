@@ -1,11 +1,8 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: tri
- * Date: 4/3/15
- * Time: 10:06 AM
+ * tri
  *
- * Overriding dektrium's user
+ * Overriding dektrium's user view
  */
 
 use yii\helpers\Html;
@@ -41,6 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
 					<?= $form->field($model, 'password')->passwordInput() ?>
 					<?= $form->field($model, 'password_repeat')->passwordInput(['class' => 'form-control'])->label('Repeat password') ?>
 				<?php endif ?>
+<!--				--><?//= $form->field($model, 'avatar')->fileInput() ?>
 				<div class="alert alert-info">
 					<button class="close" data-dismiss="alert">×</button>
 					<strong>Notice:</strong> By signing up, you consent that you are over 18 years old.

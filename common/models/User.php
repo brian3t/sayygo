@@ -31,10 +31,10 @@ class User extends BaseUser
 	{
 		/** @var Token $token */
 		$token = $this->finder->findToken([
-			'user_id' => $this->id,
-			'code'    => $code,
-			'type'    => Token::TYPE_CONFIRMATION,
-		])->one();
+			                                  'user_id' => $this->id,
+			                                  'code'    => $code,
+			                                  'type'    => Token::TYPE_CONFIRMATION,
+		                                  ])->one();
 
 		if ($token === null || $token->isExpired) {
 			\Yii::$app->session->setFlash('danger', \Yii::t('user', 'The confirmation link is invalid or expired. Please try requesting a new one.'));

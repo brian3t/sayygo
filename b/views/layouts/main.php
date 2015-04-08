@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
+use frontend\widgets\Alert;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -240,6 +241,7 @@ AppAsset::register( $this );
 				</div>
 			</div>
 			<!-- END PAGE HEADER-->
+			<?= Alert::widget() ?>
 			<!-- BEGIN PAGE CONTENT-->
 			<?= $content ?>
 			<!-- END PAGE CONTENT-->

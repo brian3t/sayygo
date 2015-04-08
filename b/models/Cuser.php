@@ -39,7 +39,7 @@ use yii\behaviors\TimestampBehavior;
  * @property string $projectIds
  * @property GroupConversation[] $groupConversations
  */
-class Cuser extends \dektrium\user\models\User {
+//class Cuser extends \dektrium\user\models\User {
 
 //	const STATUS_DELETED = 0;
 //	const STATUS_ACTIVE = 10;
@@ -204,4 +204,4 @@ class Cuser extends \dektrium\user\models\User {
 //		$this->resetProjectIds();
 //	}
 //}
-}
+//}

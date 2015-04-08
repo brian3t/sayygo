@@ -25,6 +25,13 @@ return [
 					'<controller:\w+>/<id:\d+>'        => '<controller>/view',
 				]
 		],
+		'view' => [
+			'theme' => [
+				'pathMap' => [
+					'@dektrium/user/views' => '@common/views/user'
+				],
+			],
+		],
 	],
 	'bootstrap'  => [ 'debug' ],
 	'modules'    => [
@@ -34,9 +41,11 @@ return [
 			'modelMap' => [
 				'User' => 'common\models\User',
 				'RegistrationForm' => 'common\models\RegistrationForm',
+				'Profile' => 'common\models\Profile',
 			],
 			'controllerMap' => [
-				'registration' => 'common\controllers\RegistrationController'
+				'settings' => 'common\controllers\SettingsController'
+//				'registration' => 'common\controllers\RegistrationController'
 			],
 			'mailer'   => [
 				'sender'                => 'tri@usvsolutions.com', // or ['no-reply@myhost.com' => 'Sender name']
