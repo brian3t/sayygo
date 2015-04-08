@@ -10,3 +10,6 @@ backend/web/assets/*
 frontend/web/assets/*
 .DS_Store
 vendor
+b/tmp
+f/tmp
+uploads
