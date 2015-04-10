@@ -36,8 +36,12 @@ $this->params['breadcrumbs'][] = $this->title;
 	        // 'notification_frequency',
 	        // 'partner_sex',
 	        // 'partner_experience',
+	        // 'my_experience',
 	        // 'partner_num_preference',
 	        // 'num_of_partner',
+	        // 'home_location',
+	        // 'phone_number',
+	        // 'languages',
 
 
 	        ['class' => 'yii\grid\ActionColumn'],

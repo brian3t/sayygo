@@ -3,10 +3,12 @@
 namespace backend\controllers;
 
 use backend\models\Keyword;
+use backend\models\Languages;
 use Yii;
 use backend\models\Sayygo;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -65,8 +67,17 @@ class SayygoController extends Controller {
 	 * @return mixed
 	 */
 	public function actionView( $id ) {
+		$modelData = $this->findModel( $id );
+		$langs = $modelData->getAttribute('languages');//csv e.g. au,av,en
+		$LANGUAGES = Languages::$data;
+
+		$langNames = [];
+		foreach (explode(',', $langs) as $langCode){
+			array_push($langNames, ArrayHelper::getValue($LANGUAGES,$langCode,""));
+		}
+		$modelData->setAttribute('languages', implode(', ',$langNames));
 		return $this->render( 'view',[
-			'model' => $this->findModel( $id ),
+			'model' => $modelData,
 		] );
 	}
 

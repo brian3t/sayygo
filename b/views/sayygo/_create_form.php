@@ -6,6 +6,7 @@ use yii\helpers\BaseHtml;
 use kartik\select2\Select2;
 use yii\web\JsExpression;
 use kartik\date\DatePicker;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Sayygo */
@@ -87,7 +88,10 @@ SCRIPT;
 		]
 	] )->label( 'When do you prefer to end this travel? (optional)' ); ?>
 
-	<?= $form->field( $model,'is_active_mode' )->dropDownList( ['0' => 'No, keep me in listen-only mode', '1' => 'Yes, I want to listen and receive pings from other people' ])->label('Do you want other people to contact you regarding your sayygo?') ?>
+	<?= $form->field( $model,'is_active_mode' )->dropDownList( [
+		                                                           '0' => 'No, keep me in listen-only mode',
+		                                                           '1' => 'Yes, I want to listen and receive pings from other people'
+	                                                           ] )->label( 'Do you want other people to contact you regarding your sayygo?' ) ?>
 
 	<?= $form->field( $model,'notification_frequency' )->dropDownList( [
 		                                                                   'Never'                 => 'Never',
@@ -97,13 +101,22 @@ SCRIPT;
 		                                                                   'Daily'                 => 'Daily',
 		                                                                   'Weekly'                => 'Weekly',
 	                                                                   ] ) ?>
+	<?= $form->field( $model,'my_experience' )->dropDownList( [
+		                                                          'Been around the world'         => 'Been around the world',
+		                                                          'Experienced international'     => 'Experienced international',
+		                                                          'Experienced domestic/regional' => 'Experienced domestic/regional',
+		                                                          'Moderate experience'           => 'Moderate experience',
+		                                                          'Little experience'             => 'Little experience',
+		                                                          'Never traveled'                => 'Never traveled',
+	                                                          ],
+	                                                          [ 'prompt' => 'Prefer not to say' ] )->label( 'Your travel experience (optional)' ) ?>
 
 	<?= $form->field( $model,'partner_sex' )->dropDownList( [
-		                                                        'Doesn\'\'t matter' => 'Doesn\'\'t matter',
+		                                                        'Doesn\'\'t matter' => 'Doesn\'t matter',
 		                                                        'Male'              => 'Male',
 		                                                        'Female'            => 'Female',
 		                                                        'TS/TG'             => 'TS/TG',
-	                                                        ]) ?>
+	                                                        ] ) ?>
 
 	<?= $form->field( $model,'partner_experience' )->dropDownList( [
 		                                                               'Moderate experience'           => 'Moderate experience',
@@ -112,15 +125,56 @@ SCRIPT;
 		                                                               'Experienced domestic/regional' => 'Experienced domestic/regional',
 		                                                               'Little experience'             => 'Little experience',
 		                                                               'Never traveled'                => 'Never traveled',
-	                                                               ]) ?>
+	                                                               ] ) ?>
 
 	<?= $form->field( $model,'partner_num_preference' )->dropDownList( [
 		                                                                   'One'          => 'One',
 		                                                                   '2 to 10'      => '2 to 10',
 		                                                                   'More than 10' => 'More than 10',
-	                                                                   ]) ?>
+	                                                                   ] ) ?>
 
-	<?= $form->field( $model,'num_of_partner', ['options'=>$model->partner_num_preference === '2 to 10'?[]:['class'=>'hidden']])->textInput()->label('Number of travel partners preferred:') ?>
+	<?= $form->field( $model,'num_of_partner',
+	                  [ 'options' => $model->partner_num_preference === '2 to 10' ? [ ] : [ 'class' => 'hidden' ] ] )->textInput()->label( 'Number of travel partners preferred:' ) ?>
+<!--	--><?//= $form->field( $model,
+//	                  'home_location' )->textInput( [ 'maxlength' => 800 ] )->label( 'Your home location (optional)' ) ?>
+<!---->
+<!--	--><?//= $form->field( $model,
+//	                  'phone_number' )->textInput( [ 'maxlength' => 20 ] )->label( 'Your text phone number (optional)' ) ?>
+<!---->
+<!--	--><?php
+//	//init languages
+//	$LANGUAGES = \backend\models\Languages::$data;
+//	$initLanguages = [];
+//	foreach ( explode(',', $model->languages) as $langCode) {
+//		array_push($initLanguages, ['id' => $langCode, 'text' => ArrayHelper::getValue($LANGUAGES,$langCode,'')]);
+//	}
+//	$initLanguages = json_encode( $initLanguages );
+//	// Script to initialize the selection based on the value of the select2 element
+//	$initScriptLanguages = <<< SCRIPT
+//function (element, callback) {
+//	var initLanguages = JSON.parse('{$initLanguages}');
+//     callback(initLanguages);
+//    }
+//SCRIPT;
+//	echo $form->field( $model,'languages' )->label( 'Languages that you know' )->widget( Select2::classname(),[
+//		'language'      => 'en',
+//		'pluginOptions' => [
+//			'placeholder'        => '',
+//			'minimumInputLength' => 0,
+//			'allowClear'         => true,
+//			'multiple'           => true,
+//			'ajax'               => [
+//				'url'      => yii\helpers\Url::to( [ 'languages/get' ] ),
+//				'dataType' => 'json',
+//				'data'     => new JsExpression( 'function(term, page) { return {id:term}; }' ),
+//				'results'  => new JsExpression( 'function(data, page) { return {results: data.results}; }' )
+//			],
+//			'initSelection'      => new JsExpression( $initScriptLanguages ),
+//		],
+//	] );
+//
+//	?>
+
 	<div class="form-group">
 		<?php
 		$request = new \yii\web\Request();
@@ -134,7 +188,6 @@ SCRIPT;
 			'onClick' => 'submitHandler()'
 		] ) ?>
 	</div>
-
 	<?php ActiveForm::end();
 	$this->registerJsFile( '/assets/js/sayygo_create_form.js',
 	                       [ 'depends' => [ \kartik\base\AssetBundle::className() ] ] );

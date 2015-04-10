@@ -37,7 +37,7 @@ class SettingsController extends BaseSettingsController {
 				}
 				mkdir( $avatarFolder,0775 );
 
-				$model->avatarFile->saveAs( '/var/www/sayygo/uploads/avatar/' . \Yii::$app->user->id . '/' . $model->avatarFile->baseName . '.' . $model->avatarFile->extension );
+				$model->avatarFile->saveAs( $avatarFolder . '/' . $model->avatarFile->baseName . '.' . $model->avatarFile->extension );
 				$model->avatar = $model->avatarFile->baseName . '.' . $model->avatarFile->extension;
 			}
 			if ( $model->save() ) {

@@ -50,11 +50,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
 				<?= $form->field( $model,'name' )->label('Full Name (will not be displayed to the public unless you want to)') ?>
 
-<!--				--><?//= $form->field( $model,'public_email' ) ?>
-
-<!--				--><?//= $form->field( $model,'website' ) ?>
-
-<!--				--><?//= $form->field( $model,'location' ) ?>
 				<?php
 				if ( ! empty( $model->avatar ) ):
 					?>
