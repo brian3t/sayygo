@@ -68,14 +68,6 @@ class SayygoController extends Controller {
 	 */
 	public function actionView( $id ) {
 		$modelData = $this->findModel( $id );
-		$langs = $modelData->getAttribute('languages');//csv e.g. au,av,en
-		$LANGUAGES = Languages::$data;
-
-		$langNames = [];
-		foreach (explode(',', $langs) as $langCode){
-			array_push($langNames, ArrayHelper::getValue($LANGUAGES,$langCode,""));
-		}
-		$modelData->setAttribute('languages', implode(', ',$langNames));
 		return $this->render( 'view',[
 			'model' => $modelData,
 		] );

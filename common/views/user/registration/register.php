@@ -7,6 +7,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\bootstrap\Alert;
 
 /**
  * @var yii\web\View              $this
@@ -17,6 +18,8 @@ use yii\widgets\ActiveForm;
 $this->title = Yii::t('user', 'Sign up');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<?= Alert::widget() ?>
+
 <div class="row">
 	<div class="col-md-4 col-md-offset-4">
 		<div class="panel panel-default">

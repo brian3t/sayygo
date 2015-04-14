@@ -21,12 +21,8 @@ use yii\helpers\ArrayHelper;
  * @property string $notification_frequency
  * @property string $partner_sex
  * @property string $partner_experience
- * @property string $my_experience
  * @property string $partner_num_preference
  * @property integer $num_of_partner
- * @property string $home_location
- * @property string $phone_number
- * @property string $languages
  *
  * @property KeywordSayygo[] $keywordSayygos
  * @property Keyword[] $keywords
@@ -54,7 +50,7 @@ class Sayygo extends \yii\db\ActiveRecord {
 			[ [ 'user_id','type_id','is_active_mode','num_of_partner' ],'integer' ],
 			[ [ 'created_at','updated_at','start_date','end_date' ],'safe' ],
 			[
-				[ 'status','notification_frequency','partner_sex','partner_experience','my_experience', 'partner_num_preference' ],
+				[ 'status','notification_frequency','partner_sex','partner_experience', 'partner_num_preference' ],
 				'string'
 			],
 			[ [ 'full_text' ],'string','max' => 10000 ],
@@ -70,10 +66,6 @@ class Sayygo extends \yii\db\ActiveRecord {
 			],
 			['num_of_partner',
 			'compare','operator'=> '>=', 'compareValue'=>2, 'message' => 'Please select at least 2 partners'],
-			[['home_location'], 'string', 'max' => 800],
-           [['phone_number'], 'string', 'max' => 20],
-           [['languages'], 'string', 'max' => 200]
-
 		];
 	}
 
@@ -95,12 +87,8 @@ class Sayygo extends \yii\db\ActiveRecord {
 			'notification_frequency' => 'Notification Frequency',
 			'partner_sex'            => 'Partner\' sex',
 			'partner_experience'     => 'Partner\'s Experience',
-			'my_experience' => 'My Experience',
 			'partner_num_preference' => 'How many Partners Preferred',
 			'num_of_partner'         => '#Partner',
-			'home_location' => 'Home Location',
-			'phone_number' => 'Phone Number',
-			'languages' => 'Languages',
 		];
 	}
 

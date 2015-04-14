@@ -47,8 +47,8 @@ return [
 				'Profile'          => 'common\models\Profile',
 			],
 			'controllerMap'       => [
-				'settings' => 'common\controllers\SettingsController'
-//				'registration' => 'common\controllers\RegistrationController'
+				'settings' => 'common\controllers\SettingsController',
+				'profile' => 'common\controllers\ProfileController'
 			],
 			'mailer'              => [
 				'sender'                => 'tri@usvsolutions.com', // or ['no-reply@myhost.com' => 'Sender name']
