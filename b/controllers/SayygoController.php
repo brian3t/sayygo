@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use backend\models\Keyword;
+use backend\models\KeywordSayygo;
 use backend\models\Languages;
 use Yii;
 use backend\models\Sayygo;
@@ -35,7 +36,7 @@ class SayygoController extends Controller {
 					],
 					[
 						'allow'   => true,
-						'actions' => [ 'create','index','delete','view','update' ],
+						'actions' => [ 'create','index','delete','view','update','match' ],
 						'roles'   => [ '@' ],
 					],
 				],
@@ -60,6 +61,26 @@ class SayygoController extends Controller {
 	}
 
 	/**
+	 * Lists all Sayygo models matching a specific sayygo, specific keyword.
+	 * @return mixed
+	 */
+	public function actionMatch($id, $kwId) {
+
+		$kwsgTableName = KeywordSayygo::tableName();
+		$dataProvider = new ActiveDataProvider( [
+			                                        'query' => Sayygo::find()->innerJoin($kwsgTableName,"sayygo.id = $kwsgTableName.sayygo_id")->where(['not', ['sayygo.id' => $id]])->andWhere(["keyword_id"=>$kwId]),
+		                                        ] );
+
+		$modelData = $this->findModel( $id );
+
+		return $this->render( 'match',[
+			'dataProvider' => $dataProvider,
+			'sourceModel' => $modelData,
+			'kwName' => Keyword::findOne($kwId)->description
+		] );
+	}
+
+	/**
 	 * Displays a single Sayygo model.
 	 *
 	 * @param integer $id
@@ -68,6 +89,7 @@ class SayygoController extends Controller {
 	 */
 	public function actionView( $id ) {
 		$modelData = $this->findModel( $id );
+
 		return $this->render( 'view',[
 			'model' => $modelData,
 		] );

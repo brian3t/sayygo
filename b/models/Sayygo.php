@@ -31,6 +31,7 @@ use yii\helpers\ArrayHelper;
  * @property string keywordIds;
  */
 class Sayygo extends \yii\db\ActiveRecord {
+	protected static $MATCH_THRESHOLD = 0.7;
 	public $keywordIds = '';//to be used for ActiveForm
 
 	/**
@@ -50,7 +51,7 @@ class Sayygo extends \yii\db\ActiveRecord {
 			[ [ 'user_id','type_id','is_active_mode','num_of_partner' ],'integer' ],
 			[ [ 'created_at','updated_at','start_date','end_date' ],'safe' ],
 			[
-				[ 'status','notification_frequency','partner_sex','partner_experience', 'partner_num_preference' ],
+				[ 'status','notification_frequency','partner_sex','partner_experience','partner_num_preference' ],
 				'string'
 			],
 			[ [ 'full_text' ],'string','max' => 10000 ],
@@ -64,8 +65,13 @@ class Sayygo extends \yii\db\ActiveRecord {
 							        return $('#sayygo-partner_num_preference').val() == '2 to 10';
 							    }"
 			],
-			['num_of_partner',
-			'compare','operator'=> '>=', 'compareValue'=>2, 'message' => 'Please select at least 2 partners'],
+			[
+				'num_of_partner',
+				'compare',
+				'operator'     => '>=',
+				'compareValue' => 2,
+				'message'      => 'Please select at least 2 partners'
+			],
 		];
 	}
 
@@ -139,6 +145,46 @@ class Sayygo extends \yii\db\ActiveRecord {
 			'keyword_id'
 		);
 		$this->keywordIds = implode( ',',$this->keywordIds );
+	}
+
+	/**find matching pairs between two sayygos
+	 * max points is defined in $MAX_POINTS
+	 * @var $source \backend\models\Sayygo
+	 * @var $target \backend\models\Sayygo
+	 *
+	 * @return: ['key' => ['source value' => 'target value']
+	 */
+//	public function getMatch($sourceId, $targetId) {
+	public static function getMatch( $source,$target ) {
+		$source = $source->getAttributes( null,[ 'id' ] );
+		$target = $target->getAttributes( null,[ 'id' ] );
+		$points = 0;
+		unset( $source['id'],$target['id'],$source['created_at'],$target['created_at'],$source['updated_at'],$target['updated_at'],$source['full_text'],$target['full_text'],$source['user_id'],$target['user_id'] );
+		$closeMatches = [ ];
+		$exactMatches = [ ];
+		foreach ( $source as $k => $v ) {
+			if ( empty( $v ) && empty( $target[ $k ] ) ) {
+				continue;
+			}
+			$distance = levenshtein( strval( $v ),strval( $target[ $k ] ) ) / max( strlen( strval( $v ) ),
+			                                                                       strlen( strval( $target[ $k ] ) ) );
+			if ( $distance === 0 ) {
+				$exactMatches[ $k ] = [ $v => $target[ $k ] ];
+			} elseif
+			( $distance < self::$MATCH_THRESHOLD
+			) {
+				$closeMatches[ $k ] = [ $v => $target[ $k ] ];
+				$points += $distance;
+			}
+		}
+		if ( $points > 0 ) {
+			$closeMatches['points'] = $points;
+		}
+
+		return [
+			'closeMatches' => $closeMatches,
+			'exactMatches' => $exactMatches
+		];
 	}
 
 }

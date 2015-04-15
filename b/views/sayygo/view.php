@@ -28,6 +28,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
+	        [
+		        'label'=> 'Posted by',
+		        'value' => \common\models\User::findOne($model->user_id)->username
+	        ],
             'full_text',
             'created_at',
             'updated_at',
@@ -41,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	        'partner_sex',
 	        'partner_experience',
 	        'partner_num_preference',
-	        'num_of_partner',
+	        'num_of_partner'
         ],
     ]) ?>
 

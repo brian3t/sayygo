@@ -4366,4 +4366,7 @@ ul.select2-choices span {
     color: cadetblue;
     border: 1px dotted;
 }
-
+.keyword a{
+    background: #7cdbfc;
+    padding: 2px 4px;
+}
