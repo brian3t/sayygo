@@ -52,6 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				                                              ] ); ?>
 
 				<?= $form->field( $model,'name' )->label('Full Name (will not be displayed to the public unless you want to)') ?>
+				<?= $form->field( $model,'is_show_full_name' )->dropDownList([0=>'No', 1=>'Yes'])->label('Show your full name to the public?') ?>
 
 				<?php
 				if ( ! empty( $model->avatar ) ):
@@ -94,7 +95,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				     callback(initLanguages);
 				    }
 SCRIPT;
-					echo $form->field( $model,'languages' )->label( 'Languages that you know' )->widget( Select2::classname(),[
+					echo $form->field( $model,'languages' )->label( 'Languages that you know (optional)' )->widget( Select2::classname(),[
 						'language'      => 'en',
 						'pluginOptions' => [
 							'placeholder'        => '',

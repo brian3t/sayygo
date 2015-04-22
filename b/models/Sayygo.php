@@ -33,6 +33,8 @@ use yii\helpers\ArrayHelper;
 class Sayygo extends \yii\db\ActiveRecord {
 	protected static $MATCH_THRESHOLD = 0.7;
 	public $keywordIds = '';//to be used for ActiveForm
+	public $updatedAtFormatted;//foobar attr for formatting date
+	public $createdAtFormatted;//foobar attr for formatting date
 
 	/**
 	 * @inheritdoc
@@ -81,20 +83,22 @@ class Sayygo extends \yii\db\ActiveRecord {
 	public function attributeLabels() {
 		return [
 			'id'                     => 'ID',
-			'full_text'              => 'Full Text',
+			'full_text'              => 'Full text',
 			'user_id'                => 'User ID',
-			'created_at'             => 'Created At',
-			'updated_at'             => 'Updated At',
+			'created_at'             => 'Created at',
+			'CreatedAtFormatted'     => 'Created at',
+			'updated_at'             => 'Updated at',
+			'UpdatedAtFormatted'     => 'Updated at',
 			'type_id'                => 'Type ID',
 			'status'                 => 'Status',
-			'start_date'             => 'Preferred Start Date',
-			'end_date'               => 'Preferred End Date',
+			'start_date'             => 'Preferred start date',
+			'end_date'               => 'Preferred end date',
 			'is_active_mode'         => 'Is Active Mode',
-			'notification_frequency' => 'Notification Frequency',
+			'notification_frequency' => 'Notification frequency',
 			'partner_sex'            => 'Partner\' sex',
-			'partner_experience'     => 'Partner\'s Experience',
-			'partner_num_preference' => 'How many Partners Preferred',
-			'num_of_partner'         => '#Partner',
+			'partner_experience'     => 'Partner\'s experience',
+			'partner_num_preference' => 'How many partners is preferred',
+			'num_of_partner'         => 'Ideal number of partners',
 		];
 	}
 
@@ -156,9 +160,10 @@ class Sayygo extends \yii\db\ActiveRecord {
 	 */
 //	public function getMatch($sourceId, $targetId) {
 	public static function getMatch( $source,$target ) {
-		$source = $source->getAttributes( null,[ 'id' ] );
-		$target = $target->getAttributes( null,[ 'id' ] );
-		$points = 0;
+		$source        = $source->getAttributes( null,[ 'id' ] );
+		$target        = $target->getAttributes( null,[ 'id' ] );
+		$points        = 0;
+		$percentCompat = 0;
 		unset( $source['id'],$target['id'],$source['created_at'],$target['created_at'],$source['updated_at'],$target['updated_at'],$source['full_text'],$target['full_text'],$source['user_id'],$target['user_id'] );
 		$closeMatches = [ ];
 		$exactMatches = [ ];
@@ -180,11 +185,23 @@ class Sayygo extends \yii\db\ActiveRecord {
 		if ( $points > 0 ) {
 			$closeMatches['points'] = $points;
 		}
+		$percentCompat = count( $exactMatches );
+		if ( count( $closeMatches ) !== 0 ) {
+			$percentCompat += $points / count( $closeMatches );
+		}
 
 		return [
-			'closeMatches' => $closeMatches,
-			'exactMatches' => $exactMatches
+			'percentCompat' => $percentCompat,
+			'closeMatches'  => $closeMatches,
+			'exactMatches'  => $exactMatches
 		];
 	}
 
+	public function getUpdatedAtFormatted() {
+		return \yii::$app->formatter->asDatetime( $this->updated_at,'full' );
+	}
+
+	public function getCreatedAtFormatted() {
+		return \yii::$app->formatter->asDatetime( $this->created_at,'full' );
+	}
 }

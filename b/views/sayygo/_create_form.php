@@ -108,14 +108,14 @@ SCRIPT;
 		                                                        'TS/TG'             => 'TS/TG',
 	                                                        ] ) ?>
 
-	<?= $form->field( $model,'partner_experience' )->dropDownList( [
-		                                                               'Moderate experience'           => 'Moderate experience',
-		                                                               'Been around the world'         => 'Been around the world',
-		                                                               'Experienced international'     => 'Experienced international',
-		                                                               'Experienced domestic/regional' => 'Experienced domestic/regional',
-		                                                               'Little experience'             => 'Little experience',
-		                                                               'Never traveled'                => 'Never traveled',
-	                                                               ] ) ?>
+	<?= $form->field( $model,
+	                  'partner_experience' )->dropDownList( [ 'Been around the world'         => 'Been around the world',
+	                                                            'Experienced international'     => 'Experienced international',
+	                                                            'Experienced domestic/regional' => 'Experienced domestic/regional',
+	                                                            'Moderate experience'           => 'Moderate experience',
+	                                                            'Little experience'             => 'Little experience',
+	                                                            'Never traveled'                => 'Never traveled',
+	                                                          ],[ 'prompt' => 'Doesn\'t matter' ] ) ?>
 
 	<?= $form->field( $model,'partner_num_preference' )->dropDownList( [
 		                                                                   'One'          => 'One',
@@ -124,7 +124,7 @@ SCRIPT;
 	                                                                   ] ) ?>
 
 	<?= $form->field( $model,'num_of_partner',
-	                  [ 'options' => $model->partner_num_preference === '2 to 10' ? [ ] : [ 'class' => 'hidden' ] ] )->textInput()->label( 'Number of travel partners preferred:' ) ?>
+	                  [ 'options' => $model->partner_num_preference === '2 to 10' ? [ ] : [ 'class' => 'hidden' ] ] )->textInput()->label( 'Ideal number of travel partners:' ) ?>
 
 	<div class="form-group">
 		<?php

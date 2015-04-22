@@ -26,7 +26,25 @@ $this->params['breadcrumbs'][] = $this->title;
 		                      'dataProvider' => $dataProvider,
 		                      'columns'      => [
 			                      [ 'class' => 'yii\grid\SerialColumn' ],
-			                      'id',
+//			                      'id',
+			                      [
+				                      'attribute' => 'user_id',
+				                      'label'     => 'Posted by',
+				                      'value'     => function ( $model ) {
+					                      $creator  = \common\models\User::findOne( $model->user_id );
+					                      $identity = $creator->profile;
+
+					                      if ( $identity->getFullName() ) {
+						                      return $identity->getFullName();
+					                      }
+
+					                      return $creator->username;
+				                      }
+			                      ],
+			                      ['label' => 'Compatibility',
+			                      'value' => function($model) use ($sourceModel){
+				                      return Sayygo::getMatch($sourceModel, $model)['percentCompat'];
+			                      }],
 			                      [
 				                      'label' => 'Exact matching criteria',
 				                      'value' => function ( $model ) use ( $sourceModel ) {
@@ -40,15 +58,6 @@ $this->params['breadcrumbs'][] = $this->title;
 				                      }
 			                      ],
 			                      'full_text',
-			                      [
-				                      'attribute' => 'user_id',
-				                      'label'     => 'Posted by',
-				                      'value'     => function ( $model ) {
-					                      $identity = \common\models\User::findOne( $model->user_id )->profile;
-
-					                      return $identity->name;
-				                      }
-			                      ],
 			                      'created_at',
 			                      [
 				                      'attribute' => 'updated_at',

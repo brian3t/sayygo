@@ -68,7 +68,7 @@ class SayygoController extends Controller {
 
 		$kwsgTableName = KeywordSayygo::tableName();
 		$dataProvider = new ActiveDataProvider( [
-			                                        'query' => Sayygo::find()->innerJoin($kwsgTableName,"sayygo.id = $kwsgTableName.sayygo_id")->where(['not', ['sayygo.id' => $id]])->andWhere(["keyword_id"=>$kwId]),
+			                                        'query' => Sayygo::find()->innerJoin($kwsgTableName,"sayygo.id = $kwsgTableName.sayygo_id")->where(['not', ['sayygo.id' => $id]])->andWhere(["keyword_id"=>$kwId])->limit(1000),
 		                                        ] );
 
 		$modelData = $this->findModel( $id );
@@ -110,6 +110,7 @@ class SayygoController extends Controller {
 			$keywords   = explode( ',',$keywords );
 			$keywordIds = [ ];
 			foreach ( $keywords as $kw ) {
+				$kw = preg_replace('/(\s)+/'," ",strtolower($kw));
 				$kwModel = Keyword::findOne( [ 'description' => $kw ] );
 				if ( $kwModel == null ) {
 					$kwModel              = new Keyword();
@@ -155,6 +156,7 @@ class SayygoController extends Controller {
 			$keywords   = explode( ',',$keywords );
 			$keywordIds = [ ];
 			foreach ( $keywords as $kw ) {
+				$kw = preg_replace('/(\s)+/'," ",strtolower($kw));
 				$kwModel = Keyword::findOne( [ 'description' => $kw ] );
 				if ( $kwModel == null ) {
 					$kwModel              = new Keyword();

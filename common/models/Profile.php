@@ -17,12 +17,14 @@ namespace common\models;
 use yii\db\ActiveRecord;
 use yii\web\UploadedFile;
 use dektrium\user\models\Profile as BaseProfile;
+use yii\web\User;
 
 
 /**
  * This is the model class for table "profile".
  *
  * @property string  $avatar
+ * @property string  $isShowFullName
  *
  *
  * @var UploadedFile avatarFile attribute
@@ -30,6 +32,8 @@ use dektrium\user\models\Profile as BaseProfile;
  */
 class Profile extends BaseProfile {
 	public $avatarFile;
+	public $isShowFullName;
+	public $nameOrFullName;//depends on isShowFullName
 
 	public function rules() {
 		$rules                        = parent::rules();
@@ -37,8 +41,9 @@ class Profile extends BaseProfile {
 		$rules['avatarFileSkipEmpty'] = [ 'avatarFile','file','skipOnEmpty' => true, ];
 		$rules['myExp']               = [ [ 'my_experience' ],'string' ];
 		$rules['homeLocation']        = [ [ 'home_location' ],'string','max' => 800 ];
-		$rules[]                      = [ [ 'phone_number' ],'string','max' => 20 ];
-		$rules[]                      = [ [ 'languages' ],'string','max' => 200 ];
+		$rules['phoneNumMax']         = [ [ 'phone_number' ],'string','max' => 20 ];
+		$rules['languageMax']         = [ [ 'languages' ],'string','max' => 200 ];
+		$rules['showFullName']        = [ 'is_show_full_name','safe' ];
 
 
 //		$rules['avatarFileImg'] = ['avatarFile','file','extensions' => 'gif, jpg, png',];
@@ -49,12 +54,17 @@ class Profile extends BaseProfile {
 	public function attributeLabels() {
 		$al = parent::attributeLabels();
 		$al = array_merge( $al,[
-			'my_experience' => 'My Experience',
-			'home_location' => 'Home Location',
-			'phone_number'  => 'Phone Number',
-			'languages'     => 'Languages',
+			'my_experience'     => 'My Experience',
+			'home_location'     => 'Home Location',
+			'phone_number'      => 'Phone Number',
+			'languages'         => 'Languages',
+			'is_show_full_name' => 'Show full name'
 		] );
 
+	}
+
+	public function getFullName(){
+		return ($this->is_show_full_name?$this->name:false);
 	}
 
 }

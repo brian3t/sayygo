@@ -4369,4 +4369,6 @@ ul.select2-choices span {
 .keyword a{
     background: #7cdbfc;
     padding: 2px 4px;
+    text-transform: capitalize;
 }
+.datepicker table tr td.disabled, .datepicker table tr td.disabled:hover{color: #ccc}

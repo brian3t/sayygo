@@ -4,6 +4,12 @@ return [
 	'vendorPath' => dirname( dirname( __DIR__ ) ) . '/vendor',
 	'name'       => 'Sayygo',
 	'components' => [
+		'formatter'  => [
+			'class'          => 'yii\i18n\Formatter',
+			'dateFormat'     => 'php:d-M-Y',
+			'datetimeFormat' => 'dd/MM/yyyy HH:mm:ss',
+			'timeFormat'     => 'php:H:i:s',
+		],
 //		'cache'   => [
 //			'class' => 'yii\caching\FileCache',
 //		],
@@ -18,6 +24,7 @@ return [
 			'rules'           =>
 				[
 					'dashboard'                        => 'site/index',
+					'/site/error'                      => 'site/index',
 					'POST <controller:\w+>s'           => '<controller>/create',
 					'<controller:\w+>s'                => '<controller>/index',
 					'PUT <controller:\w+>/<id:\d+>'    => '<controller>/update',
@@ -37,7 +44,7 @@ return [
 	'modules'    => [
 		'debug' => [
 			'class'      => 'yii\debug\Module',
-			'allowedIPs' => ['76.88.66.0', '198.2.44.170','127.0.0.1','::1' ],
+			'allowedIPs' => [ '76.88.66.0','198.2.44.170','127.0.0.1','::1' ],
 		],
 		'user'  => [
 			'class'               => 'dektrium\user\Module',
@@ -48,7 +55,7 @@ return [
 			],
 			'controllerMap'       => [
 				'settings' => 'common\controllers\SettingsController',
-				'profile' => 'common\controllers\ProfileController'
+				'profile'  => 'common\controllers\ProfileController'
 			],
 			'mailer'              => [
 				'sender'                => 'tri@usvsolutions.com', // or ['no-reply@myhost.com' => 'Sender name']
@@ -61,5 +68,6 @@ return [
 
 		],
 	],
+
 ];
 ?>
