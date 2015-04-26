@@ -17,7 +17,7 @@ namespace common\models;
 use yii\db\ActiveRecord;
 use yii\web\UploadedFile;
 use dektrium\user\models\Profile as BaseProfile;
-use yii\web\User;
+//use yii\web\User;
 
 
 /**

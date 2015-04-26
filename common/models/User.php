@@ -76,7 +76,7 @@ class User extends BaseUser
         $filePath = "/assets/img/avatar1_small.jpg"; // default avatar
         if ($this->getProfile()->avatar <> "") {
             $aPath = "/uploads/avatar/" . $this->id . "/" . $this->getProfile()->avatar;
-            $filePath = file_exists(\Yii::getAlias("@yiiRootFolder") . $aPath) ? $aPath : "/assets/img/avatar1_small.jpg"; // if Profile Photo does not exist, fall back to the default avatar
+            $filePath = file_exists(\Yii::getAlias("@appRootFolder") . $aPath) ? $aPath : "/assets/img/avatar1_small.jpg"; // if Profile Photo does not exist, fall back to the default avatar
         }
         return $filePath;
     }
