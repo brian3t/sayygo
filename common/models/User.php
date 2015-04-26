@@ -48,11 +48,36 @@ class User extends BaseUser
 			\Yii::getLogger()->log('User has been confirmed', Logger::LEVEL_INFO);
 
 			if ($this->save(false)) {
-				\Yii::$app->session->setFlash('success', \Yii::t('user', 'Thank you, registration is now complete.' . 'You will be redirected to the home page in a moment...'));
+
+
+								\Yii::$app->session->setFlash('success', \Yii::t('user', 'Thank you, registration is now complete.' . 'You will be redirected to the home page in a moment...'));
 				header( "refresh:5;url=/" );
 			} else {
 				\Yii::$app->session->setFlash('danger', \Yii::t('user', 'Something went wrong and your account has not been confirmed.'));
 			}
 		}
 	}
+
+    public function getProfile()
+    {
+        $profile = Profile::find()
+            ->where(['user_id' => $this->id])
+            ->one();
+
+        return $profile;
+    }
+    public function getFullName()
+    {
+        return $this->getProfile()->name;
+    }
+
+    public function getProfilePhoto()
+    {
+        $filePath = "/assets/img/avatar1_small.jpg"; // default avatar
+        if ($this->getProfile()->avatar <> "") {
+            $aPath = "/uploads/avatar/" . $this->id . "/" . $this->getProfile()->avatar;
+            $filePath = file_exists(\Yii::getAlias("@yiiRootFolder") . $aPath) ? $aPath : "/assets/img/avatar1_small.jpg"; // if Profile Photo does not exist, fall back to the default avatar
+        }
+        return $filePath;
+    }
 }

@@ -88,8 +88,8 @@ AppAsset::register( $this );
 					<?php if ( ! Yii::$app->user->getIsGuest() ): ?>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-								<img src="/assets/img/avatar1_small.jpg" alt="">
-								<span class="username"><?= Yii::$app->user->identity->username ?></span>
+								<img src="<?= \Yii::$app->user->identity->getProfilePhoto() ?>" alt=""  width="29px" height="29px">
+                                <span class="username"><?= Yii::$app->user->identity->getFullName() ?>
 								<b class="caret"></b>
 							</a>
 							<ul class="dropdown-menu extended logout">
