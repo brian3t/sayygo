@@ -66,9 +66,10 @@ class User extends BaseUser
 
         return $profile;
     }
+
     public function getFullName()
     {
-        return $this->getProfile()->name;
+        return trim($this->getProfile()->name) == "" ? $this->username : $this->getProfile()->name;
     }
 
     public function getProfilePhoto()
