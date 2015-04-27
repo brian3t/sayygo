@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "54b109f90e5f5dc4ea55e779acabeeac",
+    "hash": "1035cafa428b57099182caf0332d3548",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -328,7 +328,7 @@
         },
         {
             "name": "dektrium/yii2-user",
-            "version": "dev-master",
+            "version": "v0.9.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dektrium/yii2-user.git",
@@ -1551,12 +1551,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widgets.git",
-                "reference": "ec147a73b5d4f4a20aaaea2ae2c63e6a0cb0bfa7"
+                "reference": "b7eb84987a1bb55e227f6bf148a8322ec553a427"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-widgets/zipball/ec147a73b5d4f4a20aaaea2ae2c63e6a0cb0bfa7",
-                "reference": "ec147a73b5d4f4a20aaaea2ae2c63e6a0cb0bfa7",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widgets/zipball/b7eb84987a1bb55e227f6bf148a8322ec553a427",
+                "reference": "b7eb84987a1bb55e227f6bf148a8322ec553a427",
                 "shasum": ""
             },
             "require": {
@@ -1605,7 +1605,49 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-02-26 16:21:10"
+            "time": "2015-04-21 15:37:51"
+        },
+        {
+            "name": "mitalcoi/yii2-cronjobs",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mitalcoi/yii2-cronjobs.git",
+                "reference": "1ad543afd5db96e015395d123a320a7e3123893b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mitalcoi/yii2-cronjobs/zipball/1ad543afd5db96e015395d123a320a7e3123893b",
+                "reference": "1ad543afd5db96e015395d123a320a7e3123893b",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "mitalcoi\\cronjobs\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Sorokin Victor",
+                    "email": "st-agrail@yandex.ru"
+                }
+            ],
+            "description": "Simple and convenient installing console commands as cron jobs for Yii framework",
+            "keywords": [
+                "cron",
+                "crontab",
+                "schedule",
+                "yii"
+            ],
+            "time": "2014-09-25 06:39:45"
         },
         {
             "name": "phpspec/php-diff",
@@ -2261,7 +2303,8 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "kartik-v/yii2-widgets": 20,
-        "dektrium/yii2-user": 20
+        "dektrium/yii2-user": 20,
+        "mitalcoi/yii2-cronjobs": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

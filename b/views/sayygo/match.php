@@ -13,7 +13,7 @@ use backend\models\Sayygo;
 
 //$sayygoModel = new Sayygo();
 
-$this->title                   = "Sayygos matching your keyword: $kwName and sayygo: `" . substr( $sourceModel->full_text,
+$this->title                   = "Sayygos matching your keyword: #". ucwords($kwName)."# and sayygo: `" . substr( $sourceModel->full_text,
                                                                                                   0,
                                                                                                   40 ) . '...`';
 $this->params['breadcrumbs'][] = $this->title;
@@ -41,6 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
 					                      return $creator->username;
 				                      }
 			                      ],
+			                      //todo-b rewrite display match
 			                      ['label' => 'Compatibility',
 			                      'value' => function($model) use ($sourceModel){
 				                      return Sayygo::getMatch($sourceModel, $model)['percentCompat'];

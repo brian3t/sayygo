@@ -117,6 +117,14 @@ class Sayygo extends \yii\db\ActiveRecord {
 		                                                                                  [ 'sayygo_id' => 'id' ] );
 	}
 
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getKeywordsWhere($condition) {
+		return $this->hasMany( Keyword::className(),[ 'id' => 'keyword_id' ] )->onCondition($condition)->viaTable( 'keyword_sayygo',
+		                                                                                  [ 'sayygo_id' => 'id' ] );
+	}
+
 	public function afterSave( $insert,$changedAttributes ) {
 		//associate keywords with sayygo
 		$keywordIds = preg_split( '@,@',$this->keywordIds,null,PREG_SPLIT_NO_EMPTY );
@@ -174,11 +182,13 @@ class Sayygo extends \yii\db\ActiveRecord {
 			$distance = levenshtein( strval( $v ),strval( $target[ $k ] ) ) / max( strlen( strval( $v ) ),
 			                                                                       strlen( strval( $target[ $k ] ) ) );
 			if ( $distance === 0 ) {
-				$exactMatches[ $k ] = [ $v => $target[ $k ] ];
+//				$exactMatches[ $k ] = [ $v => $target[ $k ] ];
+				$exactMatches[] = $k;
 			} elseif
 			( $distance < self::$MATCH_THRESHOLD
 			) {
-				$closeMatches[ $k ] = [ $v => $target[ $k ] ];
+//				$closeMatches[ $k ] = [ $v => $target[ $k ] ];
+				$closeMatches[] = $k;
 				$points += $distance;
 			}
 		}

@@ -1,4 +1,7 @@
 <?php
+
+Yii::setAlias('@runnerScript', dirname(dirname(__DIR__)) . '/yii');
+
 $params = array_merge(
     require(__DIR__ . '/../../common/config/params.php'),
     require(__DIR__ . '/../../common/config/params-local.php'),
@@ -24,5 +27,22 @@ return [
             ],
         ],
     ],
+    'controllerMap' => [
+	    'cron' => [
+		    'class' => 'mitalcoi\cronjobs\CronController',
+		    'cronJobs' =>[
+			    'match/matchall' => [
+				    'cron'      => '* * * * *',
+			    ],
+			    'match/purge' => [
+				    'cron'      => '10 * * * *',
+			    ],
+
+		    ],
+	    ],
+    ],
     'params' => $params,
 ];
+
+
+

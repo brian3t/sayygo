@@ -4,7 +4,6 @@
   "keywords": ["yii2", "framework", "advanced", "application template"],
   "homepage": "http://www.yiiframework.com/",
   "type": "project",
-  "minimum-stability": "stable",
   "require": {
     "php": ">=5.4.0",
     "yiisoft/yii2": "*",
@@ -14,7 +13,8 @@
     "kartik-v/yii2-widgets": "dev-master",
     "yiisoft/yii2-debug": "~2.0",
     "dektrium/yii2-user": "0.9.*@dev",
-    "kartik-v/yii2-field-range": "*"
+    "kartik-v/yii2-field-range": "*",
+    "mitalcoi/yii2-cronjobs": "dev-master"
 
   },
   "require-dev": {

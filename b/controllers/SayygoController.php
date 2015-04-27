@@ -5,6 +5,7 @@ namespace backend\controllers;
 use backend\models\Keyword;
 use backend\models\KeywordSayygo;
 use backend\models\Languages;
+use backend\models\MatchSayygo;
 use Yii;
 use backend\models\Sayygo;
 use yii\data\ActiveDataProvider;
@@ -36,7 +37,7 @@ class SayygoController extends Controller {
 					],
 					[
 						'allow'   => true,
-						'actions' => [ 'create','index','delete','view','update','match' ],
+						'actions' => [ 'create','index','delete','view','update','match','matchall' ],
 						'roles'   => [ '@' ],
 					],
 				],
@@ -64,21 +65,78 @@ class SayygoController extends Controller {
 	 * Lists all Sayygo models matching a specific sayygo, specific keyword.
 	 * @return mixed
 	 */
-	public function actionMatch($id, $kwId) {
+	public function actionMatch( $id,$kwId ) {
 
 		$kwsgTableName = KeywordSayygo::tableName();
-		$dataProvider = new ActiveDataProvider( [
-			                                        'query' => Sayygo::find()->innerJoin($kwsgTableName,"sayygo.id = $kwsgTableName.sayygo_id")->where(['not', ['sayygo.id' => $id]])->andWhere(["keyword_id"=>$kwId])->limit(1000),
-		                                        ] );
+		$dataProvider  = new ActiveDataProvider( [
+			                                         'query' => Sayygo::find()->innerJoin( $kwsgTableName,
+			                                                                               "sayygo.id = $kwsgTableName.sayygo_id" )->where( [
+				                                                                                                                                'not',
+				                                                                                                                                [ 'sayygo.id' => $id ]
+			                                                                                                                                ] )->andWhere( [ "keyword_id" => $kwId ] )->limit( 1000 ),
+		                                         ] );
 
 		$modelData = $this->findModel( $id );
 
 		return $this->render( 'match',[
 			'dataProvider' => $dataProvider,
-			'sourceModel' => $modelData,
-			'kwName' => Keyword::findOne($kwId)->description
+			'sourceModel'  => $modelData,
+			'kwName'       => Keyword::findOne( $kwId )->description
 		] );
 	}
+
+	/**
+	 * Match all Sayygo models
+	 * @return mixed
+	 * @var \backend\models\Keyword $kw
+	 */
+	public static function actionMatchall() {
+		$kws           = Keyword::find()->all();
+		$numOfKeyword = count($kws);
+		$kwsgTableName = KeywordSayygo::tableName();
+		$sayygoModel   = new Sayygo();
+
+		//for each keyword
+		$numOfSayygo = $new = $existing = 0;
+		foreach ( $kws as $kw ) {
+			//find group of sayygo having that keyword
+			$sayygos = $kw->sayygos;
+			$numOfSayygo += count( $sayygos );
+			//foreach i
+			for ( $i = 0;$i < ( count( $sayygos ) - 1 );$i ++ ) {
+				//foreach j
+				for ( $j = $i + 1;$j < count( $sayygos );$j ++ ) {
+					//match sayygo i and sayygo j
+					//store matching info in table match_sayygo
+					$matchingResult = Sayygo::getMatch( $sayygos[ $i ],$sayygos[ $j ] );
+					//store keyword, sayygo first , sayygo second
+					$aMatch = MatchSayygo::findOne( [
+						                                'keyword_id'       => $kw->id,
+						                                'sayygo_first_id'  => $sayygos[ $i ]->id,
+						                                'sayygo_second_id' => $sayygos[ $j ]->id
+					                                ] );
+					if ( $aMatch === null ) {
+						$newMatch = new MatchSayygo();
+						$new++;
+					} else {
+						$newMatch = $aMatch;
+						$existing++;
+					}
+
+					//store matching array as json array with column name only
+					$newMatch->keyword_id       = $kw->id;
+					$newMatch->sayygo_first_id  = $sayygos[ $i ]->id;
+					$newMatch->sayygo_second_id = $sayygos[ $j ]->id;
+					$newMatch->exact_matches    = json_encode($matchingResult['exactMatches']);
+					$newMatch->close_matches    = json_encode($matchingResult['closeMatches']);
+					$newMatch->save();
+				}
+			}
+		}
+
+		return compact('numOfKeyword', 'numOfSayygo', 'new', 'existing');
+	}
+
 
 	/**
 	 * Displays a single Sayygo model.
@@ -110,7 +168,7 @@ class SayygoController extends Controller {
 			$keywords   = explode( ',',$keywords );
 			$keywordIds = [ ];
 			foreach ( $keywords as $kw ) {
-				$kw = preg_replace('/(\s)+/'," ",strtolower($kw));
+				$kw      = preg_replace( '/(\s)+/'," ",strtolower( $kw ) );
 				$kwModel = Keyword::findOne( [ 'description' => $kw ] );
 				if ( $kwModel == null ) {
 					$kwModel              = new Keyword();
@@ -156,7 +214,7 @@ class SayygoController extends Controller {
 			$keywords   = explode( ',',$keywords );
 			$keywordIds = [ ];
 			foreach ( $keywords as $kw ) {
-				$kw = preg_replace('/(\s)+/'," ",strtolower($kw));
+				$kw      = preg_replace( '/(\s)+/'," ",strtolower( $kw ) );
 				$kwModel = Keyword::findOne( [ 'description' => $kw ] );
 				if ( $kwModel == null ) {
 					$kwModel              = new Keyword();

@@ -17,6 +17,11 @@ use yii\web\NotFoundHttpException;
 
 
 class ProfileController extends BaseFileHelper{
+
+	function __construct() {
+		print "In ProfileController constructor\n";
+	}
+
 	/**
 	 * Shows user's profile.
 	 * @param  integer $id
