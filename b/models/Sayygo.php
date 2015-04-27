@@ -3,6 +3,7 @@
 namespace backend\models;
 
 use Yii;
+use yii\db\Query;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -26,6 +27,7 @@ use yii\helpers\ArrayHelper;
  *
  * @property KeywordSayygo[] $keywordSayygos
  * @property Keyword[] $keywords
+ * @property MatchSayygo[] $matchSayygos
  * @property User $user
  *
  * @property string keywordIds;
@@ -125,6 +127,16 @@ class Sayygo extends \yii\db\ActiveRecord {
 		                                                                                  [ 'sayygo_id' => 'id' ] );
 	}
 
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getMatchSayygos()
+	{
+		$query = new Query();
+		$query->select('*')->from(MatchSayygo::tableName())->where(['sayygo_first_id'=>$this->id]);
+		return $this->hasMany(MatchSayygo::className(), ['sayygo_second_id' => 'id'])->union($query);
+	}
+
 	public function afterSave( $insert,$changedAttributes ) {
 		//associate keywords with sayygo
 		$keywordIds = preg_split( '@,@',$this->keywordIds,null,PREG_SPLIT_NO_EMPTY );
@@ -171,7 +183,7 @@ class Sayygo extends \yii\db\ActiveRecord {
 		$source        = $source->getAttributes( null,[ 'id' ] );
 		$target        = $target->getAttributes( null,[ 'id' ] );
 		$points        = 0;
-		$percentCompat = 0;
+		$compatibility = 0;
 		unset( $source['id'],$target['id'],$source['created_at'],$target['created_at'],$source['updated_at'],$target['updated_at'],$source['full_text'],$target['full_text'],$source['user_id'],$target['user_id'] );
 		$closeMatches = [ ];
 		$exactMatches = [ ];
@@ -195,13 +207,13 @@ class Sayygo extends \yii\db\ActiveRecord {
 		if ( $points > 0 ) {
 			$closeMatches['points'] = $points;
 		}
-		$percentCompat = count( $exactMatches );
+		$compatibility = count( $exactMatches );
 		if ( count( $closeMatches ) !== 0 ) {
-			$percentCompat += $points / count( $closeMatches );
+			$compatibility += $points / count( $closeMatches );
 		}
 
 		return [
-			'percentCompat' => $percentCompat,
+			'compatibility' => $compatibility,
 			'closeMatches'  => $closeMatches,
 			'exactMatches'  => $exactMatches
 		];

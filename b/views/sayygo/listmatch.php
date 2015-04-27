@@ -10,12 +10,14 @@ use backend\models\Sayygo;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $sourceModel backend\models\Sayygo */
 /* @var $kwName string */
+/* @var $mtsgs array */
 
-//$sayygoModel = new Sayygo();
+//note that each $model is targetSayygo, and $sourceModel is sourceSayygo, the base sayygo we are comparing against
+//
 
-$this->title                   = "Sayygos matching your keyword: #". ucwords($kwName)."# and sayygo: `" . substr( $sourceModel->full_text,
-                                                                                                  0,
-                                                                                                  40 ) . '...`';
+$this->title                   = "Sayygos matching your keyword: #" . ucwords( $kwName ) . "# and sayygo: `" . substr( $sourceModel->full_text,
+                                                                                                                       0,
+                                                                                                                       40 ) . '...`';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="sayygo-match">
@@ -42,10 +44,11 @@ $this->params['breadcrumbs'][] = $this->title;
 				                      }
 			                      ],
 			                      //todo-b rewrite display match
-			                      ['label' => 'Compatibility',
-			                      'value' => function($model) use ($sourceModel){
-				                      return Sayygo::getMatch($sourceModel, $model)['percentCompat'];
-			                      }],
+			                      [
+				                      'label'     => 'Compatibility',
+				                      'attribute' => 'matchSayygos',
+				                      'value'     => function ( $model ) use ( $mtsgs ) { return $mtsgs[ $model->id ]['compatibility']; }
+			                      ],
 			                      [
 				                      'label' => 'Exact matching criteria',
 				                      'value' => function ( $model ) use ( $sourceModel ) {

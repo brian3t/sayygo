@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
 					                      $kws = $data->keywords;
 					                      $return = [];
 					                      foreach ($kws as $kw){
-						                      $return[] = Html::a($kw->description, Url::to(['match', 'id' => $data->id, 'kwId' => $kw->id]));
+						                      $return[] = Html::a($kw->description, Url::to(['listmatch', 'id' => $data->id, 'kwId' => $kw->id]));
 					                      }
 					                      return implode('&nbsp', $return);
 				                      }

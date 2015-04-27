@@ -9,11 +9,13 @@ use backend\models\MatchSayygo;
 use Yii;
 use backend\models\Sayygo;
 use yii\data\ActiveDataProvider;
+use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\db\QueryBuilder;
 
 /**
  * SayygoController implements the CRUD actions for Sayygo model.
@@ -37,7 +39,7 @@ class SayygoController extends Controller {
 					],
 					[
 						'allow'   => true,
-						'actions' => [ 'create','index','delete','view','update','match','matchall' ],
+						'actions' => [ 'create','index','delete','view','update','match','matchall','listmatch' ],
 						'roles'   => [ '@' ],
 					],
 				],
@@ -61,29 +63,83 @@ class SayygoController extends Controller {
 		] );
 	}
 
-	/**
-	 * Lists all Sayygo models matching a specific sayygo, specific keyword.
-	 * @return mixed
+	/*
+	 * Perform match on a specific sayygo, specific keyword
+	 * Save result to match_sayygo table
+	 * Similar to actionMatchall, but this is only for a specific sayygo, specific kw
+	 * TODO-B: Sayygo OnSave() and onUpdate() and onCreate() will fire this automatically
 	 */
 	public function actionMatch( $id,$kwId ) {
+		$sourceSayygo = Sayygo::findOne( $id );
+		$sayygos      = Keyword::findOne( $kwId )->sayygos;
+		foreach ( $sayygos as $targetSayygo ) {
+			if ( $targetSayygo->id == $id ) {
+				continue;
+			}
+			$matchingResult = Sayygo::getMatch( $sourceSayygo,$targetSayygo );
+			//store keyword, sayygo first , sayygo second
+			$sayygo_first_id  = min( $sourceSayygo->id,$targetSayygo->id );
+			$sayygo_second_id = max( $sourceSayygo->id,$targetSayygo->id );
+			$aMatch           = MatchSayygo::findOne( [
+				                                          'keyword_id'       => $kwId,
+				                                          'sayygo_first_id'  => $sayygo_first_id,
+				                                          'sayygo_second_id' => $sayygo_second_id
+			                                          ] );
+			if ( $aMatch === null ) {
+				$newMatch = new MatchSayygo();
+			} else {
+				$newMatch = $aMatch;
+			}
 
-		$kwsgTableName = KeywordSayygo::tableName();
-		$dataProvider  = new ActiveDataProvider( [
-			                                         'query' => Sayygo::find()->innerJoin( $kwsgTableName,
-			                                                                               "sayygo.id = $kwsgTableName.sayygo_id" )->where( [
-				                                                                                                                                'not',
-				                                                                                                                                [ 'sayygo.id' => $id ]
-			                                                                                                                                ] )->andWhere( [ "keyword_id" => $kwId ] )->limit( 1000 ),
-		                                         ] );
+			//store matching array as json array with column name only
+			$newMatch->keyword_id       = $kwId;
+			$newMatch->sayygo_first_id  = $sayygo_first_id;
+			$newMatch->sayygo_second_id = $sayygo_second_id;
+			$newMatch->exact_matches    = json_encode( $matchingResult['exactMatches'] );
+			$newMatch->close_matches    = json_encode( $matchingResult['closeMatches'] );
+			$newMatch->compatibility    = $matchingResult['compatibility'];
+			$newMatch->save();
+		}
+	}
 
+
+	/**
+	 * Lists all Sayygo models matching a specific sayygo, specific keyword.
+	 * In table format
+	 * @return mixed
+	 */
+	public function actionListmatch( $id,$kwId ) {
+		$mtsgTableName = MatchSayygo::tableName();
+		$this->actionMatch( $id,$kwId );
 		$modelData = $this->findModel( $id );
+		$mtsgs     = $modelData->getMatchSayygos();
+		$mtsgs     = ArrayHelper::index( $mtsgs->asArray()->all(),
+		                                 'sayygo_second_id' );//get all attributes, index by target sayygo's id
+		$query     = new Query();
+		$query->select( 'sayygo.*' )->from( 'sayygo' )->innerJoin( "(select * from $mtsgTableName mtsg where mtsg.sayygo_second_id = $id) as mtsg2",
+		                                                           "mtsg2.sayygo_first_id = sayygo.id" )->where( [
+			                                                                                                         'not',
+			                                                                                                         [ 'sayygo.id' => $id ]
+		                                                                                                         ] );
+		$dataProvider = new ActiveDataProvider( [
+			                                        'query' => Sayygo::find()->innerJoin( "(select * from $mtsgTableName mtsg where mtsg.sayygo_first_id = $id) as mtsg1",
+			                                                                              "mtsg1.sayygo_second_id = sayygo.id" )->where( [
+				                                                                                                                             'not',
+				                                                                                                                             [ 'sayygo.id' => $id ]
+			                                                                                                                             ] )
+			                                                         ->union( $query )
+			                                                         ->orderBy( 'compatibility desc' )
+			                                                         ->limit( 1000 ),
+		                                        ] );
 
-		return $this->render( 'match',[
+		return $this->render( 'listmatch',[
 			'dataProvider' => $dataProvider,
 			'sourceModel'  => $modelData,
-			'kwName'       => Keyword::findOne( $kwId )->description
+			'kwName'       => Keyword::findOne( $kwId )->description,
+			'mtsgs'        => $mtsgs
 		] );
 	}
+
 
 	/**
 	 * Match all Sayygo models
@@ -92,7 +148,7 @@ class SayygoController extends Controller {
 	 */
 	public static function actionMatchall() {
 		$kws           = Keyword::find()->all();
-		$numOfKeyword = count($kws);
+		$numOfKeyword  = count( $kws );
 		$kwsgTableName = KeywordSayygo::tableName();
 		$sayygoModel   = new Sayygo();
 
@@ -110,31 +166,34 @@ class SayygoController extends Controller {
 					//store matching info in table match_sayygo
 					$matchingResult = Sayygo::getMatch( $sayygos[ $i ],$sayygos[ $j ] );
 					//store keyword, sayygo first , sayygo second
-					$aMatch = MatchSayygo::findOne( [
-						                                'keyword_id'       => $kw->id,
-						                                'sayygo_first_id'  => $sayygos[ $i ]->id,
-						                                'sayygo_second_id' => $sayygos[ $j ]->id
-					                                ] );
+					$sayygo_first_id  = min( $sayygos[ $i ]->id,$sayygos[ $j ]->id );
+					$sayygo_second_id = max( $sayygos[ $i ]->id,$sayygos[ $j ]->id );
+					$aMatch           = MatchSayygo::findOne( [
+						                                          'keyword_id'       => $kw->id,
+						                                          'sayygo_first_id'  => $sayygo_first_id,
+						                                          'sayygo_second_id' => $sayygo_second_id
+					                                          ] );
 					if ( $aMatch === null ) {
 						$newMatch = new MatchSayygo();
-						$new++;
+						$new ++;
 					} else {
 						$newMatch = $aMatch;
-						$existing++;
+						$existing ++;
 					}
 
 					//store matching array as json array with column name only
 					$newMatch->keyword_id       = $kw->id;
-					$newMatch->sayygo_first_id  = $sayygos[ $i ]->id;
-					$newMatch->sayygo_second_id = $sayygos[ $j ]->id;
-					$newMatch->exact_matches    = json_encode($matchingResult['exactMatches']);
-					$newMatch->close_matches    = json_encode($matchingResult['closeMatches']);
+					$newMatch->sayygo_first_id  = $sayygo_first_id;
+					$newMatch->sayygo_second_id = $sayygo_second_id;
+					$newMatch->exact_matches    = json_encode( $matchingResult['exactMatches'] );
+					$newMatch->close_matches    = json_encode( $matchingResult['closeMatches'] );
+					$newMatch->compatibility    = $matchingResult['compatibility'];
 					$newMatch->save();
 				}
 			}
 		}
 
-		return compact('numOfKeyword', 'numOfSayygo', 'new', 'existing');
+		return compact( 'numOfKeyword','numOfSayygo','new','existing' );
 	}
 
 
