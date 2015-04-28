@@ -4,7 +4,6 @@ body {
 }
 
 a, a:hover {
-    text-shadow: none !important;
     color: #4a8bc2;
 }
 

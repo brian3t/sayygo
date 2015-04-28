@@ -2,6 +2,7 @@
 
 namespace backend\models;
 
+use common\models\User;
 use Yii;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
@@ -28,7 +29,7 @@ use yii\helpers\ArrayHelper;
  * @property KeywordSayygo[] $keywordSayygos
  * @property Keyword[] $keywords
  * @property MatchSayygo[] $matchSayygos
- * @property User $user
+ * @property \common\models\User $user
  *
  * @property string keywordIds;
  */
@@ -220,10 +221,10 @@ class Sayygo extends \yii\db\ActiveRecord {
 	}
 
 	public function getUpdatedAtFormatted() {
-		return \yii::$app->formatter->asDatetime( $this->updated_at,'full' );
+		return \yii::$app->formatter->asDatetime( $this->updated_at);
 	}
 
 	public function getCreatedAtFormatted() {
-		return \yii::$app->formatter->asDatetime( $this->created_at,'full' );
+		return \yii::$app->formatter->asDatetime( $this->created_at);
 	}
 }

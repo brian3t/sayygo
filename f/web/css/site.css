@@ -126,6 +126,9 @@ div.home-pic {
     width: 100%;
     z-index: 20;
 }
+#home-page .jumbotron a{
+    color: #444;
+}
 
 #home-page h1 {
     color: rgb(255, 255, 255);
@@ -134,3 +137,8 @@ div.home-pic {
 #home-page #top > img{
     width: 100%;
 }
+#browse-input{width: 30%;margin: 0 auto;font-size: 180%;}
+#browse-input label{text-shadow: 1px 1px beige;}
+#browse-input *{margin-bottom: 8px;}
+#browse-input #keyword {text-align: center;padding: 3px;width: 100%}
+.dimmed{opacity: 0.2}

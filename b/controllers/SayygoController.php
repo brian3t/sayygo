@@ -16,11 +16,13 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\db\QueryBuilder;
+use yii\web\Request;
 
 /**
  * SayygoController implements the CRUD actions for Sayygo model.
  */
 class SayygoController extends Controller {
+//	public $enableCsrfValidation = false;
 	public function behaviors() {
 		return [
 			'verbs'  => [
@@ -34,12 +36,20 @@ class SayygoController extends Controller {
 				'rules' => [
 					[
 						'allow'   => true,
-						'actions' => [ '' ],
+						'actions' => [ 'browse','view' ],
 						'roles'   => [ '?' ],
 					],
 					[
 						'allow'   => true,
-						'actions' => [ 'create','index','delete','view','update','match','matchall','listmatch' ],
+						'actions' => [
+							'create',
+							'index',
+							'delete',
+							'update',
+							'match',
+							'matchall',
+							'listmatch','browse','view'
+						],
 						'roles'   => [ '@' ],
 					],
 				],
@@ -128,6 +138,7 @@ class SayygoController extends Controller {
 				                                                                                                                             [ 'sayygo.id' => $id ]
 			                                                                                                                             ] )
 			                                                         ->union( $query )
+			                                                         ->where( [ 'keyword_id' => $kwId ] )
 			                                                         ->orderBy( 'compatibility desc' )
 			                                                         ->limit( 1000 ),
 		                                        ] );
@@ -137,6 +148,39 @@ class SayygoController extends Controller {
 			'sourceModel'  => $modelData,
 			'kwName'       => Keyword::findOne( $kwId )->description,
 			'mtsgs'        => $mtsgs
+		] );
+	}
+
+	public function beforeAction($action){
+		if ($action->id == "browse"){
+			$this->enableCsrfValidation = false;
+		}
+		return parent::beforeAction($action);
+	}
+
+	/**
+	 * Lists all Sayygo models matching a specific sayygo, specific keyword.
+	 * In table format
+	 * @return mixed
+	 */
+	public function actionBrowse() {
+
+		$keyword = \yii::$app->request->post('keyword');
+		$keyword = filter_input(INPUT_POST,'keyword');
+		$keyword = str_replace("  "," ", strtolower($keyword));
+
+		$kwId = Keyword::findOne(['description'=>$keyword])->id;
+		if (empty($kwId)){
+			$kwId = "null";
+		}
+
+		$dataProvider = new ActiveDataProvider( [
+			                                        'query' => Sayygo::find()->innerJoin("(SELECT * FROM " . KeywordSayygo::tableName() ." WHERE keyword_id = $kwId) as kwsg",'sayygo.id = kwsg.sayygo_id')->limit(1000),
+		                                        ] );
+
+		return $this->render( 'browse',[
+			'dataProvider' => $dataProvider,
+			'keyword' => $keyword
 		] );
 	}
 
@@ -263,8 +307,7 @@ class SayygoController extends Controller {
 	 *
 	 * @return mixed
 	 */
-	public
-	function actionUpdate( $id ) {
+	public function actionUpdate( $id ) {
 		$model = $this->findModel( $id );
 
 		if ( $model->load( Yii::$app->request->post() ) ) {

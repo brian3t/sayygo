@@ -113,7 +113,8 @@ div, input, select, textarea, span, img, table, td, th, p, a, button, ul, li {
 }
 
 #brand {
-    color: #BAD9AD;
+    color: #D5F3D8;
+    text-shadow: 1px 0px brown;
     font-family: "MyriadPro-Bold";
     font-size: 170%;
     line-height: 26px;
@@ -4355,7 +4356,8 @@ h3.page-title {
 /*
 for sayygo temp fix
 */
-.sidebar-scroll, .breadcrumb {display: none}
+.sidebar-scroll, .breadcrumb , .search-wrap{display: none}
+
 /*
 for sayygo temp fix //
 */

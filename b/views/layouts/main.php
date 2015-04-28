@@ -51,50 +51,56 @@ AppAsset::register( $this );
 			</a>
 
 			<!-- BEGIN RESPONSIVE MENU TOGGLER -->
-						<a class="navbar-inverse btn-navbar navbar-toggle collapsed" id="main_menu_trigger" data-toggle="collapse"
-						   data-target=".navbar-collapse">
-							<span class="sr-only">Toggle navigation</span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						</a>
+			<a class="navbar-inverse btn-navbar navbar-toggle collapsed" id="main_menu_trigger" data-toggle="collapse"
+			   data-target=".navbar-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</a>
 			<!-- END RESPONSIVE MENU TOGGLER -->
 			<div id="top_menu" class="nav notify-row navbar-nav hidden-xs">
 				<!-- BEGIN NOTIFICATION -->
 				<ul class="nav top-menu navbar-nav">
 					<li class="dropdown"><a href="/f/web" class="dropdown-toggle">Go to Front page</a>
 					</li>
+					<?php if ( ! yii::$app->user->getIsGuest() ){ ?>
+						<li class="dropdown"><a href="/b/web/sayygo/index" class="dropdown-toggle">View my sayygos</a>
+						</li>
+					<?php } ?>
 				</ul>
 			</div>
 			<!-- END  NOTIFICATION -->
 			<div class="top-nav hidden-xs">
 				<ul class="pull-right top-menu nav navbar-nav">
 					<!-- BEGIN SUPPORT -->
-<!--					<li class="dropdown mtop5">-->
-<!---->
-<!--						<a class="dropdown-toggle element" data-placement="bottom" data-toggle="tooltip" href="#"-->
-<!--						   data-original-title="Chat">-->
-<!--							<i class="icon-comments-alt"></i>-->
-<!--						</a>-->
-<!--					</li>-->
-<!--					<li class="dropdown mtop5">-->
-<!--						<a class="dropdown-toggle element" data-placement="bottom" data-toggle="tooltip" href="#"-->
-<!--						   data-original-title="Help">-->
-<!--							<i class="icon-headphones"></i>-->
-<!--						</a>-->
-<!--					</li>-->
+					<!--					<li class="dropdown mtop5">-->
+					<!---->
+					<!--						<a class="dropdown-toggle element" data-placement="bottom" data-toggle="tooltip" href="#"-->
+					<!--						   data-original-title="Chat">-->
+					<!--							<i class="icon-comments-alt"></i>-->
+					<!--						</a>-->
+					<!--					</li>-->
+					<!--					<li class="dropdown mtop5">-->
+					<!--						<a class="dropdown-toggle element" data-placement="bottom" data-toggle="tooltip" href="#"-->
+					<!--						   data-original-title="Help">-->
+					<!--							<i class="icon-headphones"></i>-->
+					<!--						</a>-->
+					<!--					</li>-->
 					<!-- END SUPPORT -->
 					<!-- BEGIN USER LOGIN DROPDOWN -->
 					<?php if ( ! Yii::$app->user->getIsGuest() ): ?>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-								<img src="<?= \Yii::$app->user->identity->getProfilePhoto() ?>" alt=""  width="29px" height="29px">
+								<img src="<?= \Yii::$app->user->identity->getProfilePhoto() ?>" alt="" width="29px"
+								     height="29px">
                                 <span class="username"><?= Yii::$app->user->identity->getFullName() ?>
-								<b class="caret"></b>
+	                                <b class="caret"></b>
 							</a>
 							<ul class="dropdown-menu extended logout">
 								<li><a href="/b/web/sayygo/index">My Sayygos</a></li>
-								<li><a href="/b/web/user/settings/profile"><i class="icon-user"></i> My Settings</a></li>
+								<li><a href="/b/web/user/settings/profile"><i class="icon-user"></i> My Settings</a>
+								</li>
 								<li><a class="yii-controls" type="button" data-method="post"
 								       href="/b/web/site/logout"><i class="icon-key"></i> Log
 										Out</a></li>
