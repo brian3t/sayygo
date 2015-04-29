@@ -39,6 +39,10 @@ return [
 				],
 			],
 		],
+		'mailer' => [
+			'class' => 'yii\swiftmailer\Mailer',
+			'viewPath' => '@common/mail',
+		],
 	],
 	'bootstrap'  => [ 'debug' ],
 	'modules'    => [

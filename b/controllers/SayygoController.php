@@ -48,7 +48,7 @@ class SayygoController extends Controller {
 							'update',
 							'match',
 							'matchall',
-							'listmatch','browse','view'
+							'listmatch','browse','view','testing'
 						],
 						'roles'   => [ '@' ],
 					],
@@ -169,9 +169,12 @@ class SayygoController extends Controller {
 		$keyword = filter_input(INPUT_POST,'keyword');
 		$keyword = str_replace("  "," ", strtolower($keyword));
 
-		$kwId = Keyword::findOne(['description'=>$keyword])->id;
+		$kwId = Keyword::findOne(['description'=>$keyword]);
 		if (empty($kwId)){
 			$kwId = "null";
+		}
+		else {
+			$kwId = $kwId->id;
 		}
 
 		$dataProvider = new ActiveDataProvider( [
@@ -182,6 +185,14 @@ class SayygoController extends Controller {
 			'dataProvider' => $dataProvider,
 			'keyword' => $keyword
 		] );
+	}
+
+	/*
+	 * testing
+	 */
+	public function actionTesting($id){
+		$sg = Sayygo::findOne($id);
+		$sgs = $sg->getSayygosShareKeyword();
 	}
 
 

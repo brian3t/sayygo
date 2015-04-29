@@ -45,7 +45,11 @@ $this->params['breadcrumbs'][] = $this->title;
 			                        'partner_sex',
 			                        'partner_experience',
 			                        'partner_num_preference',
-			                        'num_of_partner'
+			                        [
+				                        'attribute' => 'num_of_partner',
+				                        'visible'   => ( ! in_array( $model->partner_num_preference,
+				                                                     [ "One","More than 10" ] ) )
+			                        ]
 		                        ],
 	                        ] ) ?>
 

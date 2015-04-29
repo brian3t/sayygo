@@ -34,6 +34,9 @@ return [
 			    'match/matchall' => [
 				    'cron'      => '* * * * *',
 			    ],
+			    'match/processemail' => [
+				    'cron'      => '* * * * *',
+			    ],
 			    'match/purge' => [
 				    'cron'      => '10 * * * *',
 			    ],
@@ -41,6 +44,7 @@ return [
 		    ],
 	    ],
     ],
+	'aliases' => ['@appRootFolder' => realpath(dirname(__FILE__).'/../../')],
     'params' => $params,
 ];
 

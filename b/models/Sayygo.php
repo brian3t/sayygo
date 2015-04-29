@@ -3,9 +3,11 @@
 namespace backend\models;
 
 use common\models\User;
+use console\controllers\MatchController;
 use Yii;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
+use vova07\console\ConsoleRunner;
 
 /**
  * This is the model class for table "sayygo".
@@ -123,19 +125,20 @@ class Sayygo extends \yii\db\ActiveRecord {
 	/**
 	 * @return \yii\db\ActiveQuery
 	 */
-	public function getKeywordsWhere($condition) {
-		return $this->hasMany( Keyword::className(),[ 'id' => 'keyword_id' ] )->onCondition($condition)->viaTable( 'keyword_sayygo',
-		                                                                                  [ 'sayygo_id' => 'id' ] );
+	public function getKeywordsWhere( $condition ) {
+		return $this->hasMany( Keyword::className(),
+		                       [ 'id' => 'keyword_id' ] )->onCondition( $condition )->viaTable( 'keyword_sayygo',
+		                                                                                        [ 'sayygo_id' => 'id' ] );
 	}
 
 	/**
 	 * @return \yii\db\ActiveQuery
 	 */
-	public function getMatchSayygos()
-	{
+	public function getMatchSayygos() {
 		$query = new Query();
-		$query->select('*')->from(MatchSayygo::tableName())->where(['sayygo_first_id'=>$this->id]);
-		return $this->hasMany(MatchSayygo::className(), ['sayygo_second_id' => 'id'])->union($query);
+		$query->select( '*' )->from( MatchSayygo::tableName() )->where( [ 'sayygo_first_id' => $this->id ] );
+
+		return $this->hasMany( MatchSayygo::className(),[ 'sayygo_second_id' => 'id' ] )->union( $query );
 	}
 
 	public function afterSave( $insert,$changedAttributes ) {
@@ -147,6 +150,11 @@ class Sayygo extends \yii\db\ActiveRecord {
 			$this->link( 'keywords',$keyword );
 		}
 		$this->populateKeywordIds();
+		if ( $insert ) {
+			$cr = new ConsoleRunner(['file' => '@appRootFolder/yii']);
+			$cr->run(' match/updatesinglesayygo ' . $this->id);
+		}
+		parent::afterSave( $insert,$changedAttributes );
 	}
 
 	/**
@@ -221,10 +229,27 @@ class Sayygo extends \yii\db\ActiveRecord {
 	}
 
 	public function getUpdatedAtFormatted() {
-		return \yii::$app->formatter->asDatetime( $this->updated_at);
+		return \yii::$app->formatter->asDatetime( $this->updated_at );
 	}
 
 	public function getCreatedAtFormatted() {
-		return \yii::$app->formatter->asDatetime( $this->created_at);
+		return \yii::$app->formatter->asDatetime( $this->created_at );
 	}
+
+	/*
+	 * get sayygos sharing same keywords
+	 */
+	public function getSayygosShareKeyword( $kws = null ) {
+		$result = [ ];
+		if ( is_null( $kws ) ) {
+			$kws = $this->keywords;//match everything
+		}
+		foreach ( $kws as $kw ) {
+			$result = array_merge( $kw->sayygos,$result );
+		}
+		$result = array_filter( $result,function ( $v ) { return ( $v->id !== $this->id ); } );
+
+		return $result;
+	}
+
 }

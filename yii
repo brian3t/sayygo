@@ -31,5 +31,8 @@ $config = yii\helpers\ArrayHelper::merge(
 unset($config['modules']['user']['controllerMap']);
 
 $application = new yii\console\Application($config);
+//since console does not have baseUrl, get this from common/main-local
+Yii::$app->urlManager->setBaseUrl($config['aliases']['absoluteBaseUrl']);
+
 $exitCode = $application->run();
 exit($exitCode);
