@@ -61,7 +61,7 @@ class MatchController extends Controller {
 				$emailQ                         = new EmailQueue();
 				$emailQ->user_id                = $sgShareKw->user_id;
 				$emailQ->type                   = "match";
-				$emailQ->matching_sayygos       = json_encode( $sg->getAttributes() );
+				$emailQ->matching_sayygos       = json_encode( $sgShareKw->getAttributes() );
 				$emailQ->notification_frequency = "immediate";
 				$emailQ->dday                   = \yii::$app->formatter->asDatetime( 'now','y-MM-d H:m:s' );
 				$emailQ->status                 = 'queueing';
@@ -107,10 +107,11 @@ class MatchController extends Controller {
 		foreach ( $emails as $email ) {
 			/** @var array() $email */
 
-			$body    = "";
-			$users   = [ ];
-			$subject = "We found new matching sayygos for you";
-			if ( $email['notification_frequency'] === "immediate" ) {
+			$body     = "";
+			$users    = [ ];
+			$bccUsers = [ ];
+			$subject  = "We found new matching sayygos for you";
+			if ( ( $email['type'] === 'match' ) && ( $email['notification_frequency'] === "immediate" ) ) {
 				//get list of sayygos
 				$matchingSg = json_decode( $email['matching_sayygos'] );
 				/** @var \backend\models\sayygo $matchingSg */
@@ -121,7 +122,7 @@ class MatchController extends Controller {
 				$body     = "There is one new sayygo matching your destination: <br/> <br/> ";
 				$body .= "<i>$matchingSg->full_text</i>";
 				$body .= "<br/> <br/>This sayygo was created by <i>$username</i> on " . Yii::$app->formatter->asDate( $matchingSg->created_at,
-				                                                                                                      'EEEE, MMMM d, yyyy h:mm a, Z' ) . " and is expected to start on " . ( empty( $matchingSg->start_date ) ? ' whenever' : $matchingSg->start_date );
+				                                                                                                      'EEEE, MMMM d, yyyy h:mm a, z' ) . " and is expected to start on " . ( empty( $matchingSg->start_date ) ? ' whenever' : $matchingSg->start_date );
 				$body .= ", ending on " . ( empty( $matchingSg->end_date ) ? ' whenever' : $matchingSg->end_date );
 				$body .= ".<br/> The partner's sex preference " . ( empty( $matchingSg->partner_sex ) ? ' doesn\'t matter' : ( "is " . $matchingSg->partner_sex ) );
 				$body .= "; partners should have experience as: " . ( empty( $matchingSg->partner_experience ) ? ' whatever' : $matchingSg->partner_experience ) . ", preferably " . $matchingSg->partner_num_preference . " partners.";
@@ -133,14 +134,33 @@ class MatchController extends Controller {
 					                                                                   'id' => $matchingSg->id
 				                                                                   ] );
 				$subject = "We found a new matching sayygo for you that was created on " . Yii::$app->formatter->asDate( $matchingSg->created_at,
-				                                                                                                         'EEEE, MMMM d, yyyy h:mm a, Z' );
+				                                                                                                         'EEEE, MMMM d, yyyy h:mm a, z' );
+			} elseif ( $email['type'] === 'message' ) {
+				$users[] = User::findOne( $email['to_user_id'] );
+				if ( $email['send_copy'] ) {
+					$bccUsers[] = User::findOne( $email['user_id'] );
+				}
+				$subject = "You have a new message from " . User::findOne( $email['user_id'] )->getFullName() . ", " . $email['subject'];
+				$body    = $email['body'];
+				$body .= "<br/>To reply to this user, please click here:" . Url::to( '@absoluteBaseUrl/b/web/communication/create/' . $email['to_user_id'] . '/' . $email['user_id'] . '/null/' . $email['id'] );
+
 			}
 			//send them to user's email
-			$to = implode( ",",array_reduce( $users,function ( $carry,$item ) {
+			$to = "";
+			$to = \usv\yii2helper\PHPHelper::imp( ",",array_reduce( $users,function ( $carry,$item ) {
 				$carry[] = $item->email;
 
 				return $carry;
 			} ) );
+
+			//send them to bcc user's email
+			$bccTo = "";
+			$bccTo = \usv\yii2helper\PHPHelper::imp( ",",array_reduce( array_filter( $bccUsers ),
+				function ( $carry,$item ) {
+					$carry[] = $item->email;
+
+					return $carry;
+				} ) );
 
 			//set subject, set recipient, set body
 			//send
@@ -152,13 +172,16 @@ class MatchController extends Controller {
 				                          'email_queue_id' => $emailQueueItem->id,
 				                          'old_status'     => $emailQueueItem->status
 			                          ] );
-			if ( Yii::$app->mailer->compose()
-			                      ->setFrom( Yii::$app->params['adminEmail'] )
-			                      ->setTo( $to )
-			                      ->setSubject( $subject )
-			                      ->setHtmlBody( $body )
-			                      ->send()
-			) {
+			$mailer = Yii::$app->mailer->compose()
+			                           ->setFrom( Yii::$app->params['adminEmail'] )
+			                           ->setTo( $to )
+			                           ->setSubject( $subject )
+			                           ->setHtmlBody( $body,'html' );
+			if ( ! empty( $bccTo ) ) {
+				$mailer->setBcc( $bccTo );
+			}
+
+			if ( $mailer->send() ) {
 
 				//if successful, clears email from queue
 				$emailQueueItem->setAttributes( [ 'status' => 'sent','dday' => null ] );
@@ -179,6 +202,10 @@ class MatchController extends Controller {
 		}
 
 		return compact( $numOfEmailProcessed,$processes );
+	}
+
+	public function  actionTest() {
+		echo Url::to( '@absoluteBaseUrl/b/web/communication/create/' );
 	}
 
 }

@@ -15,7 +15,9 @@
     "dektrium/yii2-user": "0.9.*@dev",
     "kartik-v/yii2-field-range": "*",
     "mitalcoi/yii2-cronjobs": "dev-master",
-    "vova07/yii2-console-runner-extension": "*"
+    "vova07/yii2-console-runner-extension": "*",
+    "kartik-v/yii2-widget-growl": "*",
+    "usv/yii2helper": "dev-master"
   },
   "require-dev": {
     "yiisoft/yii2-codeception": "*",

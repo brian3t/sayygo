@@ -36,9 +36,10 @@ $this->params['breadcrumbs'][] = $this->title;
 				<?= $form->field($model, 'username') ?>
 
 				<?= $form->field($model, 'email') ?>
+				<?= $form->field($model, 'email_repeat')->label('Repeat email') ?>
 
 				<?php if ($module->enableGeneratingPassword == false): ?>
-					<?= $form->field($model, 'password')->passwordInput() ?>
+					<?= $form->field($model, 'password')->passwordInput()->label("Password",['class'=>'hint--info hint--top', 'data-hint'=>"Password must have at least 6 characters"]) ?>
 					<?= $form->field($model, 'password_repeat')->passwordInput(['class' => 'form-control'])->label('Repeat password') ?>
 				<?php endif ?>
 				<div class="alert alert-info">
@@ -58,3 +59,6 @@ $this->params['breadcrumbs'][] = $this->title;
 		</p>
 	</div>
 </div>
+<?php
+$this->registerCssFile('//cdn.jsdelivr.net/hint.css/1.3.2/hint.min.css');
+?>

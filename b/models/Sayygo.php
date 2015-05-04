@@ -151,8 +151,8 @@ class Sayygo extends \yii\db\ActiveRecord {
 		}
 		$this->populateKeywordIds();
 		if ( $insert ) {
-			$cr = new ConsoleRunner(['file' => '@appRootFolder/yii']);
-			$cr->run(' match/updatesinglesayygo ' . $this->id);
+			$cr = new ConsoleRunner( [ 'file' => '@appRootFolder/yii' ] );
+			$cr->run( ' match/updatesinglesayygo ' . $this->id );
 		}
 		parent::afterSave( $insert,$changedAttributes );
 	}
@@ -247,7 +247,9 @@ class Sayygo extends \yii\db\ActiveRecord {
 		foreach ( $kws as $kw ) {
 			$result = array_merge( $kw->sayygos,$result );
 		}
-		$result = array_filter( $result,function ( $v ) { return ( $v->id !== $this->id ); } );
+		$result = array_filter( $result,function ( $v ) {
+			return ( $v->id !== $this->id );
+		} );
 
 		return $result;
 	}

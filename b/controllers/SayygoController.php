@@ -261,9 +261,11 @@ class SayygoController extends Controller {
 	 */
 	public function actionView( $id ) {
 		$modelData = $this->findModel( $id );
+		$isOwner = (Yii::$app->user->id === $modelData->user_id);
 
 		return $this->render( 'view',[
 			'model' => $modelData,
+			'isOwner' => $isOwner
 		] );
 	}
 

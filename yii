@@ -29,7 +29,8 @@ $config = yii\helpers\ArrayHelper::merge(
 //Brian3t: unset common controllermap so that console app can run, otherwise there will be this error:
 // PHP Fatal error:  Call to undefined method common\controllers\ProfileController::getHelpSummary() in /var/www/sayygo/vendor/yiisoft/yii2/console/controllers/HelpController.php on line 96
 unset($config['modules']['user']['controllerMap']);
-
+unset($config['modules']['debug']);
+$config['bootstrap'] = [ 'log','gii' ];
 $application = new yii\console\Application($config);
 //since console does not have baseUrl, get this from common/main-local
 Yii::$app->urlManager->setBaseUrl($config['aliases']['absoluteBaseUrl']);

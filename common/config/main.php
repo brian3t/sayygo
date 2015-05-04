@@ -4,7 +4,25 @@ return [
 	'vendorPath' => dirname( dirname( __DIR__ ) ) . '/vendor',
 	'name'       => 'Sayygo',
 	'components' => [
-		'formatter'  => [
+		'assetManager' => [
+			'class'   => 'yii\web\AssetManager',
+			'bundles' => [
+				'yii\web\JqueryAsset'          => [
+					'js' => [
+						'jquery.min.js'
+					]
+				],
+				'yii\bootstrap\BootstrapAsset' => [
+					'css' => [
+						'css/bootstrap.min.css',
+					],
+					'js'  => [
+						'js/bootstrap.min.js',
+					]
+				],
+			],
+		],
+		'formatter'    => [
 			'class'          => 'yii\i18n\Formatter',
 			'dateFormat'     => 'php:d-M-Y',
 			'datetimeFormat' => 'dd/MM/yyyy HH:mm:ss',
@@ -13,11 +31,11 @@ return [
 //		'cache'   => [
 //			'class' => 'yii\caching\FileCache',
 //		],
-		'request'    => [
+		'request'      => [
 //			'enableCookieValidation' => false,
 //			'enableCsrfValidation'   => false,
 		],
-		'urlManager' => [
+		'urlManager'   => [
 			'class'           => 'yii\web\UrlManager',
 			'enablePrettyUrl' => true,
 			'showScriptName'  => false,
@@ -30,17 +48,22 @@ return [
 					'PUT <controller:\w+>/<id:\d+>'    => '<controller>/update',
 					'DELETE <controller:\w+>/<id:\d+>' => '<controller>/delete',
 					'<controller:\w+>/<id:\d+>'        => '<controller>/view',
+					[
+						'pattern' => 'communication/create/<fromuserid:\d+>/<touserid:\d+>/<sayygoid:\d+>/<emailqueueid:\d+>',
+						'route' => 'communication/create',
+						'defaults' => ['fromuserid' => null, 'touserid' => null, 'sayygoid' => null, 'emailqueueid' => null],
+					],
 				]
 		],
-		'view'       => [
+		'view'         => [
 			'theme' => [
 				'pathMap' => [
 					'@dektrium/user/views' => '@common/views/user'
 				],
 			],
 		],
-		'mailer' => [
-			'class' => 'yii\swiftmailer\Mailer',
+		'mailer'       => [
+			'class'    => 'yii\swiftmailer\Mailer',
 			'viewPath' => '@common/mail',
 		],
 	],
@@ -62,7 +85,7 @@ return [
 				'profile'  => 'common\controllers\ProfileController'
 			],
 			'mailer'              => [
-				'sender'                => 'tri@usvsolutions.com', // or ['no-reply@myhost.com' => 'Sender name']
+				'sender'                => 'matching-service@sayygo.com', // or ['no-reply@myhost.com' => 'Sender name']
 				'welcomeSubject'        => 'Welcome to Sayygo',
 				'confirmationSubject'   => 'Confirmation email from Sayygo',
 				'reconfirmationSubject' => 'Email change - Sayygo',

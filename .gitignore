@@ -13,3 +13,4 @@ vendor
 b/tmp
 f/tmp
 uploads
+composer.lock

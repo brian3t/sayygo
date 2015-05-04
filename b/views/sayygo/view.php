@@ -5,6 +5,7 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Sayygo */
+/* @var boolean $isOwner */
 
 $this->title                   = substr( $model->full_text,0,40 ) . "...";
 $this->params['breadcrumbs'][] = [ 'label' => 'Sayygos','url' => [ 'index' ] ];
@@ -15,14 +16,16 @@ $this->params['breadcrumbs'][] = $this->title;
 	<h1><?= Html::encode( $this->title ) ?></h1>
 
 	<p>
-		<?= Html::a( 'Update',[ 'update','id' => $model->id ],[ 'class' => 'btn btn-primary' ] ) ?>
-		<?= Html::a( 'Delete',[ 'delete','id' => $model->id ],[
-			'class' => 'btn btn-danger',
-			'data'  => [
-				'confirm' => 'Are you sure you want to delete this item?',
-				'method'  => 'post',
-			],
-		] ) ?>
+		<?php if ( $isOwner ): ?>
+			<?= Html::a( 'Update',[ 'update','id' => $model->id ],[ 'class' => 'btn btn-primary' ] ) ?>
+			<?= Html::a( 'Delete',[ 'delete','id' => $model->id ],[
+				'class' => 'btn btn-danger',
+				'data'  => [
+					'confirm' => 'Are you sure you want to delete this item?',
+					'method'  => 'post',
+				],
+			] ) ?>
+		<?php endif; ?>
 	</p>
 
 	<?= DetailView::widget( [
@@ -52,5 +55,5 @@ $this->params['breadcrumbs'][] = $this->title;
 			                        ]
 		                        ],
 	                        ] ) ?>
-
+<!--	<button type="button" class="btn btn-outline btn-primary">Contact this person</button>-->
 </div>

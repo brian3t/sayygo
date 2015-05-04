@@ -1,0 +1,83 @@
+.navbar-default a.navbar-brand {
+    text-transform: uppercase;
+    text-shadow: 1px 1px silver;
+    font-weight: bolder;
+    font-family: cursive;
+    color: darkblue;
+}
+#wrapper>div{
+    position: inherit;
+    margin: 0 0 0 250px;
+    padding: 8px 30px;
+    min-height: 1300px;
+    border-left: 1px solid #e7e7e7;
+}
+ul.select2-choices span {
+    padding: 4px;
+    margin-right: 4px;
+    color: cadetblue;
+    border: 1px dotted;
+}
+.keyword a{
+    background: #7cdbfc;
+    padding: 2px 4px;
+    text-transform: capitalize;
+}
+.datepicker table tr td.disabled, .datepicker table tr td.disabled:hover{color: #ccc}
+/*
+for sayygo temp fix
+*/
+/*[id$=info] {*/
+/*display: none;*/
+/*}*/
+
+/*
+for sayygo temp fix//
+*/
+div.home-pic {
+    margin: 0;
+}
+
+div.home-pic {
+    margin: 0;
+    padding: 0;
+    width: 20%;
+    float: left;
+}
+
+.home-pic img {
+    max-width: 300px;
+    clip: rect(0px, 300px, 200px, 0px);
+    opacity: 0.7;
+    width: 100%;
+}
+
+#home-page .jumbotron {
+    position: fixed;
+    top: 153px;
+    left: 0;
+    background: transparent;
+    width: 100%;
+    z-index: 20;
+}
+
+#home-page h1 {
+    color: rgb(255, 255, 255);
+    text-shadow: black 1px 1px 1px;
+}
+#home-page #top > img{
+    width: 100%;
+}
+#browse-input{width: 40%;margin: 0 auto;font-size: 180%;}
+#browse-input label{text-shadow: 1px 1px beige;}
+#browse-input *{margin-bottom: 8px;}
+#browse-input #keyword {text-align: center;padding: 3px;width: 100%}
+.dimmed{opacity: 0.2}
+.jumbotron {
+    text-align: center;}
+.jumbotron .btn {
+    font-size: 21px;
+}
+#home-page .jumbotron a {
+    color: #444;  font-style: normal;
+}

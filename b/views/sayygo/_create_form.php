@@ -20,7 +20,7 @@ use yii\helpers\ArrayHelper;
 	<?= $form->field( $model,'full_text' )->textarea( [
 		                                                  'maxlength' => 10000,
 		                                                  'rows'      => 6
-	                                                  ] )->label( "Tell us where you want to travel to. Type # to begin hashtag. When you are done hashtagging, type # to finish. You can have multiple hashtags. For example, you can type: <br/><br/> <i>I want to go to #ShangHai# and #San Francisco# around this fall 2015 when there is World Food Convention.</i><br/><br/>Begin here:" ) ?>
+	                                                  ] )->label( "Tell us where you want to travel to. Type # to begin hashtag. When you are done hashtagging, type # to finish. You can have multiple hashtags. For example, you can type: <br/><br/> <i>I want to go to #Shang Hai# and #San Francisco# around this fall 2015 when there is World Food Convention.</i><br/><br/>Begin here:" ) ?>
 
 	<?= BaseHtml::activeHiddenInput( $model,'user_id' ) ?>
 
@@ -93,14 +93,14 @@ SCRIPT;
 		                                                           '1' => 'Yes, I want to listen and receive pings from other people'
 	                                                           ] )->label( 'Do you want other people to contact you regarding your sayygo?' ) ?>
 
-	<?= $form->field( $model,'notification_frequency' )->dropDownList( [
-		                                                                   'Never'                 => 'Never',
+	<?= $form->field( $model,'notification_frequency' )->dropDownList([
 		                                                                   'Instant Email'         => 'Instant Email',
 		                                                                   'Instant SMS'           => 'Instant SMS',
 		                                                                   'Instant Email and SMS' => 'Instant Email and SMS',
 		                                                                   'Daily'                 => 'Daily',
 		                                                                   'Weekly'                => 'Weekly',
-	                                                                   ] ) ?>
+		                                                                   'Never'                 => 'Never',
+	                                                                   ]) ?>
 	<?= $form->field( $model,'partner_sex' )->dropDownList( [
 		                                                        'Doesn\'\'t matter' => 'Doesn\'t matter',
 		                                                        'Male'              => 'Male',

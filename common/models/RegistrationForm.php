@@ -13,14 +13,16 @@ namespace common\models;
 use dektrium\user\models\RegistrationForm as BaseRegistrationForm;
 
 class RegistrationForm extends BaseRegistrationForm{
-	/** @var string */
+	/** @var string $password_repeat */
 	public $password_repeat;
+	public $email_repeat;
 
 	/** @inheritdoc */
 	public function rules()
 	{
 		$rules = parent::rules();
 		array_push($rules,['password_repeat', 'compare', 'compareAttribute' => 'password']);
+		array_push($rules,['email_repeat', 'compare', 'compareAttribute' => 'email']);
 		return $rules;
 	}
 
