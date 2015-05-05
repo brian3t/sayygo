@@ -47,7 +47,13 @@ $this->params['breadcrumbs'][] = $this->title;
 			                      [
 				                      'label'     => 'Compatibility',
 				                      'attribute' => 'matchSayygos',
-				                      'value'     => function ( $model ) use ( $mtsgs ) { return $mtsgs[ $model->id ]['compatibility']; }
+				                      'value'     => function ( $model ) use ( $mtsgs ) {
+					                      if ( empty( $mtsgs ) ) {
+						                      return "";
+					                      }
+
+					                      return $mtsgs[ $model->id ]['compatibility'];
+				                      }
 			                      ],
 			                      [
 				                      'label' => 'Exact matching criteria',

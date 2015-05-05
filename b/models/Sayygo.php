@@ -136,9 +136,10 @@ class Sayygo extends \yii\db\ActiveRecord {
 	 */
 	public function getMatchSayygos() {
 		$query = new Query();
-		$query->select( '*' )->from( MatchSayygo::tableName() )->where( [ 'sayygo_first_id' => $this->id ] );
+		$query->select( 'id, compatibility, sayygo_second_id as sayygo_id' )->from( MatchSayygo::tableName() )->where( [ 'sayygo_first_id' => $this->id ] );
 
-		return $this->hasMany( MatchSayygo::className(),[ 'sayygo_second_id' => 'id' ] )->union( $query );
+		$secondQuery = (new Query())->select('id, compatibility, sayygo_first_id as sayygo_id')->from(MatchSayygo::tableName())->where(['sayygo_second_id'=>$this->id]);
+		return $secondQuery->union($query);
 	}
 
 	public function afterSave( $insert,$changedAttributes ) {

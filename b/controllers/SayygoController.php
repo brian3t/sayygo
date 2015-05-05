@@ -123,8 +123,8 @@ class SayygoController extends Controller {
 		$this->actionMatch( $id,$kwId );
 		$modelData = $this->findModel( $id );
 		$mtsgs     = $modelData->getMatchSayygos();
-		$mtsgs     = ArrayHelper::index( $mtsgs->asArray()->all(),
-		                                 'sayygo_second_id' );//get all attributes, index by target sayygo's id
+		$mtsgs     = ArrayHelper::index( $mtsgs->all(),
+		                                 'sayygo_id' );//get all attributes, index by target sayygo's id
 		$query     = new Query();
 		$query->select( 'sayygo.*' )->from( 'sayygo' )->innerJoin( "(select * from $mtsgTableName mtsg where mtsg.sayygo_second_id = $id) as mtsg2",
 		                                                           "mtsg2.sayygo_first_id = sayygo.id" )->where( [
