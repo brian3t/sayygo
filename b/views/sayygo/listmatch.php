@@ -58,13 +58,13 @@ $this->params['breadcrumbs'][] = $this->title;
 			                      [
 				                      'label' => 'Exact matching criteria',
 				                      'value' => function ( $model ) use ( $sourceModel ) {
-					                      return json_encode( Sayygo::getMatch( $sourceModel,$model )['exactMatches'] );
+					                      return str_replace([",","{","}"],[", ",""],json_encode( Sayygo::getMatch( $sourceModel,$model )['exactMatches'] ));
 				                      }
 			                      ],
 			                      [
 				                      'label' => 'Close matching criteria',
 				                      'value' => function ( $model ) use ( $sourceModel ) {
-					                      return json_encode( Sayygo::getMatch( $sourceModel,$model )['closeMatches'] );
+					                      return str_replace([",","{","}"],[", ",""],json_encode( Sayygo::getMatch( $sourceModel,$model )['closeMatches'] ));
 				                      }
 			                      ],
 			                      'full_text',

@@ -46,10 +46,10 @@ $this->params['breadcrumbs'][] = $this->title;
 				                      'contentOptions'=> ['class' => 'keyword'],
 
 				                      'value' => function($data){
-					                      $kws = $data->keywords;
+					                      $kws = $data->getKeywordsToShow();
 					                      $return = [];
 					                      foreach ($kws as $kw){
-						                      $return[] = Html::a($kw->description, Url::to(['listmatch', 'id' => $data->id, 'kwId' => $kw->id]));
+						                      $return[] = Html::a($kw['description'], Url::to(['listmatch', 'id' => $data->id, 'kwId' => $kw['id']]));
 					                      }
 					                      return implode('&nbsp', $return);
 				                      }

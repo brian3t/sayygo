@@ -122,6 +122,25 @@ class Sayygo extends \yii\db\ActiveRecord {
 		                                                                                  [ 'sayygo_id' => 'id' ] );
 	}
 
+	/*
+	 * get keywords to show. Keywords will be pulled from full_text, not from database.
+	 * Why?
+	 * Because in database the keyword is standardized, without spaces, with lowercases
+	 * @return array[0=>'kw1']
+	 */
+	public function getKeywordsToShow(){
+		preg_match_all("/#(?P<kw>[^#]+)#/",$this->full_text,$kws);
+		if (!array_key_exists('kw',$kws)){
+			return [];
+		}
+		$kws = $kws['kw'];
+		foreach ($kws as $k=>$v){
+			$kwId = Keyword::find()->where(['description'=>\usv\yii2helper\PHPHelper::dbNormalizeString($v)])->one()->id;
+			$kws[$k] = ['id'=>$kwId, 'description'=>$v];
+		}
+		return $kws;
+	}
+
 	/**
 	 * @return \yii\db\ActiveQuery
 	 */

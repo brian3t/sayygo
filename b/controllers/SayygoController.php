@@ -284,7 +284,7 @@ class SayygoController extends Controller {
 			$keywords   = explode( ',',$keywords );
 			$keywordIds = [ ];
 			foreach ( $keywords as $kw ) {
-				$kw      = preg_replace( '/(\s)+/'," ",strtolower( $kw ) );
+				$kw      = preg_replace( '/(\s)+/',"",strtolower( $kw ) );
 				$kwModel = Keyword::findOne( [ 'description' => $kw ] );
 				if ( $kwModel == null ) {
 					$kwModel              = new Keyword();
@@ -329,7 +329,7 @@ class SayygoController extends Controller {
 			$keywords   = explode( ',',$keywords );
 			$keywordIds = [ ];
 			foreach ( $keywords as $kw ) {
-				$kw      = preg_replace( '/(\s)+/'," ",strtolower( $kw ) );
+				$kw      = preg_replace( '/(\s)+/',"",strtolower( $kw ) );
 				$kwModel = Keyword::findOne( [ 'description' => $kw ] );
 				if ( $kwModel == null ) {
 					$kwModel              = new Keyword();

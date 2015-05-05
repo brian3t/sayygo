@@ -1,3 +1,6 @@
+<style>
+	.home-pic{display: none}
+</style>
 <?php
 /* @var $this yii\web\View */
 $this->title = 'Sayygo';
@@ -12,9 +15,16 @@ $this->title = 'Sayygo';
 
 		<p><a class="btn btn-lg btn-success" href="/b/web/sayygo/index">View my Sayygos</a></p>
 
-		<p><a class="btn btn-info btn-sm" onclick="$('#browse-input').toggle();$('.body-content').animate({opacity:0.4}, 1000);$('#downdown').toggle();$('#upup').toggle();">Browse Adventures &nbsp;<span id="downdown" class="glyphicon glyphicon-collapse-down" aria-hidden="true"></span><span id="upup" class="glyphicon glyphicon-collapse-up" style="display: none" aria-hidden="true"></span></a></p>
+		<p><a class="btn btn-info btn-sm"
+		      onclick="$('#browse-input').toggle();$('.body-content').animate({opacity:0.4}, 1000);$('#downdown').toggle();$('#upup').toggle();">Browse
+				Adventures &nbsp;<span id="downdown" class="glyphicon glyphicon-collapse-down"
+				                       aria-hidden="true"></span><span id="upup"
+				                                                       class="glyphicon glyphicon-collapse-up"
+				                                                       style="display: none"
+				                                                       aria-hidden="true"></span></a></p>
 
-		<form id="browse-input" style="display: none;" action="/b/web/sayygo/browse" method="post" data-method="post">
+		<form id="browse-input" style="display: none;" action="/b/web/sayygo/browse" method="post"
+		      data-method="post">
 			<label class="control-label">Enter destination</label>
 			<input id="keyword" name="keyword">
 			<button type="submit" id="create_save_btn" class="btn btn-lg btn-success">Browse</button>
@@ -110,3 +120,15 @@ $this->title = 'Sayygo';
 
 	</div>
 </div>
+
+<?php
+$js = <<<JS
+	$('.home-pic').hide();
+	$('.home-pic').each(function () {
+		$(this).fadeIn(_.random(500, 8000))
+	});
+JS;
+
+$this->registerJs($js, \yii\web\View::POS_END);
+
+?>

@@ -57,6 +57,18 @@ AppAsset::register($this);
 					    </ul>
 					    <!-- /.dropdown-user -->
 				    </li>
+			    <?php else:?>
+				    <li>
+					    <ul>
+						    <li><a href="/b/web/user/login"><i class="fa fa-user fa-fw"></i> Login</a>
+						    </li>
+						    <li class="divider"></li>
+						    <li><a href="user/registration/register"><i
+									    class="fa fa-sign-out fa-fw"></i> Register</a>
+						    </li>
+					    </ul>
+					    <!-- /.dropdown-user -->
+				    </li>
 			    <?php endif; ?>
 			    <!-- /.dropdown -->
 		    </ul>
