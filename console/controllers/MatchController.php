@@ -130,8 +130,7 @@ class MatchController extends Controller {
 					$body .= "<br/> Ideal number of partners is " . $matchingSg->num_of_partner . " partners.";
 				}
 				$body .= "<br/><br/> Please view more details at: " . BaseUrl::to( [
-					                                                                   'b/web/sayygo',
-					                                                                   'id' => $matchingSg->id
+					                                                                   'b/web/sayygo/'. $matchingSg->id
 				                                                                   ] );
 				$subject = "We found a new matching sayygo for you that was created on " . Yii::$app->formatter->asDate( $matchingSg->created_at,
 				                                                                                                         'EEEE, MMMM d, yyyy h:mm a, z' );
