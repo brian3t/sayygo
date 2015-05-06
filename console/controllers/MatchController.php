@@ -118,10 +118,10 @@ class MatchController extends Controller {
 				$targetUser = User::findOne( $email['to_user_id']);
 				$users[]    = $targetUser;
 				/** @var \common\models\user $targetUser */
-				$username = $targetUser->getFullName();
+				$creatorUsername = User::findOne($matchingSg->user_id)->getFullName();
 				$body     = "There is one new sayygo matching your destination: <br/> <br/> ";
 				$body .= "<i>$matchingSg->full_text</i>";
-				$body .= "<br/> <br/>This sayygo was created by <i>$username</i> on " . Yii::$app->formatter->asDate( $matchingSg->created_at,
+				$body .= "<br/> <br/>This sayygo was created by <i>$creatorUsername</i> on " . Yii::$app->formatter->asDate( $matchingSg->created_at,
 				                                                                                                      'EEEE, MMMM d, yyyy h:mm a, z' ) . " and is expected to start on " . ( empty( $matchingSg->start_date ) ? ' whenever' : $matchingSg->start_date );
 				$body .= ", ending on " . ( empty( $matchingSg->end_date ) ? ' whenever' : $matchingSg->end_date );
 				$body .= ".<br/> The partner's sex preference " . ( empty( $matchingSg->partner_sex ) ? ' doesn\'t matter' : ( "is " . $matchingSg->partner_sex ) );
