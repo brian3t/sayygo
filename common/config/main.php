@@ -49,7 +49,7 @@ return [
 					'DELETE <controller:\w+>/<id:\d+>' => '<controller>/delete',
 					'<controller:\w+>/<id:\d+>'        => '<controller>/view',
 					[
-						'pattern' => 'communication/create/<fromuserid:\d+>/<touserid:\d+>/<sayygoid:\d+>/<emailqueueid:\d+>',
+						'pattern' => 'communication/create/<fromuserid:\d+>/<touserid:\d+>/<sayygoid:\w+>/<emailqueueid:\d+>',
 						'route' => 'communication/create',
 						'defaults' => ['fromuserid' => null, 'touserid' => null, 'sayygoid' => null, 'emailqueueid' => null],
 					],

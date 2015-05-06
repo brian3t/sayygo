@@ -138,11 +138,11 @@ class MatchController extends Controller {
 			} elseif ( $email['type'] === 'message' ) {
 				$users[] = User::findOne( $email['to_user_id'] );
 				if ( $email['send_copy'] ) {
-					$bccUsers[] = User::findOne( $email['user_id'] );
+					$bccUsers[] = User::findOne( $email['from_user_id'] );
 				}
-				$subject = "You have a new message from " . User::findOne( $email['user_id'] )->getFullName() . ", " . $email['subject'];
+				$subject = "You have a new message from " . User::findOne( $email['from_user_id'] )->getFullName() . ", " . $email['subject'];
 				$body    = $email['body'];
-				$body .= "<br/>To reply to this user, please click here:" . Url::to( '@absoluteBaseUrl/b/web/communication/create/' . $email['to_user_id'] . '/' . $email['user_id'] . '/null/' . $email['id'] );
+				$body .= "<br/>To reply to this user, please click here:" . Url::to( '@absoluteBaseUrl/b/web/communication/create/' . $email['to_user_id'] . '/' . $email['from_user_id'] . '/null/' . $email['id'] );
 
 			}
 			//send them to user's email

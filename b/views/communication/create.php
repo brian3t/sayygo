@@ -36,7 +36,7 @@ Hello <?= $toUser->getFullName() ?>,
 I found your sayygo at http://sayygo.com that matches my desired destinations:
 <?= $sayygo->full_text ?>
 <?php } else: {
-	echo "_________________________________\r\n\r\n".$body;
+	echo "_________________________________\r\n\r\n".str_replace("<br />","",$body);
 }endif; ?>
 							</textarea>
 							</div>

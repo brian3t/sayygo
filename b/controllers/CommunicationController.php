@@ -66,7 +66,7 @@ class CommunicationController extends \yii\web\Controller {
 		if ( $message = Yii::$app->request->post() ) {
 			//create email queue
 			$emailQ          = new EmailQueue();
-			$emailQ->setAttributes(['type'=>"message", 'user_id'=>$fromuserid, 'status'=>'queueing', 'dday'=> \yii::$app->formatter->asDatetime('now','Y-MM-dd H:i:s'),
+			$emailQ->setAttributes(['type'=>"message", 'from_user_id'=>$fromuserid, 'status'=>'queueing', 'dday'=> \yii::$app->formatter->asDatetime('now','Y-MM-dd H:i:s'),
 			                       'to_user_id'=>$touserid, 'body'=>nl2br($message['body']), 'subject'=>$message['subject']]);
 
 			if ($emailQ->save()){
@@ -84,7 +84,7 @@ class CommunicationController extends \yii\web\Controller {
 					'title'    => 'Error!',
 					'duration' => 5000,
 					'icon'     => 'fa fa-users',
-					'message'  => 'Message can not be sent! Please try again or contact us at tri@usvsolutions.com',
+					'message'  => 'Message can not be sent! Please try again or contact us at support@sayygo.com',
 				] );
 			}
 

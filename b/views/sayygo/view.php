@@ -55,5 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			                        ]
 		                        ],
 	                        ] ) ?>
-	<button type="button" class="btn btn-outline btn-primary">Contact this person</button>
+	<?php if ( !$isOwner ): ?>
+	<button type="button" class="btn btn-outline btn-primary" onclick="location.href='/b/web/communication/create/<?=Yii::$app->user->id.'/'.$model->user_id.'/'.$model->id?>'">Contact this person</button>
+	<?php endif;?>
 </div>
