@@ -79,6 +79,13 @@ class Sayygo extends \yii\db\ActiveRecord {
 				'compareValue' => 2,
 				'message'      => 'Please select at least 2 partners'
 			],
+			[
+				'num_of_partner',
+				'compare',
+				'operator'     => '<=',
+				'compareValue' => 10,
+				'message'      => 'Please select at most 10 partners'
+			],
 		];
 	}
 
@@ -268,10 +275,25 @@ class Sayygo extends \yii\db\ActiveRecord {
 			$result = array_merge( $kw->sayygos,$result );
 		}
 		$result = array_filter( $result,function ( $v ) {
-			return ( $v->id !== $this->id );
+			return (( $v->id !== $this->id ) && ($v->user_id !== $this->user_id));
 		} );
 
 		return $result;
+	}
+
+	/*
+	 * get sayygos sharing same keywords, group by user, so that when sending emails each user receive only one email
+	 * @var string kwIds
+	 */
+	public function getSayygosShareKeywordGroupByUser( $kwIds = null ) {
+		$result = [ ];
+		if ( is_null( $kwIds ) ) {
+			$this->populateKeywordIds();
+			$kws = $this->keywordIds;//match everything
+		}
+		$res = Sayygo::findBySql('SELECT * FROM (sayygo as s inner join keyword_sayygo as ks on s.id = ks.sayygo_id)  where ks.keyword_id in ('. $kws .') and s.user_id != '. $this->user_id .' group by s.user_id')->all();
+
+		return $res;
 	}
 
 }

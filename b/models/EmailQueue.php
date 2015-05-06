@@ -8,8 +8,8 @@ use Yii;
  * This is the model class for table "email_queue".
  *
  * @property integer $id
- * @property integer $user_id
  * @property integer $to_user_id
+ * @property integer $send_copy
  * @property string $type
  * @property string $matching_sayygos
  * @property string $subject
@@ -21,7 +21,6 @@ use Yii;
  * @property string $status
  *
  * @property EmailLog[] $emailLogs
- * @property User $user
  * @property User $toUser
  */
 class EmailQueue extends \yii\db\ActiveRecord
@@ -40,8 +39,7 @@ class EmailQueue extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id'], 'required'],
-            [['user_id', 'to_user_id'], 'integer'],
+            [['to_user_id', 'send_copy'], 'integer'],
             [['type', 'notification_frequency', 'status'], 'string'],
             [['dday', 'created_on', 'updated_on'], 'safe'],
             [['matching_sayygos'], 'string', 'max' => 2000],
@@ -57,8 +55,8 @@ class EmailQueue extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_id' => 'User ID',
             'to_user_id' => 'To User ID',
+            'send_copy' => 'Send Copy',
             'type' => 'Type',
             'matching_sayygos' => 'Matching Sayygos',
             'subject' => 'Subject',
@@ -77,14 +75,6 @@ class EmailQueue extends \yii\db\ActiveRecord
     public function getEmailLogs()
     {
         return $this->hasMany(EmailLog::className(), ['email_queue_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUser()
-    {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
     /**

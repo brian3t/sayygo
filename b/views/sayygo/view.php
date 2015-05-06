@@ -55,5 +55,5 @@ $this->params['breadcrumbs'][] = $this->title;
 			                        ]
 		                        ],
 	                        ] ) ?>
-<!--	<button type="button" class="btn btn-outline btn-primary">Contact this person</button>-->
+	<button type="button" class="btn btn-outline btn-primary">Contact this person</button>
 </div>

@@ -54,14 +54,14 @@ class MatchController extends Controller {
 			$sg = Sayygo::findOne( $sg );
 			/** @var \backend\models\sayygo $sg */
 		}
-		$sgs = $sg->getSayygosShareKeyword();
+		$sgs = $sg->getSayygosShareKeywordGroupByUser();
 		foreach ( $sgs as $sgShareKw ) {
 			$notFreq = $sgShareKw->notification_frequency;
 			if ( in_array( $notFreq,[ 'Instant Email','Instant Email and SMS' ] ) ) {
 				$emailQ                         = new EmailQueue();
-				$emailQ->user_id                = $sgShareKw->user_id;
+				$emailQ->to_user_id                = $sgShareKw->user_id;
 				$emailQ->type                   = "match";
-				$emailQ->matching_sayygos       = json_encode( $sgShareKw->getAttributes() );
+				$emailQ->matching_sayygos       = json_encode( $sg->getAttributes() );
 				$emailQ->notification_frequency = "immediate";
 				$emailQ->dday                   = \yii::$app->formatter->asDatetime( 'now','y-MM-d H:m:s' );
 				$emailQ->status                 = 'queueing';
@@ -100,7 +100,7 @@ class MatchController extends Controller {
 			                                                                        'dday',
 			                                                                        date( 'Y-m-d H:m:s',
 			                                                                              strtotime( '1 hour ago' ) )
-		                                                                        ] );
+		                                                                        ] )->andWhere(['status'=>'queueing']);
 		$emails = $query->all();
 
 		//foreach email
@@ -115,7 +115,7 @@ class MatchController extends Controller {
 				//get list of sayygos
 				$matchingSg = json_decode( $email['matching_sayygos'] );
 				/** @var \backend\models\sayygo $matchingSg */
-				$targetUser = User::findOne( $matchingSg->user_id );
+				$targetUser = User::findOne( $email['to_user_id']);
 				$users[]    = $targetUser;
 				/** @var \common\models\user $targetUser */
 				$username = $targetUser->getFullName();
@@ -205,7 +205,10 @@ class MatchController extends Controller {
 	}
 
 	public function  actionTest() {
-		echo Url::to( '@absoluteBaseUrl/b/web/communication/create/' );
+//		$result = SayygoController::actionUpdate;
+//		print_r( $result );
+//		echo "Testing ends.//\n";
+
 	}
 
 }
