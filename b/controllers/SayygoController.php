@@ -190,7 +190,7 @@ class SayygoController extends Controller {
 
 		$keyword = \yii::$app->request->post( 'keyword' );
 		$keyword = filter_input( INPUT_POST,'keyword' );
-		$keyword = str_replace( "  "," ",strtolower( $keyword ) );
+		$keyword = str_replace( " ","",strtolower( $keyword ) );
 
 		$kwId = Keyword::findOne( [ 'description' => $keyword ] );
 		if ( empty( $kwId ) ) {
