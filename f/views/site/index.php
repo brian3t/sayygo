@@ -11,9 +11,9 @@ $this->title = 'Sayygo';
 
 	<div id="top" class="row"><img src="/assets/img/home/sayygo.jpg"></div>
 	<div class="jumbotron">
-		<p><a class="btn btn-lg btn-success" href="/b/web/sayygo/create">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Post a Sayygo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></p>
+		<p><a class="btn btn-success" href="/b/web/sayygo/create">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Post a Sayygo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></p>
 
-		<p><a class="btn btn-lg btn-success" href="/b/web/sayygo/index">&nbsp;&nbsp;&nbsp;View my Sayygos&nbsp;&nbsp;&nbsp;</a></p>
+		<p><a class="btn btn-success" href="/b/web/sayygo/index">&nbsp;&nbsp;&nbsp;View my Sayygos&nbsp;&nbsp;&nbsp;</a></p>
 
 		<p><a class="btn btn-info btn-sm"
 		      onclick="$('#browse-input').toggle();$('.body-content').animate({opacity:0.4}, 1000);$('#downdown').toggle();$('#upup').toggle();">Browse
