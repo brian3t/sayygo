@@ -127,6 +127,7 @@ AppAsset::register($this);
 	                                           ]);
 	        ?>
         <?php endforeach; ?>
+        <?= Alert::widget() ?>
         <?= $content ?>
         </div>
     </div>

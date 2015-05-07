@@ -48,7 +48,10 @@ class SayygoController extends Controller {
 							'update',
 							'match',
 							'matchall',
-							'listmatch','browse','view','testing'
+							'listmatch',
+							'browse',
+							'view',
+							'testing'
 						],
 						'roles'   => [ '@' ],
 					],
@@ -120,27 +123,46 @@ class SayygoController extends Controller {
 	 */
 	public function actionListmatch( $id,$kwId ) {
 		$mtsgTableName = MatchSayygo::tableName();
+		$kwsgTableName = KeywordSayygo::tableName();
 		$this->actionMatch( $id,$kwId );
-		$modelData = $this->findModel( $id );
-		$mtsgs     = $modelData->getMatchSayygos();
-		$mtsgs     = ArrayHelper::index( $mtsgs->all(),
-		                                 'sayygo_id' );//get all attributes, index by target sayygo's id
-		$query     = new Query();
-		$query->select( 'sayygo.*' )->from( 'sayygo' )->innerJoin( "(select * from $mtsgTableName mtsg where mtsg.sayygo_second_id = $id) as mtsg2",
-		                                                           "mtsg2.sayygo_first_id = sayygo.id" )->where( [
-			                                                                                                         'not',
-			                                                                                                         [ 'sayygo.id' => $id ]
-		                                                                                                         ] );
+		$modelData   = $this->findModel( $id );
+		$mtsgs       = $modelData->getMatchSayygos();
+		$mtsgs       = ArrayHelper::index( $mtsgs->all(),
+		                                   'sayygo_id' );//get all attributes, index by target sayygo's id
+		$secondQuery = new Query();
+		$secondQuery->select( 'sayygo.*' )->from( 'sayygo' )
+		            ->innerJoin( "(select * from $kwsgTableName where keyword_id = $kwId) as kwsg",
+		                         [ "kwsg.sayygo_id" => $id ] )
+		            ->innerJoin( "(select * from $mtsgTableName mtsg where mtsg.sayygo_second_id = $id) as mtsg2",
+		                         "mtsg2.sayygo_first_id = sayygo.id" )
+		            ->where( [
+			                     'not',
+			                     [ 'sayygo.id' => $id ]
+		                     ] )
+		            ->andWhere( [
+			                        'not',
+			                        [ 'sayygo.user_id' => $modelData->user_id ]
+		                        ] )
+		            ->orderBy( 'compatibility desc' )
+		            ->limit( 1000 );
 		$dataProvider = new ActiveDataProvider( [
-			                                        'query' => Sayygo::find()->innerJoin( "(select * from $mtsgTableName mtsg where mtsg.sayygo_first_id = $id) as mtsg1",
-			                                                                              "mtsg1.sayygo_second_id = sayygo.id" )->where( [
-				                                                                                                                             'not',
-				                                                                                                                             [ 'sayygo.id' => $id ]
-			                                                                                                                             ] )
-			                                                         ->union( $query )
-			                                                         ->where( [ 'keyword_id' => $kwId ] )
+			                                        'query' => Sayygo::find()
+			                                                         ->innerJoin( "(select * from $kwsgTableName where keyword_id = $kwId) as kwsg",
+			                                                                      [ "kwsg.sayygo_id" => $id ] )
+			                                                         ->innerJoin( "(select * from $mtsgTableName mtsg where mtsg.sayygo_first_id = $id) as mtsg1",
+			                                                                      "mtsg1.sayygo_second_id = sayygo.id" )
+			                                                         ->where( [
+				                                                                  'not',
+				                                                                  [ 'sayygo.id' => $id ]
+			                                                                  ] )
+			                                                         ->andWhere( [
+				                                                                     'not',
+				                                                                     [ 'sayygo.user_id' => $modelData->user_id ]
+			                                                                     ] )
 			                                                         ->orderBy( 'compatibility desc' )
-			                                                         ->limit( 1000 ),
+			                                                         ->limit( 1000 )
+			                                                         ->union( $secondQuery )
+			                                        ,
 		                                        ] );
 
 		return $this->render( 'listmatch',[
@@ -151,11 +173,12 @@ class SayygoController extends Controller {
 		] );
 	}
 
-	public function beforeAction($action){
-		if ($action->id == "browse"){
+	public function beforeAction( $action ) {
+		if ( $action->id == "browse" ) {
 			$this->enableCsrfValidation = false;
 		}
-		return parent::beforeAction($action);
+
+		return parent::beforeAction( $action );
 	}
 
 	/**
@@ -165,33 +188,33 @@ class SayygoController extends Controller {
 	 */
 	public function actionBrowse() {
 
-		$keyword = \yii::$app->request->post('keyword');
-		$keyword = filter_input(INPUT_POST,'keyword');
-		$keyword = str_replace("  "," ", strtolower($keyword));
+		$keyword = \yii::$app->request->post( 'keyword' );
+		$keyword = filter_input( INPUT_POST,'keyword' );
+		$keyword = str_replace( "  "," ",strtolower( $keyword ) );
 
-		$kwId = Keyword::findOne(['description'=>$keyword]);
-		if (empty($kwId)){
+		$kwId = Keyword::findOne( [ 'description' => $keyword ] );
+		if ( empty( $kwId ) ) {
 			$kwId = "null";
-		}
-		else {
+		} else {
 			$kwId = $kwId->id;
 		}
 
 		$dataProvider = new ActiveDataProvider( [
-			                                        'query' => Sayygo::find()->innerJoin("(SELECT * FROM " . KeywordSayygo::tableName() ." WHERE keyword_id = $kwId) as kwsg",'sayygo.id = kwsg.sayygo_id')->limit(1000),
+			                                        'query' => Sayygo::find()->innerJoin( "(SELECT * FROM " . KeywordSayygo::tableName() . " WHERE keyword_id = $kwId) as kwsg",
+			                                                                              'sayygo.id = kwsg.sayygo_id' )->limit( 1000 ),
 		                                        ] );
 
 		return $this->render( 'browse',[
 			'dataProvider' => $dataProvider,
-			'keyword' => $keyword
+			'keyword'      => $keyword
 		] );
 	}
 
 	/*
 	 * testing
 	 */
-	public function actionTesting($id){
-		$sg = Sayygo::findOne($id);
+	public function actionTesting( $id ) {
+		$sg  = Sayygo::findOne( $id );
 		$sgs = $sg->getSayygosShareKeyword();
 	}
 
@@ -261,10 +284,10 @@ class SayygoController extends Controller {
 	 */
 	public function actionView( $id ) {
 		$modelData = $this->findModel( $id );
-		$isOwner = (Yii::$app->user->id === $modelData->user_id);
+		$isOwner   = ( Yii::$app->user->id === $modelData->user_id );
 
 		return $this->render( 'view',[
-			'model' => $modelData,
+			'model'   => $modelData,
 			'isOwner' => $isOwner
 		] );
 	}
