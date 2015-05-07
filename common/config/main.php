@@ -65,6 +65,14 @@ return [
 		'mailer'       => [
 			'class'    => 'yii\swiftmailer\Mailer',
 			'viewPath' => '@common/mail',
+			'transport' => [
+				'class' => 'Swift_SmtpTransport',
+				'host' => 'smtp.gmail.com',
+				'username' => 'support@sayygo.com',
+				'password' => 'Terrace3333',
+				'port' => '587',
+				'encryption' => 'tls',
+			],
 		],
 	],
 	'bootstrap'  => [ 'debug' ],
