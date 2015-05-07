@@ -21,6 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 	<?= GridView::widget( [
 		                      'dataProvider' => $dataProvider,
+		                      'options'      => [ 'class' => 'table-responsive' ],
 		                      'columns'      => [
 			                      [ 'class' => 'yii\grid\SerialColumn' ],
 //            'id',
@@ -41,17 +42,21 @@ $this->params['breadcrumbs'][] = $this->title;
 			                      // 'num_of_partner',
 
 			                      [
-				                      'format' => 'html',
-				                      'label'  => 'View Matching sayygos',
-				                      'contentOptions'=> ['class' => 'keyword'],
-
-				                      'value' => function($data){
-					                      $kws = $data->getKeywordsToShow();
-					                      $return = [];
-					                      foreach ($kws as $kw){
-						                      $return[] = Html::a($kw['description'], Url::to(['listmatch', 'id' => $data->id, 'kwId' => $kw['id']]));
+				                      'format'         => 'html',
+				                      'label'          => 'View Matching sayygos',
+				                      'contentOptions' => [ 'class' => 'keyword' ],
+				                      'value'          => function ( $data ) {
+					                      $kws    = $data->getKeywordsToShow();
+					                      $return = [ ];
+					                      foreach ( $kws as $kw ) {
+						                      $return[] = Html::a( $kw['description'],Url::to( [
+							                                                                       'listmatch',
+							                                                                       'id'   => $data->id,
+							                                                                       'kwId' => $kw['id']
+						                                                                       ] ) );
 					                      }
-					                      return implode('&nbsp', $return);
+
+					                      return implode( '&nbsp',$return );
 				                      }
 			                      ],
 			                      [ 'class' => 'yii\grid\ActionColumn' ],
