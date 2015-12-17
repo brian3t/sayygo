@@ -12,7 +12,7 @@
     min-height: 1300px;
     border-left: 1px solid #e7e7e7;
 }
-ul.select2-choices span {
+ul.select2-choices span, ul.select2-selection__rendered >span {
     padding: 4px;
     margin-right: 4px;
     color: cadetblue;

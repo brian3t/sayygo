@@ -75,13 +75,16 @@ return [
 			],
 		],
 	],
-	'bootstrap'  => [ 'debug' ],
+//	'bootstrap'  => [ 'debug' ],
 	'modules'    => [
-		'debug' => [
-			'class'      => 'yii\debug\Module',
-			'allowedIPs' => [ '76.88.66.0','198.2.44.170','127.0.0.1','::1' ],
-		],
-		'user'  => [
+//		'debug' => [
+//			'class'      => 'yii\debug\Module',
+//			'allowedIPs' => [ '76.88.66.0','198.2.44.170','127.0.0.1','::1' ],
+//		],
+        'gridview' => [
+            'class' => '\kartik\grid\Module',
+        ],
+        'user'  => [
 			'class'               => 'dektrium\user\Module',
 			'modelMap'            => [
 				'User'             => 'common\models\User',

@@ -91,9 +91,12 @@ $this->beginPage() ?>
 					<!--						</div>-->
 					<!--						<!-- /input-group -->
 					<!--					</li>-->
-					<li>
-						<a href="/b/web/sayygo/"><i class="fa fa-dashboard fa-fw"></i>View My Sayygos</a>
-					</li>
+                    <li>
+                        <a href="/b/web/sayygo/"><i class="fa fa-plane fa-fw"></i>View My Sayygos</a>
+                    </li>
+                    <li>
+                        <a href="/b/web/bucket-list/"><i class="fa fa-list fa-fw"></i>View My Bucket lists</a>
+                    </li>
 					<li>
 						<a href="/f/web"><i class="fa fa-table fa-fw"></i>Go back to Front page</a>
 					</li>

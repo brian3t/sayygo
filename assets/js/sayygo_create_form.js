@@ -25,10 +25,9 @@ sft.on('keyup', function () {
     cf.keywords = cf.getKeywords($(this).val(), cf.re);
     var keywordsHtml = $('<div>');
     _.each(cf.keywords, function (e, i, l) {
-        keywordsHtml.append($('<span>').html(e));
+        keywordsHtml.append($('<li>').addClass('select2-selection__choice').attr('title',e).html(e));
     });
-    $('#s2id_sayygo-keywordids .select2-search-field span').remove();
-    $('#s2id_sayygo-keywordids .select2-search-field').append(keywordsHtml.html());
+    $('div.field-sayygo-keywordids ul.select2-selection__rendered').html(keywordsHtml.html());
     if (cf.keywords.length > 0){
         enable_btn('create_save_btn');
     }

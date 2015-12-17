@@ -13,7 +13,7 @@ return [
 	'bootstrap'           => [ 'log' ],
 	'modules'             => [
 		'gii'   => 'yii\gii\Module',
-		'debug' => 'yii\debug\Module',
+//		'debug' => 'yii\debug\Module',
 //	    'user' => [
 		// following line will restrict access to admin page
 //		    'as backend' => 'dektrium\user\filters\BackendFilter',

@@ -17,7 +17,8 @@
     "mitalcoi/yii2-cronjobs": "dev-master",
     "vova07/yii2-console-runner-extension": "*",
     "kartik-v/yii2-widget-growl": "*",
-    "usv/yii2helper": "dev-master"
+    "usv/yii2helper": "dev-master",
+    "mootensai/yii2-enhanced-gii": "dev-master"
   },
   "require-dev": {
     "yiisoft/yii2-codeception": "*",

@@ -47,7 +47,9 @@ SCRIPT;
 		'options'       => [
 			'disabled' => true
 		],
-		'pluginOptions' => [
+        'data' => [],
+
+        'pluginOptions' => [
 			'placeholder'        => '',
 			'minimumInputLength' => 0,
 			'ajax'               => [

@@ -11,7 +11,10 @@ $this->title = 'Sayygo';
 
 	<div id="top" class="row"><img src="/assets/img/home/sayygo.jpg"></div>
 	<div class="jumbotron">
-		<p><a class="btn btn-success" href="/b/web/sayygo/create">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Post a Sayygo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></p>
+        <p><a class="btn btn-success" href="/b/web/bucket-list/create">&nbsp;&nbsp;Fill my bucket list&nbsp;&nbsp;</a></p>
+        <p><a class="btn btn-success" href="/b/web/bucket-list/index">View my bucket lists</a></p>
+
+        <p><a class="btn btn-success" href="/b/web/sayygo/create">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Post a Sayygo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></p>
 
 		<p><a class="btn btn-success" href="/b/web/sayygo/index">&nbsp;&nbsp;&nbsp;View my Sayygos&nbsp;&nbsp;&nbsp;</a></p>
 
