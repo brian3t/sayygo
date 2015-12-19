@@ -12,6 +12,7 @@
 namespace common\controllers;
 
 use dektrium\user\models\SettingsForm;
+use dektrium\user\models\User;
 use yii\web\UploadedFile;
 use dektrium\user\controllers\SettingsController as BaseSettingsController;
 use yii\helpers\BaseFileHelper;
@@ -61,6 +62,9 @@ class SettingsController extends BaseSettingsController {
     {
         /** @var SettingsForm $model */
         $model = \Yii::createObject(SettingsForm::className());
+        if (\Yii::$app->user->identity->isTemp()){
+            $model->scenario = $model::SCENARIO_IS_TEMP;
+        }
 
         $this->performAjaxValidation($model);
 

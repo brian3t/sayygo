@@ -116,22 +116,30 @@ $this->beginPage() ?>
 
     <?php
     foreach (\Yii::$app->session->getAllFlashes(true) as $key => $message) {
-        if (is_array($message[0])){
-        echo Alert::widget(
-                ['type' => $key,
-                        'title' => $message[0]['title'],
-                        'body' => $message[0]['body'],
-                        'delay' => 10000
-                ]
-        );}
-        else {
+        if (is_array($message[0])) {
             echo Alert::widget(
                     ['type' => $key,
-                            'body' => $message[0],
+                            'title' => $message[0]['title'],
+                            'body' => $message[0]['body'],
                             'delay' => 10000
                     ]
             );
-
+        } else {
+            if (is_array($message)) {
+                echo Alert::widget(
+                        ['type' => $key,
+                                'body' => $message[0],
+                                'delay' => 10000
+                        ]
+                );
+            } else {
+                echo Alert::widget(
+                        ['type' => $key,
+                                'body' => $message,
+                                'delay' => 10000
+                        ]
+                );
+            }
         }
     }
     ?>
