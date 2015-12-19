@@ -88,7 +88,12 @@ class BucketListController extends Controller
         $model = new BucketList();
 
         if ($model->loadAll(Yii::$app->request->post()) && $model->saveAll()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            if (\Yii::$app->user->identity->isTemp()) {
+                \Yii::$app->session->addFlash(\kartik\widgets\Alert::TYPE_INFO, "Your bucket list has been saved. Please complete your profile in order to access your bucket list easily.");
+                return $this->redirect(['/user/settings/account', 'id' => \Yii::$app->user->id, 'is_temp' => 1]);
+            } else {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         } else {
             // before create form shown: if user is not logged in, create a temp user without email, logs in, show toast saying that you can creating bucket list as guest
             if (\Yii::$app->user->isGuest) {
@@ -133,12 +138,7 @@ class BucketListController extends Controller
         $model = $this->findModel($id);
 
         if ($model->loadAll(Yii::$app->request->post()) && $model->saveAll()) {
-            if (\Yii::$app->user->identity->isTemp()) {
-                \Yii::$app->session->addFlash(\kartik\widgets\Alert::TYPE_INFO,"Your bucket list has been saved. Please complete your profile in order to access your bucket list easily.");
-                return $this->redirect(['/user/settings/account', 'id' => \Yii::$app->user->id, 'is_temp' => 1]);
-            } else {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
+            return $this->redirect(['view', 'id' => $model->id]);
 
         } else {
             return $this->render('update', [
