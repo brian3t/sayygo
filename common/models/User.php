@@ -82,4 +82,8 @@ class User extends BaseUser {
 
 		return $filePath;
 	}
+
+    public function isTemp(){
+        return (strpos($this->username, 'guest') !== false );
+    }
 }

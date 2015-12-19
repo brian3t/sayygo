@@ -11,6 +11,7 @@
 
 namespace common\controllers;
 
+use dektrium\user\models\SettingsForm;
 use yii\web\UploadedFile;
 use dektrium\user\controllers\SettingsController as BaseSettingsController;
 use yii\helpers\BaseFileHelper;
@@ -29,6 +30,9 @@ class SettingsController extends BaseSettingsController {
 		$this->performAjaxValidation( $model );
 		if ( \Yii::$app->request->isPost ) {
 			$model->load( \Yii::$app->request->post() );
+
+
+
 			$model->avatarFile = UploadedFile::getInstance( $model,'avatarFile' );
 			$avatarFolder = dirname(\Yii::$app->getBasePath()) . "/uploads/avatar/" . \Yii::$app->user->id;
 			if ( $model->avatarFile) {
@@ -48,4 +52,30 @@ class SettingsController extends BaseSettingsController {
 
 		return $this->render( 'profile',[ 'model' => $model, ] );
 	}
+
+    /**
+     * Displays page where user can update account settings (username, email or password).
+     * @return string|\yii\web\Response
+     */
+    public function actionAccount()
+    {
+        /** @var SettingsForm $model */
+        $model = \Yii::createObject(SettingsForm::className());
+
+        $this->performAjaxValidation($model);
+
+        if ($model->load(\Yii::$app->request->post()) && $model->save()) {
+            \Yii::$app->session->setFlash('success', \Yii::t('user', 'Your account details have been updated'));
+            return $this->refresh();
+        } elseif (\Yii::$app->request->isGet && \Yii::$app->user->identity->isTemp()) {
+            $model->username = '';
+            $model->email = '';
+        }
+
+        return $this->render('account', [
+            'model' => $model,
+        ]);
+    }
+
+
 }

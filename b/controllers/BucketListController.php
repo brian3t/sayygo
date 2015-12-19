@@ -2,9 +2,12 @@
 
 namespace backend\controllers;
 
+use dektrium\user\models\LoginForm;
+use dektrium\user\models\User;
 use Yii;
 use backend\models\BucketList;
 use backend\models\BucketListSearch;
+use yii\bootstrap\Alert;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -28,12 +31,13 @@ class BucketListController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index', 'view', 'create', 'update','delete','add-bucket-item'],
+                        'actions' => ['index', 'view', 'update', 'delete', 'add-bucket-item'],
                         'roles' => ['@']
                     ],
                     [
-                        'allow' => false
-                    ]
+                        'allow' => true,
+                        'actions' => ['create'],
+                    ],
                 ]
             ]
         ];
@@ -86,6 +90,30 @@ class BucketListController extends Controller
         if ($model->loadAll(Yii::$app->request->post()) && $model->saveAll()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+            // before create form shown: if user is not logged in, create a temp user without email, logs in, show toast saying that you can creating bucket list as guest
+            if (\Yii::$app->user->isGuest) {
+                $user = new User();
+                $user->init();
+                $user->username = 'guest' . strval(rand(100000, 1000000));
+                $user->email = $user->username . '@null.null';
+                $user->scenario = 'create';
+                if (! $user->create()) {
+                    \Yii::$app->session->addFlash(\kartik\widgets\Alert::TYPE_WARNING, ['title' => 'Error',
+                        'body' => 'Please register first']);
+                    return $this->goHome();
+                }
+                $login_form_model = \Yii::createObject(LoginForm::className());
+
+                if (! ($login_form_model->load(['login-form' => ['login' => $user->email, 'password' => $user->password,
+                        'rememberMe' => 0]]) && $login_form_model->login())
+                ) {
+                    \Yii::$app->session->addFlash(\kartik\widgets\Alert::TYPE_WARNING, ['title' => 'Error',
+                        'body' => 'Please register first']);
+                    return $this->goBack();
+                }
+                \Yii::$app->session->addFlash(\kartik\widgets\Alert::TYPE_INFO, ['title' => 'Please note',
+                    'body' => 'You are creating bucket list as a guest.<br/> You can sign up later on.<br/> This bucket list will still be saved.']);
+            }
             $model->user_id = Yii::$app->getUser()->id;
 
             return $this->render('create', [
@@ -105,7 +133,13 @@ class BucketListController extends Controller
         $model = $this->findModel($id);
 
         if ($model->loadAll(Yii::$app->request->post()) && $model->saveAll()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            if (\Yii::$app->user->identity->isTemp()) {
+                \Yii::$app->session->addFlash(\kartik\widgets\Alert::TYPE_INFO,"Your bucket list has been saved. Please complete your profile in order to access your bucket list easily.");
+                return $this->redirect(['/user/settings/profile', 'id' => \Yii::$app->user->id, 'is_temp' => 1]);
+            } else {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -143,20 +177,21 @@ class BucketListController extends Controller
     }
     
     /**
-    * Action to load a tabular form grid
-    * for BucketItem
-    * @author Yohanes Candrajaya <moo.tensai@gmail.com>
-    * @author Jiwantoro Ndaru <jiwanndaru@gmail.com>
-    *
-    * @return mixed
-    * @throws NotFoundHttpException
-    */
+     * Action to load a tabular form grid
+     * for BucketItem
+     * @author Yohanes Candrajaya <moo.tensai@gmail.com>
+     * @author Jiwantoro Ndaru <jiwanndaru@gmail.com>
+     *
+     * @return mixed
+     * @throws NotFoundHttpException
+     */
     public function actionAddBucketItem()
     {
         if (Yii::$app->request->isAjax) {
             $row = Yii::$app->request->post('BucketItem');
-            if((Yii::$app->request->post('isNewRecord') && Yii::$app->request->post('action') == 'load' && empty($row)) || Yii::$app->request->post('action') == 'add')
+            if ((Yii::$app->request->post('isNewRecord') && Yii::$app->request->post('action') == 'load' && empty($row)) || Yii::$app->request->post('action') == 'add') {
                 $row[] = [];
+            }
             return $this->renderAjax('_formBucketItem', ['row' => $row]);
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

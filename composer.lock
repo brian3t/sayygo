@@ -4,7 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "182ba5929ed1605f31f0eb2ce44ee088",
+    "hash": "4990789ec84e326ecda2e895a66ffb06",
+    "content-hash": "ba91b5089f4089714c40cdada8536a82",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -222,9 +223,9 @@
                 "bower-asset/jquery": ">=1.7"
             },
             "require-dev": {
-                "bower-asset/jasmine-ajax": ">=1.3.1,<1.4",
-                "bower-asset/jasmine-jquery": ">=1.5.2,<1.6",
-                "bower-asset/jquery": ">=1.7,<1.8"
+                "bower-asset/jasmine-ajax": "~1.3.1",
+                "bower-asset/jasmine-jquery": "~1.5.2",
+                "bower-asset/jquery": "~1.7"
             },
             "type": "bower-asset-library",
             "extra": {
@@ -323,6 +324,56 @@
                 "markdown-extra"
             ],
             "time": "2015-03-06 05:28:07"
+        },
+        {
+            "name": "dektrium/yii2-rbac",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dektrium/yii2-rbac.git",
+                "reference": "c6d315a3c9652b3b1ced19fe105f65e6e09f375b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dektrium/yii2-rbac/zipball/c6d315a3c9652b3b1ced19fe105f65e6e09f375b",
+                "reference": "c6d315a3c9652b3b1ced19fe105f65e6e09f375b",
+                "shasum": ""
+            },
+            "require": {
+                "kartik-v/yii2-widget-select2": "*",
+                "yiisoft/yii2": "2.0.*"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "bootstrap": "dektrium\\rbac\\Bootstrap"
+            },
+            "autoload": {
+                "psr-4": {
+                    "dektrium\\rbac\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dmitry Erofeev",
+                    "email": "dmeroff@gmail.com",
+                    "homepage": "http://dmeroff.ru"
+                }
+            ],
+            "description": "RBAC management module for Yii2",
+            "keywords": [
+                "dektrium",
+                "rbac gui",
+                "rbac management",
+                "rbac module",
+                "yii rbac",
+                "yii2",
+                "yii2-rbac"
+            ],
+            "time": "2015-12-04 21:55:40"
         },
         {
             "name": "dektrium/yii2-user",
@@ -523,16 +574,16 @@
         },
         {
             "name": "kartik-v/dependent-dropdown",
-            "version": "v1.4.3",
+            "version": "v1.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/dependent-dropdown.git",
-                "reference": "03b086d7ec51fc773aab064d7204adbbaa807ec4"
+                "reference": "a13970aec78e8eaae5cb9f1168df20d443f95113"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/dependent-dropdown/zipball/03b086d7ec51fc773aab064d7204adbbaa807ec4",
-                "reference": "03b086d7ec51fc773aab064d7204adbbaa807ec4",
+                "url": "https://api.github.com/repos/kartik-v/dependent-dropdown/zipball/a13970aec78e8eaae5cb9f1168df20d443f95113",
+                "reference": "a13970aec78e8eaae5cb9f1168df20d443f95113",
                 "shasum": ""
             },
             "type": "library",
@@ -561,7 +612,7 @@
                 "option",
                 "select"
             ],
-            "time": "2015-07-14 09:54:25"
+            "time": "2015-12-16 18:15:01"
         },
         {
             "name": "kartik-v/mpdf",
@@ -1438,16 +1489,16 @@
         },
         {
             "name": "kartik-v/yii2-widget-select2",
-            "version": "v2.0.3",
+            "version": "v2.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widget-select2.git",
-                "reference": "e72880e7e8dfc845c112ed7df275bf1c929be6db"
+                "reference": "ffc59cef18864d773c79f3b2da2f34c948ff5648"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-widget-select2/zipball/e72880e7e8dfc845c112ed7df275bf1c929be6db",
-                "reference": "e72880e7e8dfc845c112ed7df275bf1c929be6db",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widget-select2/zipball/ffc59cef18864d773c79f3b2da2f34c948ff5648",
+                "reference": "ffc59cef18864d773c79f3b2da2f34c948ff5648",
                 "shasum": ""
             },
             "require": {
@@ -1482,7 +1533,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-09-12 19:56:48"
+            "time": "2015-12-16 19:38:06"
         },
         {
             "name": "kartik-v/yii2-widget-sidenav",
@@ -2279,12 +2330,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/brian3t/yii2helper.git",
-                "reference": "0d1f5231d3202ce1543276fd5a81f27637822824"
+                "reference": "f626eb71095431b7ce6a6ceab880c17176a35580"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brian3t/yii2helper/zipball/0d1f5231d3202ce1543276fd5a81f27637822824",
-                "reference": "0d1f5231d3202ce1543276fd5a81f27637822824",
+                "url": "https://api.github.com/repos/brian3t/yii2helper/zipball/f626eb71095431b7ce6a6ceab880c17176a35580",
+                "reference": "f626eb71095431b7ce6a6ceab880c17176a35580",
                 "shasum": ""
             },
             "require": {
@@ -2312,7 +2363,7 @@
                 "helper",
                 "yii2"
             ],
-            "time": "2015-07-20 15:18:44"
+            "time": "2015-12-17 00:40:44"
         },
         {
             "name": "vova07/yii2-console-runner-extension",
@@ -2946,7 +2997,8 @@
         "dektrium/yii2-user": 20,
         "mitalcoi/yii2-cronjobs": 20,
         "usv/yii2helper": 20,
-        "mootensai/yii2-enhanced-gii": 20
+        "mootensai/yii2-enhanced-gii": 20,
+        "dektrium/yii2-rbac": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

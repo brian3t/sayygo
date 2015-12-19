@@ -1,7 +1,7 @@
 <?php
 /* @var $this yii\web\View */
 
-$this->title = 'Sayygo API';
+$this->title = 'Sayygo';
 \backend\assets\DashboardAsset::register($this);
 ?>
 <div id="index">

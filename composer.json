@@ -18,7 +18,8 @@
     "vova07/yii2-console-runner-extension": "*",
     "kartik-v/yii2-widget-growl": "*",
     "usv/yii2helper": "dev-master",
-    "mootensai/yii2-enhanced-gii": "dev-master"
+    "mootensai/yii2-enhanced-gii": "dev-master",
+    "dektrium/yii2-rbac": "dev-master"
   },
   "require-dev": {
     "yiisoft/yii2-codeception": "*",

@@ -22,7 +22,10 @@ return [
 				],
 			],
 		],
-		'formatter'    => [
+        'authManager' => [
+            'class' => 'dektrium\rbac\components\DbManager',
+        ],
+            'formatter'    => [
 			'class'          => 'yii\i18n\Formatter',
 			'dateFormat'     => 'php:d-M-Y',
 			'datetimeFormat' => 'dd/MM/yyyy HH:mm:ss',
@@ -102,10 +105,15 @@ return [
 				'reconfirmationSubject' => 'Email change - Sayygo',
 				'recoverySubject'       => 'Recovery email - Sayygo',
 			],
-			'enableFlashMessages' => false
+			'enableFlashMessages' => false,
+            'admins' => ['ngxtri']
 
 		],
-	],
+        'rbac' => [
+            'class' => 'dektrium\rbac\Module',
+        ],
+
+    ],
 
 ];
 ?>

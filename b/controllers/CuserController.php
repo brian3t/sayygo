@@ -29,7 +29,7 @@ class CuserController extends Controller
             ],
             'access' => [
 	            'class' => AccessControl::className(),
-	            'only'  => [ 'create','update' ],
+	            'only'  => [ 'create','update','admin' ],
 	            'rules' => [
 		            // allow authenticated users
 		            [
