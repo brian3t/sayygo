@@ -10,7 +10,8 @@ use frontend\widgets\Alert;
 /* @var $content string */
 
 AppAsset::register( $this );
-\backend\assets\AdminAsset::register( $this );
+\frontend\assets\FrontEndAsset::register($this);
+//\backend\assets\AdminAsset::register( $this );
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -25,57 +26,50 @@ AppAsset::register( $this );
 <body>
 <?php $this->beginBody() ?>
 <div class="wrapper">
-	<nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-		</div>
-		<!-- /.navbar-header -->
-		<div class="sidebar-collapse">
-			<ul class="nav navbar-top-links navbar-right">
-				<li>
-					<i class="fa fa-envelope fa-fw"></i><a href="/f/web/site/about">About</a>
-				</li>
-				<li>
-					<i class="fa fa-envelope fa-fw"></i><a href="/f/web/site/contact">Contact</a>
-				</li>
-				<?php if ( ! Yii::$app->user->getIsGuest() ): ?>
-					<li>
-						<ul>
-							<li><a href="/b/web/user/settings/profile"><i class="fa fa-user fa-fw"></i> User Profile</a>
-							</li>
-							<!--						<li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>-->
-							<!--						</li>-->
-							<li class="divider"></li>
-							<li><a class="yii-controls" type="button" data-method="post" href="/f/web/user/logout"><i
-										class="fa fa-sign-out fa-fw"></i> Logout</a>
-							</li>
-						</ul>
-						<!-- /.dropdown-user -->
-					</li>
-				<?php else: ?>
-					<li>
-						<ul>
-							<li><a href="/b/web/user/login"><i class="fa fa-user fa-fw"></i> Login</a>
-							</li>
-							<li class="divider"></li>
-							<li><a href="user/registration/register"><i
-										class="fa fa-sign-out fa-fw"></i> Register</a>
-							</li>
-						</ul>
-						<!-- /.dropdown-user -->
-					</li>
-				<?php endif; ?>
-				<!-- /.dropdown -->
-			</ul>
-		</div>
-		<!-- /.navbar-top-links -->
-	</nav>
-	<!--        --><?php
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Sayygo</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="/b/web/user/login">Log In</a>
+                    </li>
+                    <li>
+                        <a href="user/registration/register"">Sign Up</a>
+                    </li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                    <li>
+                        <a href="/b/web/bucket-list/index">Bucket List</a>
+                    </li>
+                    <li>
+                        <a href="/b/web/sayygo/index">Manage Sayygos</a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="$('#browse-input').toggle();">Browse</a>
+                    </li>
+                    <li>
+                        <a href="/f/web/site/about">About</a>
+                    </li>
+                    <li>
+                        <a href="/f/web/site/contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+    <!--        --><?php
 	//            NavBar::begin([
 	//                'brandLabel' => 'Sayygo',
 	//                'brandUrl' => Yii::$app->homeUrl,
@@ -130,18 +124,18 @@ AppAsset::register( $this );
 			                                    ] );
 			?>
 		<?php endforeach; ?>
-		<?= Alert::widget() ?>
+<!--		--><?//= Alert::widget() ?>
 		<?= $content ?>
 	</div>
 </div>
 
-<footer class="footer">
-	<div class="container">
-		<p class="pull-left">&copy; Sayygo <?= date( 'Y' ) ?></p>
-
-		<p class="pull-right"><?= Yii::powered() ?></p>
-	</div>
-</footer>
+<!--<footer class="footer">-->
+<!--	<div class="container">-->
+<!--		<p class="pull-left">&copy; Sayygo --><?//= date( 'Y' ) ?><!--</p>-->
+<!---->
+<!--		<p class="pull-right">--><?//= Yii::powered() ?><!--</p>-->
+<!--	</div>-->
+<!--</footer>-->
 
 <?php $this->endBody() ?>
 </body>
