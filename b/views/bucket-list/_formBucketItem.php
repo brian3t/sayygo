@@ -4,10 +4,16 @@ use kartik\builder\TabularForm;
 use yii\data\ArrayDataProvider;
 use yii\helpers\Html;
 use yii\widgets\Pjax;
+/* @var int $id */
 
 Pjax::begin();
 $dataProvider = new ArrayDataProvider([
     'allModels' => $row,
+    'pagination' => [
+        'pagesize' => 50,
+//        'route' => 'bucket-list/update'
+    ]
+
 ]);
 echo TabularForm::widget([
     'dataProvider' => $dataProvider,

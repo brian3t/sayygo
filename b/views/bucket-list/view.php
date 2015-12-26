@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <br/>
         It was last updated on <?= \usv\yii2helper\PHPHelper::date_time_format($model->updated_at) ?></p>
         <br/>
-<?php 
+<?php //
 //    $gridColumn = [
 //        ['attribute' => 'id', 'hidden' => true],
 //        [
@@ -59,22 +59,22 @@ $this->params['breadcrumbs'][] = $this->title;
 //        ['class' => 'yii\grid\SerialColumn'],
         ['attribute' => 'id', 'hidden' => true],
         'name',
-        [
-            'attribute' => 'bucketList.name',
-            'label' => 'Bucket List',
-        ],
-    ];
-//    echo Gridview::widget([
-//        'dataProvider' => $providerBucketItem,
-//        'pjax' => true,
-//        'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container']],
-//        'panel' => [
-//        'type' => GridView::TYPE_PRIMARY,
-//        'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i>  ' . Html::encode('Bucket Items in this list:') . ' </h3>',
+//        [
+//            'attribute' => 'bucketList.name',
+//            'label' => 'Bucket List',
 //        ],
-//        'columns' => $gridColumnBucketItem,
-//        'export'=>false
-//    ]);
+    ];
+    echo Gridview::widget([
+        'dataProvider' => $providerBucketItem,
+        'pjax' => true,
+        'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container']],
+        'panel' => [
+        'type' => GridView::TYPE_PRIMARY,
+        'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i>  ' . Html::encode('Bucket Items in this list:') . ' </h3>',
+        ],
+        'columns' => $gridColumnBucketItem,
+        'export'=>false
+    ]);
 ?>
     </div>
 </div>

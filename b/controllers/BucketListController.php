@@ -133,7 +133,7 @@ class BucketListController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id, $page = 1)
     {
         $model = $this->findModel($id);
 
@@ -143,6 +143,9 @@ class BucketListController extends Controller
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'page' => $page,
+                'id' => $id,
+
             ]);
         }
     }
@@ -185,14 +188,16 @@ class BucketListController extends Controller
      * @return mixed
      * @throws NotFoundHttpException
      */
-    public function actionAddBucketItem()
+    public function actionAddBucketItem($page = 1, $id = null)
     {
         if (Yii::$app->request->isAjax) {
             $row = Yii::$app->request->post('BucketItem');
             if ((Yii::$app->request->post('isNewRecord') && Yii::$app->request->post('action') == 'load' && empty($row)) || Yii::$app->request->post('action') == 'add') {
                 $row[] = [];
             }
-            return $this->renderAjax('_formBucketItem', ['row' => $row]);
+            return $this->renderAjax('_formBucketItem', ['row' => $row, 'page' => $page,
+                'id' => $id,
+            ]);
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }

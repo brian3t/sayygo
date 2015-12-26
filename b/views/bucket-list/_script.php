@@ -1,5 +1,7 @@
 <?php
 use yii\helpers\Url;
+/* @var int $page */
+/* @var int $id */
 
 ?>
 <script>
@@ -7,7 +9,7 @@ use yii\helpers\Url;
         var data = <?= $value ?>;
         $.ajax({
             type: 'POST',
-            url: '<?php echo Url::to(['add-'.$relID]); ?>',
+            url: '<?php echo Url::to(['add-'.$relID, 'page' => $page, 'id' => $id]); ?>',
             data: {'<?= $class?>' : data, action : 'load', isNewRecord : <?= $isNewRecord ?>},
             success: function (data) {
                 $('#add-<?= $relID?>').html(data);

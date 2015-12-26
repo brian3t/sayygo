@@ -49,7 +49,10 @@ AppAsset::register( $this );
                     </li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
                     <li>
-                        <a href="/b/web/bucket-list/index">Bucket List</a>
+                        <a href="/b/web/bucket-list/create">Create a Bucket List</a>
+                    </li>
+                    <li>
+                        <a href="/b/web/bucket-list/index">View Bucket Lists</a>
                     </li>
                     <li>
                         <a href="/b/web/sayygo/index">Manage Sayygos</a>
