@@ -9,7 +9,7 @@ use yii\helpers\Url;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $model \backend\models\sayygo */
 
-$this->title                   = "People who match your adventure: " . ucwords($keyword);
+$this->title                   = "People who match: " . ucwords($keyword);
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="sayygo-index">

@@ -33,7 +33,7 @@ $this->registerCssFile( '//cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.
 							<textarea name="body" class="form-control" rows="8">
 Hello <?= $toUser->getFullName() ?>,
 								<?php if ( ! empty( $sayygo ) ): { ?>
-									I found your sayygo at http://sayygo.com that matches my desired destinations:
+									I found your Sayygo at http://sayygo.com that matches my desired destinations:
 									<?= $sayygo->full_text ?>
 								<?php } else: {
 									echo "_________________________________\r\n\r\n".str_replace("<br />","",$body);

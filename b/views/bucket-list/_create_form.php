@@ -26,7 +26,7 @@ use yii\widgets\ActiveForm;
         ],
     ]) ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true, 'placeholder' => 'Name']) ?>
+    <?= $form->field($model, 'name')->label('Name your bucket list (Example: John\'s list)')->textInput(['maxlength' => true, 'placeholder' => 'Name']) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

@@ -20,7 +20,8 @@ use yii\helpers\ArrayHelper;
 	<?= $form->field( $model,'full_text' )->textarea( [
 		                                                  'maxlength' => 10000,
 		                                                  'rows'      => 6
-	                                                  ] )->label( "Tell us where you want to travel to. Type # to begin hashtag. When you are done hashtagging, type # to finish. You can have multiple hashtags. For example, you can type: <br/><br/> <i>I want to go to #Shang Hai# and #San Francisco# around this fall 2015 when there is World Food Convention.</i><br/><br/>Begin here:" ) ?>
+	                                                  ] )->label( "Tell us what you want to do. Type # to begin hashtag. When you are done hashtagging, type # to finish. You can have multiple hashtags.
+	                                                  For example, you can type: <br/><br/> <i>I want to go to <span class='hashtag'>#</span>Shanghai<span class='hashtag'>#</span> and <span class='hashtag'>#</span>San Francisco<span class='hashtag'>#</span> around this fall 2015 when there is World Food Convention.</i><br/><br/>Begin here:" ) ?>
 
 	<?= BaseHtml::activeHiddenInput( $model,'user_id' ) ?>
 
@@ -42,7 +43,7 @@ function (element, callback) {
      callback(initKeywords);
     }
 SCRIPT;
-	echo $form->field( $model,'keywordIds' )->label( 'Keywords in this sayygo:' )->widget( Select2::classname(),[
+	echo $form->field( $model,'keywordIds' )->label( 'Keywords in this Sayygo:' )->widget( Select2::classname(),[
 		'language'      => 'en',
 		'options'       => [
 			'disabled' => true
@@ -75,7 +76,7 @@ SCRIPT;
 			'startDate' => '+0d',
 			'todayBtn'  => true
 		]
-	] )->label( 'When do you prefer to start this travel? (optional)' ); ?>
+	] )->label( 'When do you prefer to start this Sayygo? (optional)' ); ?>
 
 
 	<?= $form->field( $model,'end_date' )->widget( DatePicker::classname(),[
@@ -88,12 +89,12 @@ SCRIPT;
 			'startDate' => '+0d',
 			'todayBtn'  => true
 		]
-	] )->label( 'When do you prefer to end this travel? (optional)' ); ?>
+	] )->label( 'When do you prefer to end this Sayygo? (optional)' ); ?>
 
 	<?= $form->field( $model,'is_active_mode' )->dropDownList( [
 		                                                           '0' => 'No, keep me in listen-only mode',
 		                                                           '1' => 'Yes, I want to listen and receive pings from other people'
-	                                                           ] )->label( 'Do you want other people to contact you regarding your sayygo?' ) ?>
+	                                                           ] )->label( 'Do you want other people to contact you regarding your Sayygo?' ) ?>
 
 	<?= $form->field( $model,'notification_frequency' )->dropDownList([
 		                                                                   'Instant Email'         => 'Instant Email',

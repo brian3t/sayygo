@@ -97,10 +97,10 @@ class Sayygo extends \yii\db\ActiveRecord {
 			'id'                     => 'ID',
 			'full_text'              => 'Full text',
 			'user_id'                => 'User ID',
-			'created_at'             => 'Created at',
-			'CreatedAtFormatted'     => 'Created at',
-			'updated_at'             => 'Updated at',
-			'UpdatedAtFormatted'     => 'Updated at',
+			'created_at'             => 'Created on',
+			'CreatedAtFormatted'     => 'Created on',
+			'updated_at'             => 'Updated on',
+			'UpdatedAtFormatted'     => 'Updated on',
 			'type_id'                => 'Type ID',
 			'status'                 => 'Status',
 			'start_date'             => 'Preferred start date',
@@ -109,7 +109,7 @@ class Sayygo extends \yii\db\ActiveRecord {
 			'notification_frequency' => 'Notification frequency',
 			'partner_sex'            => 'Partner\' sex',
 			'partner_experience'     => 'Partner\'s experience',
-			'partner_num_preference' => 'How many partners is preferred',
+			'partner_num_preference' => 'How many partners are preferred',
 			'num_of_partner'         => 'Ideal number of partners',
 		];
 	}

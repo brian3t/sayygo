@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Sayygo */
 
-$this->title = 'Post a sayygo';
+$this->title = 'Create Sayygo';
 $this->params['breadcrumbs'][] = ['label' => 'Sayygos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

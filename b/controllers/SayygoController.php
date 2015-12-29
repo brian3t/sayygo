@@ -21,26 +21,28 @@ use yii\web\Request;
 /**
  * SayygoController implements the CRUD actions for Sayygo model.
  */
-class SayygoController extends Controller {
+class SayygoController extends Controller
+{
 //	public $enableCsrfValidation = false;
-	public function behaviors() {
+	public function behaviors()
+	{
 		return [
-			'verbs'  => [
-				'class'   => VerbFilter::className(),
+			'verbs' => [
+				'class' => VerbFilter::className(),
 				'actions' => [
-					'delete' => [ 'post' ],
+					'delete' => ['post'],
 				],
 			],
 			'access' => [
 				'class' => AccessControl::className(),
 				'rules' => [
 					[
-						'allow'   => true,
-						'actions' => [ 'browse','view' ],
-						'roles'   => [ '?' ],
+						'allow' => true,
+						'actions' => ['browse', 'view'],
+						'roles' => ['?'],
 					],
 					[
-						'allow'   => true,
+						'allow' => true,
 						'actions' => [
 							'create',
 							'index',
@@ -53,7 +55,7 @@ class SayygoController extends Controller {
 							'view',
 							'testing'
 						],
-						'roles'   => [ '@' ],
+						'roles' => ['@'],
 					],
 				],
 			],
@@ -65,15 +67,17 @@ class SayygoController extends Controller {
 	 * Lists all Sayygo models.
 	 * @return mixed
 	 */
-	public function actionIndex() {
+	public function actionIndex()
+	{
 
-		$dataProvider = new ActiveDataProvider( [
-			                                        'query' => Sayygo::find()->where( [ 'user_id' => Yii::$app->user->id ] ),
-		                                        ] );
+		$dataProvider = new ActiveDataProvider([
+			'query' => Sayygo::find()->where(['user_id' => Yii::$app->user->id]),
+			'sort' => ['attributes' => ['full_text', 'created_at', 'updated_at']]
+		]);
 
-		return $this->render( 'index',[
+		return $this->render('index', [
 			'dataProvider' => $dataProvider,
-		] );
+		]);
 	}
 
 	/*
@@ -82,35 +86,36 @@ class SayygoController extends Controller {
 	 * Similar to actionMatchall, but this is only for a specific sayygo, specific kw
 	 * TODO-B: Sayygo OnSave() and onUpdate() and onCreate() will fire this automatically
 	 */
-	public function actionMatch( $id,$kwId ) {
-		$sourceSayygo = Sayygo::findOne( $id );
-		$sayygos      = Keyword::findOne( $kwId )->sayygos;
-		foreach ( $sayygos as $targetSayygo ) {
-			if ( $targetSayygo->id == $id ) {
+	public function actionMatch($id, $kwId)
+	{
+		$sourceSayygo = Sayygo::findOne($id);
+		$sayygos = Keyword::findOne($kwId)->sayygos;
+		foreach ($sayygos as $targetSayygo) {
+			if ($targetSayygo->id == $id) {
 				continue;
 			}
-			$matchingResult = Sayygo::getMatch( $sourceSayygo,$targetSayygo );
+			$matchingResult = Sayygo::getMatch($sourceSayygo, $targetSayygo);
 			//store keyword, sayygo first , sayygo second
-			$sayygo_first_id  = min( $sourceSayygo->id,$targetSayygo->id );
-			$sayygo_second_id = max( $sourceSayygo->id,$targetSayygo->id );
-			$aMatch           = MatchSayygo::findOne( [
-				                                          'keyword_id'       => $kwId,
-				                                          'sayygo_first_id'  => $sayygo_first_id,
-				                                          'sayygo_second_id' => $sayygo_second_id
-			                                          ] );
-			if ( $aMatch === null ) {
+			$sayygo_first_id = min($sourceSayygo->id, $targetSayygo->id);
+			$sayygo_second_id = max($sourceSayygo->id, $targetSayygo->id);
+			$aMatch = MatchSayygo::findOne([
+				'keyword_id' => $kwId,
+				'sayygo_first_id' => $sayygo_first_id,
+				'sayygo_second_id' => $sayygo_second_id
+			]);
+			if ($aMatch === null) {
 				$newMatch = new MatchSayygo();
 			} else {
 				$newMatch = $aMatch;
 			}
 
 			//store matching array as json array with column name only
-			$newMatch->keyword_id       = $kwId;
-			$newMatch->sayygo_first_id  = $sayygo_first_id;
+			$newMatch->keyword_id = $kwId;
+			$newMatch->sayygo_first_id = $sayygo_first_id;
 			$newMatch->sayygo_second_id = $sayygo_second_id;
-			$newMatch->exact_matches    = json_encode( $matchingResult['exactMatches'] );
-			$newMatch->close_matches    = json_encode( $matchingResult['closeMatches'] );
-			$newMatch->compatibility    = $matchingResult['compatibility'];
+			$newMatch->exact_matches = json_encode($matchingResult['exactMatches']);
+			$newMatch->close_matches = json_encode($matchingResult['closeMatches']);
+			$newMatch->compatibility = $matchingResult['compatibility'];
 			$newMatch->save();
 		}
 	}
@@ -121,64 +126,66 @@ class SayygoController extends Controller {
 	 * In table format
 	 * @return mixed
 	 */
-	public function actionListmatch( $id,$kwId ) {
+	public function actionListmatch($id, $kwId)
+	{
 		$mtsgTableName = MatchSayygo::tableName();
 		$kwsgTableName = KeywordSayygo::tableName();
-		$this->actionMatch( $id,$kwId );
-		$modelData   = $this->findModel( $id );
-		$mtsgs       = $modelData->getMatchSayygos();
-		$mtsgs       = ArrayHelper::index( $mtsgs->all(),
-		                                   'sayygo_id' );//get all attributes, index by target sayygo's id
+		$this->actionMatch($id, $kwId);
+		$modelData = $this->findModel($id);
+		$mtsgs = $modelData->getMatchSayygos();
+		$mtsgs = ArrayHelper::index($mtsgs->all(),
+			'sayygo_id');//get all attributes, index by target sayygo's id
 		$secondQuery = new Query();
-		$secondQuery->select( 'sayygo.*' )->from( 'sayygo' )
-		            ->innerJoin( "(select * from $kwsgTableName where keyword_id = $kwId) as kwsg",
-		                         [ "kwsg.sayygo_id" => $id ] )
-		            ->innerJoin( "(select * from $mtsgTableName mtsg where mtsg.sayygo_second_id = $id) as mtsg2",
-		                         "mtsg2.sayygo_first_id = sayygo.id" )
-		            ->where( [
-			                     'not',
-			                     [ 'sayygo.id' => $id ]
-		                     ] )
-		            ->andWhere( [
-			                        'not',
-			                        [ 'sayygo.user_id' => $modelData->user_id ]
-		                        ] )
-		            ->orderBy( 'compatibility desc' )
-		            ->limit( 1000 );
-		$dataProvider = new ActiveDataProvider( [
-			                                        'query' => Sayygo::find()
-			                                                         ->innerJoin( "(select * from $kwsgTableName where keyword_id = $kwId) as kwsg",
-			                                                                      [ "kwsg.sayygo_id" => $id ] )
-			                                                         ->innerJoin( "(select * from $mtsgTableName mtsg where mtsg.sayygo_first_id = $id) as mtsg1",
-			                                                                      "mtsg1.sayygo_second_id = sayygo.id" )
-			                                                         ->where( [
-				                                                                  'not',
-				                                                                  [ 'sayygo.id' => $id ]
-			                                                                  ] )
-			                                                         ->andWhere( [
-				                                                                     'not',
-				                                                                     [ 'sayygo.user_id' => $modelData->user_id ]
-			                                                                     ] )
-			                                                         ->orderBy( 'compatibility desc' )
-			                                                         ->limit( 1000 )
-			                                                         ->union( $secondQuery )
-			                                        ,
-		                                        ] );
+		$secondQuery->select('sayygo.*')->from('sayygo')
+		            ->innerJoin("(select * from $kwsgTableName where keyword_id = $kwId) as kwsg",
+			            ["kwsg.sayygo_id" => $id])
+		            ->innerJoin("(select * from $mtsgTableName mtsg where mtsg.sayygo_second_id = $id) as mtsg2",
+			            "mtsg2.sayygo_first_id = sayygo.id")
+		            ->where([
+			            'not',
+			            ['sayygo.id' => $id]
+		            ])
+		            ->andWhere([
+			            'not',
+			            ['sayygo.user_id' => $modelData->user_id]
+		            ])
+		            ->orderBy('compatibility desc')
+		            ->limit(1000);
+		$dataProvider = new ActiveDataProvider([
+			'query' => Sayygo::find()
+			                 ->innerJoin("(select * from $kwsgTableName where keyword_id = $kwId) as kwsg",
+				                 ["kwsg.sayygo_id" => $id])
+			                 ->innerJoin("(select * from $mtsgTableName mtsg where mtsg.sayygo_first_id = $id) as mtsg1",
+				                 "mtsg1.sayygo_second_id = sayygo.id")
+			                 ->where([
+				                 'not',
+				                 ['sayygo.id' => $id]
+			                 ])
+			                 ->andWhere([
+				                 'not',
+				                 ['sayygo.user_id' => $modelData->user_id]
+			                 ])
+			                 ->orderBy('compatibility desc')
+			                 ->limit(1000)
+			                 ->union($secondQuery)
+			,
+		]);
 
-		return $this->render( 'listmatch',[
+		return $this->render('listmatch', [
 			'dataProvider' => $dataProvider,
-			'sourceModel'  => $modelData,
-			'kwName'       => Keyword::findOne( $kwId )->description,
-			'mtsgs'        => $mtsgs
-		] );
+			'sourceModel' => $modelData,
+			'kwName' => Keyword::findOne($kwId)->description,
+			'mtsgs' => $mtsgs
+		]);
 	}
 
-	public function beforeAction( $action ) {
-		if ( $action->id == "browse" ) {
+	public function beforeAction($action)
+	{
+		if ($action->id == "browse") {
 			$this->enableCsrfValidation = false;
 		}
 
-		return parent::beforeAction( $action );
+		return parent::beforeAction($action);
 	}
 
 	/**
@@ -186,35 +193,37 @@ class SayygoController extends Controller {
 	 * In table format
 	 * @return mixed
 	 */
-	public function actionBrowse() {
+	public function actionBrowse()
+	{
 
-		$keyword = \yii::$app->request->post( 'keyword' );
-		$keyword = filter_input( INPUT_POST,'keyword' );
-		$keyword = str_replace( " ","",strtolower( $keyword ) );
+		$keyword = \yii::$app->request->post('keyword');
+		$keyword = filter_input(INPUT_POST, 'keyword');
+		$keyword = str_replace(" ", "", strtolower($keyword));
 
-		$kwId = Keyword::findOne( [ 'description' => $keyword ] );
-		if ( empty( $kwId ) ) {
+		$kwId = Keyword::findOne(['description' => $keyword]);
+		if (empty($kwId)) {
 			$kwId = "null";
 		} else {
 			$kwId = $kwId->id;
 		}
 
-		$dataProvider = new ActiveDataProvider( [
-			                                        'query' => Sayygo::find()->innerJoin( "(SELECT * FROM " . KeywordSayygo::tableName() . " WHERE keyword_id = $kwId) as kwsg",
-			                                                                              'sayygo.id = kwsg.sayygo_id' )->limit( 1000 ),
-		                                        ] );
+		$dataProvider = new ActiveDataProvider([
+			'query' => Sayygo::find()->innerJoin("(SELECT * FROM " . KeywordSayygo::tableName() . " WHERE keyword_id = $kwId) as kwsg",
+				'sayygo.id = kwsg.sayygo_id')->limit(1000),
+		]);
 
-		return $this->render( 'browse',[
+		return $this->render('browse', [
 			'dataProvider' => $dataProvider,
-			'keyword'      => $keyword
-		] );
+			'keyword' => $keyword
+		]);
 	}
 
 	/*
 	 * testing
 	 */
-	public function actionTesting( $id ) {
-		$sg  = Sayygo::findOne( $id );
+	public function actionTesting($id)
+	{
+		$sg = Sayygo::findOne($id);
 		$sgs = $sg->getSayygosShareKeyword();
 	}
 
@@ -224,34 +233,35 @@ class SayygoController extends Controller {
 	 * @return mixed
 	 * @var \backend\models\Keyword $kw
 	 */
-	public static function actionMatchall() {
-		$kws           = Keyword::find()->all();
-		$numOfKeyword  = count( $kws );
+	public static function actionMatchall()
+	{
+		$kws = Keyword::find()->all();
+		$numOfKeyword = count($kws);
 		$kwsgTableName = KeywordSayygo::tableName();
-		$sayygoModel   = new Sayygo();
+		$sayygoModel = new Sayygo();
 
 		//for each keyword
 		$numOfSayygo = $new = $existing = 0;
-		foreach ( $kws as $kw ) {
+		foreach ($kws as $kw) {
 			//find group of sayygo having that keyword
 			$sayygos = $kw->sayygos;
-			$numOfSayygo += count( $sayygos );
+			$numOfSayygo += count($sayygos);
 			//foreach i
-			for ( $i = 0;$i < ( count( $sayygos ) - 1 );$i ++ ) {
+			for ($i = 0;$i < (count($sayygos) - 1);$i ++) {
 				//foreach j
-				for ( $j = $i + 1;$j < count( $sayygos );$j ++ ) {
+				for ($j = $i + 1;$j < count($sayygos);$j ++) {
 					//match sayygo i and sayygo j
 					//store matching info in table match_sayygo
-					$matchingResult = Sayygo::getMatch( $sayygos[ $i ],$sayygos[ $j ] );
+					$matchingResult = Sayygo::getMatch($sayygos[$i], $sayygos[$j]);
 					//store keyword, sayygo first , sayygo second
-					$sayygo_first_id  = min( $sayygos[ $i ]->id,$sayygos[ $j ]->id );
-					$sayygo_second_id = max( $sayygos[ $i ]->id,$sayygos[ $j ]->id );
-					$aMatch           = MatchSayygo::findOne( [
-						                                          'keyword_id'       => $kw->id,
-						                                          'sayygo_first_id'  => $sayygo_first_id,
-						                                          'sayygo_second_id' => $sayygo_second_id
-					                                          ] );
-					if ( $aMatch === null ) {
+					$sayygo_first_id = min($sayygos[$i]->id, $sayygos[$j]->id);
+					$sayygo_second_id = max($sayygos[$i]->id, $sayygos[$j]->id);
+					$aMatch = MatchSayygo::findOne([
+						'keyword_id' => $kw->id,
+						'sayygo_first_id' => $sayygo_first_id,
+						'sayygo_second_id' => $sayygo_second_id
+					]);
+					if ($aMatch === null) {
 						$newMatch = new MatchSayygo();
 						$new ++;
 					} else {
@@ -260,18 +270,18 @@ class SayygoController extends Controller {
 					}
 
 					//store matching array as json array with column name only
-					$newMatch->keyword_id       = $kw->id;
-					$newMatch->sayygo_first_id  = $sayygo_first_id;
+					$newMatch->keyword_id = $kw->id;
+					$newMatch->sayygo_first_id = $sayygo_first_id;
 					$newMatch->sayygo_second_id = $sayygo_second_id;
-					$newMatch->exact_matches    = json_encode( $matchingResult['exactMatches'] );
-					$newMatch->close_matches    = json_encode( $matchingResult['closeMatches'] );
-					$newMatch->compatibility    = $matchingResult['compatibility'];
+					$newMatch->exact_matches = json_encode($matchingResult['exactMatches']);
+					$newMatch->close_matches = json_encode($matchingResult['closeMatches']);
+					$newMatch->compatibility = $matchingResult['compatibility'];
 					$newMatch->save();
 				}
 			}
 		}
 
-		return compact( 'numOfKeyword','numOfSayygo','new','existing' );
+		return compact('numOfKeyword', 'numOfSayygo', 'new', 'existing');
 	}
 
 
@@ -282,14 +292,15 @@ class SayygoController extends Controller {
 	 *
 	 * @return mixed
 	 */
-	public function actionView( $id ) {
-		$modelData = $this->findModel( $id );
-		$isOwner   = ( Yii::$app->user->id === $modelData->user_id );
+	public function actionView($id)
+	{
+		$modelData = $this->findModel($id);
+		$isOwner = (Yii::$app->user->id === $modelData->user_id);
 
-		return $this->render( 'view',[
-			'model'   => $modelData,
+		return $this->render('view', [
+			'model' => $modelData,
 			'isOwner' => $isOwner
-		] );
+		]);
 	}
 
 	/**
@@ -297,39 +308,40 @@ class SayygoController extends Controller {
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 * @return mixed
 	 */
-	public function actionCreate() {
-		$model          = new Sayygo();
+	public function actionCreate()
+	{
+		$model = new Sayygo();
 		$model->user_id = Yii::$app->user->id;
 
-		if ( $model->load( Yii::$app->request->post() ) ) {
+		if ($model->load(Yii::$app->request->post())) {
 			//get plain keywords here
-			$keywords   = $_POST['keywords'];
-			$keywords   = explode( ',',$keywords );
-			$keywordIds = [ ];
-			foreach ( $keywords as $kw ) {
-				$kw      = preg_replace( '/(\s)+/',"",strtolower( $kw ) );
-				$kwModel = Keyword::findOne( [ 'description' => $kw ] );
-				if ( $kwModel == null ) {
-					$kwModel              = new Keyword();
+			$keywords = $_POST['keywords'];
+			$keywords = explode(',', $keywords);
+			$keywordIds = [];
+			foreach ($keywords as $kw) {
+				$kw = preg_replace('/(\s)+/', "", strtolower($kw));
+				$kwModel = Keyword::findOne(['description' => $kw]);
+				if ($kwModel == null) {
+					$kwModel = new Keyword();
 					$kwModel->description = $kw;
 					$kwModel->save();
 				}
-				array_push( $keywordIds,$kwModel->id );
+				array_push($keywordIds, $kwModel->id);
 			}
 			//apply new keywords ID to Sayygo so that they will be linked
-			$model->keywordIds = implode( ',',$keywordIds );
+			$model->keywordIds = implode(',', $keywordIds);
 			//get plain keywords//
-			if ( $model->save() ) {
-				return $this->redirect( [ 'view','id' => $model->id ] );
+			if ($model->save()) {
+				return $this->redirect(['view', 'id' => $model->id]);
 			} else {
-				return $this->render( 'create',[
+				return $this->render('create', [
 					'model' => $model,
-				] );
+				]);
 			}
 		} else {
-			return $this->render( 'create',[
+			return $this->render('create', [
 				'model' => $model,
-			] );
+			]);
 		}
 	}
 
@@ -343,35 +355,36 @@ class SayygoController extends Controller {
 	 *
 	 * @return mixed
 	 */
-	public function actionUpdate( $id ) {
-		$model = $this->findModel( $id );
+	public function actionUpdate($id)
+	{
+		$model = $this->findModel($id);
 
-		if ( $model->load( Yii::$app->request->post() ) ) {
+		if ($model->load(Yii::$app->request->post())) {
 			//get plain keywords here
-			$keywords   = $_POST['keywords'];
-			$keywords   = explode( ',',$keywords );
-			$keywordIds = [ ];
-			foreach ( $keywords as $kw ) {
-				$kw      = preg_replace( '/(\s)+/',"",strtolower( $kw ) );
-				$kwModel = Keyword::findOne( [ 'description' => $kw ] );
-				if ( $kwModel == null ) {
-					$kwModel              = new Keyword();
+			$keywords = $_POST['keywords'];
+			$keywords = explode(',', $keywords);
+			$keywordIds = [];
+			foreach ($keywords as $kw) {
+				$kw = preg_replace('/(\s)+/', "", strtolower($kw));
+				$kwModel = Keyword::findOne(['description' => $kw]);
+				if ($kwModel == null) {
+					$kwModel = new Keyword();
 					$kwModel->description = $kw;
 					$kwModel->save();
 				}
-				array_push( $keywordIds,$kwModel->id );
+				array_push($keywordIds, $kwModel->id);
 			}
 			//apply new keywords ID to Sayygo so that they will be linked
-			$model->keywordIds = implode( ',',$keywordIds );
+			$model->keywordIds = implode(',', $keywordIds);
 			//get plain keywords//
 
-			if ( $model->save() ) {
-				return $this->redirect( [ 'view','id' => $model->id ] );
+			if ($model->save()) {
+				return $this->redirect(['view', 'id' => $model->id]);
 			}
 		} else {
-			return $this->render( 'update',[
+			return $this->render('update', [
 				'model' => $model,
-			] );
+			]);
 		}
 	}
 
@@ -384,10 +397,11 @@ class SayygoController extends Controller {
 	 * @return mixed
 	 */
 	public
-	function actionDelete( $id ) {
-		$this->findModel( $id )->delete();
+	function actionDelete($id)
+	{
+		$this->findModel($id)->delete();
 
-		return $this->redirect( [ 'index' ] );
+		return $this->redirect(['index']);
 	}
 
 	/**
@@ -400,11 +414,12 @@ class SayygoController extends Controller {
 	 * @throws NotFoundHttpException if the model cannot be found
 	 */
 	protected
-	function findModel( $id ) {
-		if ( ( $model = Sayygo::findOne( $id ) ) !== null ) {
+	function findModel($id)
+	{
+		if (($model = Sayygo::findOne($id)) !== null) {
 			return $model;
 		} else {
-			throw new NotFoundHttpException( 'The requested page does not exist.' );
+			throw new NotFoundHttpException('The requested page does not exist.');
 		}
 	}
 }

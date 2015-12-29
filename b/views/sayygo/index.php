@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	<h1><?= Html::encode( $this->title ) ?></h1>
 
 	<p>
-		<?= Html::a( 'Create a new Sayygo',[ 'create' ],[ 'class' => 'btn btn-success' ] ) ?>
+		<?= Html::a( 'Create a Sayygo',[ 'create' ],[ 'class' => 'btn btn-success' ] ) ?>
 	</p>
 
 	<?= GridView::widget( [
@@ -27,8 +27,8 @@ $this->params['breadcrumbs'][] = $this->title;
 //            'id',
 			                      'full_text',
 //            'user_id',
-			                      'CreatedAtFormatted',
-			                      'UpdatedAtFormatted',
+			                      'created_at',
+			                      'updated_at',
 			                      // 'type_id',
 			                      // 'status',
 

@@ -69,8 +69,8 @@ class SettingsController extends BaseSettingsController {
         $this->performAjaxValidation($model);
 
         if ($model->load(\Yii::$app->request->post()) && $model->save()) {
-            \Yii::$app->session->setFlash('success', \Yii::t('user', 'Your account details have been updated'));
-            return $this->refresh();
+            \Yii::$app->user->logout();
+            return $this->redirect('/b/web/user/login?pw_updated=1');
         } elseif (\Yii::$app->request->isGet && \Yii::$app->user->identity->isTemp()) {
             $model->username = '';
             $model->email = '';

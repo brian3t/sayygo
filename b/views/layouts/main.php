@@ -104,7 +104,7 @@ $this->beginPage() ?>
                         <a href="/b/web/bucket-list/"><i class="fa fa-list fa-fw"></i>View My Bucket lists</a>
                     </li>
                     <li>
-                        <a href="/f/web"><i class="fa fa-table fa-fw"></i>Go back to Front page</a>
+                        <a href="/f/web"><i class="fa fa-table fa-fw"></i>Go To Home Page</a>
                     </li>
                 </ul>
                 <!-- /#side-menu -->

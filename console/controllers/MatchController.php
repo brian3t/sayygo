@@ -119,9 +119,9 @@ class MatchController extends Controller {
 				$users[]    = $targetUser;
 				/** @var \common\models\user $targetUser */
 				$creatorUsername = User::findOne($matchingSg->user_id)->getFullName();
-				$body     = "There is one new sayygo matching your destination: <br/> <br/> ";
+				$body     = "There is one new Sayygo matching your destination: <br/> <br/> ";
 				$body .= "<i>$matchingSg->full_text</i>";
-				$body .= "<br/> <br/>This sayygo was created by <i>$creatorUsername</i> on " . Yii::$app->formatter->asDate( $matchingSg->created_at,
+				$body .= "<br/> <br/>This Sayygo was created by <i>$creatorUsername</i> on " . Yii::$app->formatter->asDate( $matchingSg->created_at,
 				                                                                                                      'EEEE, MMMM d, yyyy h:mm a, z' ) . " and is expected to start on " . ( empty( $matchingSg->start_date ) ? ' whenever' : $matchingSg->start_date );
 				$body .= ", ending on " . ( empty( $matchingSg->end_date ) ? ' whenever' : $matchingSg->end_date );
 				$body .= ".<br/> The partner's sex preference " . ( empty( $matchingSg->partner_sex ) ? ' doesn\'t matter' : ( "is " . $matchingSg->partner_sex ) );
@@ -132,7 +132,7 @@ class MatchController extends Controller {
 				$body .= "<br/><br/> Please view more details at: " . BaseUrl::to( [
 					                                                                   'b/web/sayygo/'. $matchingSg->id
 				                                                                   ] );
-				$subject = "We found a new matching sayygo for you that was created on " . Yii::$app->formatter->asDate( $matchingSg->created_at,
+				$subject = "We found a new matching Sayygo for you that was created on " . Yii::$app->formatter->asDate( $matchingSg->created_at,
 				                                                                                                         'EEEE, MMMM d, yyyy h:mm a, z' );
 			} elseif ( $email['type'] === 'message' ) {
 				$users[] = User::findOne( $email['to_user_id'] );

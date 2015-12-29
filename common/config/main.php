@@ -96,7 +96,8 @@ return [
 			],
 			'controllerMap'       => [
 				'settings' => 'common\controllers\SettingsController',
-				'profile'  => 'common\controllers\ProfileController'
+                'profile'  => 'common\controllers\ProfileController',
+				'security'  => 'common\controllers\SecurityController'
 			],
 			'mailer'              => [
 				'sender'                => 'matching-service@sayygo.com', // or ['no-reply@myhost.com' => 'Sender name']
@@ -105,7 +106,7 @@ return [
 				'reconfirmationSubject' => 'Email change - Sayygo',
 				'recoverySubject'       => 'Recovery email - Sayygo',
 			],
-			'enableFlashMessages' => false,
+			'enableFlashMessages' => true,
             'admins' => ['ngxtri']
 
 		],

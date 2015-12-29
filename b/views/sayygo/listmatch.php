@@ -15,7 +15,7 @@ use backend\models\Sayygo;
 //note that each $model is targetSayygo, and $sourceModel is sourceSayygo, the base sayygo we are comparing against
 //
 
-$this->title                   = "Sayygos matching your keyword: #" . ucwords( $kwName ) . "# and sayygo: `" . substr( $sourceModel->full_text,
+$this->title                   = "Sayygos matching your keyword: #" . ucwords( $kwName ) . "# and Sayygo: `" . substr( $sourceModel->full_text,
                                                                                                                        0,
                                                                                                                        40 ) . '...`';
 $this->params['breadcrumbs'][] = $this->title;
