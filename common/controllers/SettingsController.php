@@ -70,7 +70,7 @@ class SettingsController extends BaseSettingsController {
 
         if ($model->load(\Yii::$app->request->post()) && $model->save()) {
             \Yii::$app->user->logout();
-            return $this->redirect('/b/web/user/login?pw_updated=1');
+	        return $this->redirect('/b/web/user/login?pw_updated=1');
         } elseif (\Yii::$app->request->isGet && \Yii::$app->user->identity->isTemp()) {
             $model->username = '';
             $model->email = '';

@@ -1,10 +1,12 @@
-.navbar-default a.navbar-brand {
+.navbar a.navbar-brand {
     text-transform: uppercase;
     text-shadow: 1px 1px silver;
     font-weight: bolder;
     font-family: cursive;
-    color: darkblue;
+    color: #AFAFAF;
 }
+li.dropdown.open > a.navbar-brand:hover{color:#AFAFAF}
+nav li.dropdown{display: inline-block}
 #wrapper>div{
     position: inherit;
     margin: 0 0 0 250px;
@@ -81,3 +83,4 @@ div.home-pic {
 #home-page .jumbotron a {
     color: #444;  font-style: normal;
 }
+ul.dropdown-menu{margin-top: 0}

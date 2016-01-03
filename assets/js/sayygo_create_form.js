@@ -1,3 +1,15 @@
+var login_or_new_acnt = $('input[name="login_or_new_acnt"]');
+
+login_clicked = function(){
+    login_or_new_acnt.val('1');
+    $('#active_form_as_guest').submit();
+};
+create_acnt_clicked = function(){
+    login_or_new_acnt.val('0');
+    $('#active_form_as_guest').submit();
+
+};
+
 var cf = {};
 cf.re = /#([A-Za-z0-9_\s\']+)#/g;
 cf.keywords = {};
@@ -46,7 +58,16 @@ $(document).ready(function () {
             $(numOfPartners.children('input')).val(null);
         }
 
-    })
+    });
+
+    $('#create_save_btn').on("click", function (event, messages) {
+        if (login_or_new_acnt.val() !== ""){
+            return true;
+        }
+        event.preventDefault();
+        $('#myModal').modal('show');
+        return true;
+    });
 
 });
 

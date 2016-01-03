@@ -86,10 +86,19 @@ class BucketListController extends Controller
     public function actionCreate()
     {
         $model = new BucketList();
+	    $create_form = ((Yii::$app->user->isGuest || Yii::$app->user->identity->isTemp() )?'create_as_guest':'create');
 
         if ($model->loadAll(Yii::$app->request->post()) && $model->saveAll()) {
             if (\Yii::$app->user->identity->isTemp()) {
-                \Yii::$app->session->addFlash(\kartik\widgets\Alert::TYPE_INFO, "Your bucket list has been saved. Please complete your profile in order to access your bucket list easily.");
+	            $login_or_new_acnt = Yii::$app->request->post('login_or_new_acnt');
+                if ($login_or_new_acnt ==1 ){
+	                //login
+	                \Yii::$app->session->addFlash(\kartik\widgets\Alert::TYPE_INFO, "Your bucket list has been saved. Please log in now.");
+	                $temp_user_id = Yii::$app->user->id;
+	                Yii::$app->user->logout(true);
+	                return $this->redirect(['/user/security/login', 'is_temp' => 1, 'temp_user_id' => $temp_user_id]);
+                }
+	            \Yii::$app->session->addFlash(\kartik\widgets\Alert::TYPE_INFO, "Your bucket list has been saved. Please create an account in order to access your bucket list easily.");
                 return $this->redirect(['/user/settings/account', 'id' => \Yii::$app->user->id, 'is_temp' => 1]);
             } else {
                 return $this->redirect(['view', 'id' => $model->id]);
@@ -118,10 +127,11 @@ class BucketListController extends Controller
                 }
                 \Yii::$app->session->addFlash(\kartik\widgets\Alert::TYPE_INFO, ['title' => 'Please note',
                     'body' => 'You are creating bucket list as a guest.<br/> You can sign up later on.<br/> This bucket list will still be saved.']);
+	            $create_form = 'create_as_guest';
             }
             $model->user_id = Yii::$app->getUser()->id;
 
-            return $this->render('create', [
+            return $this->render($create_form, [
                 'model' => $model,
             ]);
         }

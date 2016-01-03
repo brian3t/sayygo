@@ -25,7 +25,7 @@ echo TabularForm::widget([
     ],
     'attributes' => [
         "id" => ['type' => TabularForm::INPUT_HIDDEN, 'columnOptions'=>['hidden'=>true]],
-        'name' => ['type' => TabularForm::INPUT_TEXT],
+        'name' => ['type' => TabularForm::INPUT_TEXT, 'label'=>'Item Description'],
         'bucket_list_id' => [
             'label' => '',
             'type' => TabularForm::INPUT_HIDDEN,
@@ -50,7 +50,7 @@ echo TabularForm::widget([
             'type' => GridView::TYPE_INFO,
             'before' => false,
             'footer' => false,
-            'after' => Html::button('<i class="glyphicon glyphicon-plus"></i>' . 'Add Row', ['type' => 'button', 'class' => 'btn btn-success kv-batch-create', 'onClick' => 'addRowBucketItem()']),
+            'after' => Html::button('<i class="glyphicon glyphicon-plus"></i>' . 'Add an Item', ['type' => 'button', 'class' => 'btn btn-success kv-batch-create', 'onClick' => 'addRowBucketItem()']),
         ]
     ]
 ]);

@@ -2,6 +2,8 @@
 
 namespace backend\controllers;
 
+use dektrium\user\models\LoginForm;
+use dektrium\user\models\User;
 use backend\models\Keyword;
 use backend\models\KeywordSayygo;
 use backend\models\Languages;
@@ -44,7 +46,6 @@ class SayygoController extends Controller
 					[
 						'allow' => true,
 						'actions' => [
-							'create',
 							'index',
 							'delete',
 							'update',
@@ -56,6 +57,10 @@ class SayygoController extends Controller
 							'testing'
 						],
 						'roles' => ['@'],
+					],
+					[
+						'allow' => true,
+						'actions' => ['create'],
 					],
 				],
 			],
@@ -312,10 +317,12 @@ class SayygoController extends Controller
 	{
 		$model = new Sayygo();
 		$model->user_id = Yii::$app->user->id;
+		$create_form = ((Yii::$app->user->isGuest || Yii::$app->user->identity->isTemp() )?'create_as_guest':'create');
+
 
 		if ($model->load(Yii::$app->request->post())) {
 			//get plain keywords here
-			$keywords = $_POST['keywords'];
+			$keywords = (array_key_exists('keywords', $_POST)?$_POST['keywords']:"");
 			$keywords = explode(',', $keywords);
 			$keywordIds = [];
 			foreach ($keywords as $kw) {
@@ -332,14 +339,55 @@ class SayygoController extends Controller
 			$model->keywordIds = implode(',', $keywordIds);
 			//get plain keywords//
 			if ($model->save()) {
-				return $this->redirect(['view', 'id' => $model->id]);
+				if (\Yii::$app->user->identity->isTemp()) {
+					$login_or_new_acnt = Yii::$app->request->post('login_or_new_acnt');
+					if ($login_or_new_acnt == 1) {
+						//login
+						\Yii::$app->session->addFlash(\kartik\widgets\Alert::TYPE_INFO, "Your Sayygo has been saved. Please log in now.");
+						$temp_user_id = Yii::$app->user->id;
+						Yii::$app->user->logout(true);
+						return $this->redirect(['/user/security/login', 'is_temp' => 1,
+							'temp_user_id' => $temp_user_id]);
+					}
+					\Yii::$app->session->addFlash(\kartik\widgets\Alert::TYPE_INFO, "Your Sayygo has been saved. Please create an account in order to access your bucket list easily.");
+					return $this->redirect(['/user/settings/account', 'id' => \Yii::$app->user->id, 'is_temp' => 1]);
+				} else {
+					return $this->redirect(['index']);
+				}
 			} else {
-				return $this->render('create', [
+				$model->user_id = Yii::$app->user->id;
+
+				return $this->render($create_form, [
 					'model' => $model,
 				]);
 			}
 		} else {
-			return $this->render('create', [
+			// before create form shown: if user is not logged in, create a temp user without email, logs in, show toast saying that you can creating bucket list as guest
+			if (\Yii::$app->user->isGuest) {
+				$user = new User();
+				$user->init();
+				$user->username = 'guest' . strval(rand(100000, 1000000));
+				$user->email = $user->username . '@null.null';
+				$user->scenario = 'create';
+				if (! $user->create()) {
+					\Yii::$app->session->addFlash(\kartik\widgets\Alert::TYPE_WARNING, ['title' => 'Error',
+						'body' => 'Please register first']);
+					return $this->goHome();
+				}
+				$login_form_model = \Yii::createObject(LoginForm::className());
+
+				if (! ($login_form_model->load(['login-form' => ['login' => $user->email, 'password' => $user->password,
+						'rememberMe' => 0]]) && $login_form_model->login())
+				) {
+					\Yii::$app->session->addFlash(\kartik\widgets\Alert::TYPE_WARNING, ['title' => 'Error',
+						'body' => 'Please register first']);
+					return $this->goBack();
+				}
+				\Yii::$app->session->addFlash(\kartik\widgets\Alert::TYPE_INFO, ['title' => 'Please note',
+					'body' => 'You are creating Sayygo as a guest.<br/> You can sign up later on.<br/> This Sayygo will still be saved.']);
+				$create_form = 'create_as_guest';
+			}
+			return $this->render($create_form, [
 				'model' => $model,
 			]);
 		}

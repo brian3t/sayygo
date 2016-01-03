@@ -13,7 +13,8 @@ class FrontEndAsset extends AssetBundle
     public $baseUrl = '@web';
     public $bower = '@bower';
     public $css = [
-        "css/full.css"
+        "css/full.css",
+	    "css/brianadd.css"
     ];
     public $js = [
         "js/brianadd.js",

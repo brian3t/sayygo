@@ -18,9 +18,10 @@ $this->params['breadcrumbs'][] = $this->title;
             <h2><?= 'Viewing bucket list: '.' '. Html::encode($this->title) ?></h2>
         </div>
         <div class="col-sm-3" style="margin-top: 15px">
-                        
-            <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-            <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+
+            <?= Html::a('Add an Item', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a('Update This List', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a('Delete This List', ['delete', 'id' => $model->id], [
                 'class' => 'btn btn-danger',
                 'data' => [
                     'confirm' => 'Are you sure you want to delete this item?',
@@ -58,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
     $gridColumnBucketItem = [
 //        ['class' => 'yii\grid\SerialColumn'],
         ['attribute' => 'id', 'hidden' => true],
-        'name',
+        ['label' => 'Item Description', 'value' => 'name'],
 //        [
 //            'attribute' => 'bucketList.name',
 //            'label' => 'Bucket List',
@@ -69,11 +70,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'pjax' => true,
         'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container']],
         'panel' => [
-        'type' => GridView::TYPE_PRIMARY,
-        'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i>  ' . Html::encode('Bucket Items in this list:') . ' </h3>',
+        'type' => GridView::TYPE_INFO,
+        'heading' => '<h3 class="panel-title">' . Html::encode('Bucket Items in this list:') . ' </h3>',
         ],
         'columns' => $gridColumnBucketItem,
-        'export'=>false
+        'export'=>false,
+        'toolbar'=>false
     ]);
 ?>
     </div>

@@ -5,7 +5,7 @@ $('').hover(function(){    var sub = jQuery(this).next();
         jQuery(this).parent().addClass("open");
         sub.slideDown(200);
 });
-$('.nav.navbar-top-links.navbar-right a.dropdown-toggle, .nav.navbar-top-links.navbar-right ul.dropdown-menu').hover(function () {
+$('.nav.navbar-top-links a.dropdown-toggle, .nav.navbar-top-links ul.dropdown-menu').hover(function () {
     var last = jQuery('.sub-menu.open', $('#sidebar'));
     last.removeClass("open");
     jQuery('.arrow', last).removeClass("open");

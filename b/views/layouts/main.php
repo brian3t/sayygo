@@ -43,75 +43,135 @@ $this->beginPage() ?>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/b/web">Sayygo</a>
         </div>
         <!-- /.navbar-header -->
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
+        <ul class="nav navbar-top-links navbar-left">
+            <li class="dropdown">
+                <a class="dropdown-toggle navbar-brand" data-toggle="dropdown" href="#">
+                    Sayygo &nbsp;<i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <?php if (Yii::$app->user->isGuest): ?>
+                        <li><a href="/b/web/user/login">Log In</a>
+                        </li>
+                        <li class="divider"></li>
 
-        <ul class="nav navbar-top-links navbar-right">
-            <?php if (! Yii::$app->user->getIsGuest()): ?>
+                        <li><a href="user/registration/register"">Sign Up</a>
+                        </li>
+                    <?php else: ?>
+                        <li><a class="yii-controls" type="button" data-method="post"
+                               href="/b/web/site/logout"><i
+                                        class="fa fa-sign-out fa-fw"></i> Log Out</a>
+                        </li>
+                    <?php endif; ?>
+                </ul>
+                <!-- /.dropdown-user -->
+            </li>
+            <!-- /.dropdown -->
+        </ul>            <!-- Brand and toggle get grouped for better mobile display -->
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="navbar-collapse-1">
+            <ul class="nav navbar-top-links navbar-left">
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <?php if (! empty($profilePhoto)) {
-                            echo "<img src= '$profilePhoto' alt='profile' width='29px' height='29px'>";
-                        } else {
-                            echo '<i class="fa fa-user fa-fw">';
-                        };
-                        ?>
-                        <span class="username"><?= Yii::$app->user->identity->getFullName() ?>
-                            <i class="fa fa-caret-down"></i>
+                        Manage Sayygo &nbsp;<i class="fa fa-caret-down"></i>
                     </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="/b/web/user/settings/profile"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/b/web/sayygo/create">Create</a>
                         </li>
-                        <!--						<li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>-->
-                        <!--						</li>-->
+                        <li class="divider"></li>
+                        <li><a href="/b/web/sayygo/index">Manage</a></li>
                         <li class="divider"></li>
 
-                        <li><a class="yii-controls" type="button" data-method="post"
-                               href="/b/web/admin/del-temp-user"><i
-                                        class="fa fa-sign-out fa-fw"></i> Delete temporary users</a>
+                        <li><a href="#" onclick="$('#browse-input').toggle();">Browse</a></li>
+                    </ul>
+                </li>
+                <!-- /.dropdown -->
+            </ul>            <!-- Brand and toggle get grouped for better mobile display -->
+
+            <ul class="nav navbar-top-links navbar-left">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        Bucket List &nbsp;<i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/b/web/bucket-list/create">Create</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a class="yii-controls" type="button" data-method="post" href="/b/web/site/logout"><i
-                                        class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="/b/web/bucket-list/index">Manage</a></li>
+                    </ul>
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+
+            <ul class="nav navbar-top-links navbar-left">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        Feedback &nbsp;<i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/f/web/site/suggestions">Suggestions</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="/f/web/site/contact">Contact</a></li>
+                    </ul>
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+
+            <ul class="nav navbar-top-links navbar-left">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        About &nbsp;<i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/f/web/site/history">History</a>
                         </li>
                     </ul>
-                    <!-- /.dropdown-user -->
                 </li>
-            <?php endif; ?>
-            <!-- /.dropdown -->
-        </ul>
-        <!-- /.navbar-top-links -->
+                <!-- /.dropdown -->
+            </ul>
 
-        <div id="sidebar" class="navbar-default navbar-static-side" role="navigation">
-            <div class="sidebar-collapse">
-                <ul class="nav" id="side-menu">
-                    <!--					<li class="sidebar-search">-->
-                    <!--						<div class="input-group custom-search-form">-->
-                    <!--							<input type="text" class="form-control" placeholder="Search...">-->
-                    <!--                                <span class="input-group-btn">-->
-                    <!--                                <button class="btn btn-default" type="button">-->
-                    <!--	                                <i class="fa fa-search"></i>-->
-                    <!--                                </button>-->
-                    <!--                            </span>-->
-                    <!--						</div>-->
-                    <!--						<!-- /input-group -->
-                    <!--					</li>-->
-                    <li>
-                        <a href="/b/web/sayygo/"><i class="fa fa-plane fa-fw"></i>View My Sayygos</a>
+            <ul class="nav navbar-top-links navbar-right">
+                <?php if (! Yii::$app->user->getIsGuest() && !Yii::$app->user->identity->isTemp()): ?>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <?php if (! empty($profilePhoto)) {
+                                echo "<img src= '$profilePhoto' alt='profile' width='29px' height='29px'>";
+                            } else {
+                                echo '<i class="fa fa-user fa-fw">';
+                            };
+                            ?>
+                            <span class="username"><?= Yii::$app->user->identity->getFullName() ?>
+                                <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li><a href="/b/web/user/settings/profile"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                            </li>
+                            <!--						<li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>-->
+                            <!--						</li>-->
+                            <li class="divider"></li>
+
+                            <li><a class="yii-controls" type="button" data-method="post"
+                                   href="/b/web/admin/del-temp-user"><i
+                                            class="fa fa-sign-out fa-fw"></i> Delete temporary users</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li><a class="yii-controls" type="button" data-method="post" href="/b/web/site/logout"><i
+                                            class="fa fa-sign-out fa-fw"></i> Logout</a>
+                            </li>
+                        </ul>
+                        <!-- /.dropdown-user -->
                     </li>
-                    <li>
-                        <a href="/b/web/bucket-list/"><i class="fa fa-list fa-fw"></i>View My Bucket lists</a>
-                    </li>
-                    <li>
-                        <a href="/f/web"><i class="fa fa-table fa-fw"></i>Go To Home Page</a>
-                    </li>
-                </ul>
-                <!-- /#side-menu -->
-            </div>
-            <!-- /.sidebar-collapse -->
+                <?php endif; ?>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
         </div>
-        <!-- /.navbar-static-side -->
+        <!-- /.navbar-collapse -->
+
+
     </nav>
 
     <?php

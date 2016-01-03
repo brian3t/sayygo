@@ -6,6 +6,7 @@ use dektrium\user\Finder;
 use dektrium\user\helpers\Password;
 use dektrium\user\Mailer;
 use dektrium\user\Module;
+use kartik\widgets\Alert;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
@@ -86,4 +87,12 @@ class User extends BaseUser {
     public function isTemp(){
         return (strpos($this->username, 'guest') !== false );
     }
+
+	public function afterSave($insert, $changedAttributes)
+	{
+		if (array_key_exists('unconfirmed_email', $changedAttributes)){
+			\Yii::$app->session->addFlash('new123', ["title"=>"You account's email has been changed", "body" => "If you haven't verified your new email; please check your mailbox for verification link."]);
+		}
+		parent::afterSave($insert, $changedAttributes);
+	}
 }

@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		                      ],
 	                      ] ); ?>
 	<p>
-		<?= Html::a( 'Post a new Sayygo',[ 'create' ],[ 'class' => 'btn btn-success' ] ) ?>
+		<?= Html::a( 'Create a Sayygo',[ 'create' ],[ 'class' => 'btn btn-success' ] ) ?>
 	</p>
 
 </div>

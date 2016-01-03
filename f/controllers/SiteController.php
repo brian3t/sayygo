@@ -116,7 +116,17 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
-    public function actionSignup()
+	public function actionHistory()
+	{
+		return $this->render('history');
+	}
+
+	public function actionSuggestions()
+	{
+		return $this->render('suggestions');
+	}
+
+	public function actionSignup()
     {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {

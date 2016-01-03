@@ -11,6 +11,9 @@
 
 namespace common\controllers;
 
+use backend\models\BucketList;
+use backend\models\Sayygo;
+use common\models\User;
 use dektrium\user\Finder;
 use dektrium\user\models\LoginForm;
 use dektrium\user\Module;
@@ -100,7 +103,34 @@ class SecurityController extends Controller
         $this->performAjaxValidation($model);
 
         if ($model->load(Yii::$app->getRequest()->post()) && $model->login()) {
-            return $this->goBack();
+	        if (Yii::$app->request->get('is_temp') == 1){
+	            $temp_user_id = Yii::$app->request->get('temp_user_id');
+		        //copy bucket list and sayygo from temp to current user
+		        $temp_user = User::findOne($temp_user_id);
+		        if ($temp_user->isTemp()){
+			        $curr_user_id = Yii::$app->user->id;
+
+			        $bucket_lists = BucketList::findAll(['user_id' => $temp_user_id]);
+			        if (count($bucket_lists) > 0){
+				        foreach ($bucket_lists as $bucket_list){
+					        $bucket_list->user_id = $curr_user_id;
+					        $bucket_list->update();
+				        }
+				        \Yii::$app->session->addFlash(\kartik\widgets\Alert::TYPE_INFO, "Your bucket list has been saved. ");
+			        }
+
+			        $sayygos = Sayygo::findAll(['user_id' => $temp_user_id]);
+			        if (count($sayygos) > 0){
+				        foreach ($sayygos as $sayygo){
+					        $sayygo->user_id = $curr_user_id;
+					        $sayygo->update();
+				        }
+				        \Yii::$app->session->addFlash(\kartik\widgets\Alert::TYPE_INFO, "Your sayygo has been saved. ");
+			        }
+
+		        }
+	        }
+	        return $this->goBack();
         }
 
         return $this->render('login', [

@@ -44,6 +44,7 @@ return [
 			'showScriptName'  => false,
 			'rules'           =>
 				[
+					'user/settings/confirm'      => 'site/index',
 					'dashboard'                        => 'site/index',
 					'/site/error'                      => 'site/index',
 					'POST <controller:\w+>s'           => '<controller>/create',
@@ -93,6 +94,7 @@ return [
 				'User'             => 'common\models\User',
 				'RegistrationForm' => 'common\models\RegistrationForm',
 				'Profile'          => 'common\models\Profile',
+				'Token'             => 'common\models\Token'
 			],
 			'controllerMap'       => [
 				'settings' => 'common\controllers\SettingsController',
@@ -106,7 +108,7 @@ return [
 				'reconfirmationSubject' => 'Email change - Sayygo',
 				'recoverySubject'       => 'Recovery email - Sayygo',
 			],
-			'enableFlashMessages' => true,
+			'enableFlashMessages' => false,
             'admins' => ['ngxtri']
 
 		],

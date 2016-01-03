@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             echo \kartik\widgets\Alert::widget(
                     ['type' => 'info',
                             'title' => '',
-                            'body' => 'Your password has been updated. Please log in with your new password',
+                            'body' => 'Your account has been updated. If you have just created an account or if you have changed your email, please check your new email inbox for verification link.',
                             'delay' => 10000
                     ]
             );
