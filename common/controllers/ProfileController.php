@@ -28,6 +28,19 @@ class ProfileController extends BaseFileHelper{
 	 * @return \yii\web\Response
 	 * @throws \yii\web\NotFoundHttpException
 	 */
+//	public function actionShow($id)
+//	{
+//		$profile = $this->finder->findProfileById($id);
+//
+//		if ($profile === null) {
+//			throw new NotFoundHttpException;
+//		}
+//
+//		return $this->render('show', [
+//			'profile' => $profile,
+//		]);
+//	}
+
 	public function actionShow($id)
 	{
 		$profile = $this->finder->findProfileById($id);
@@ -36,8 +49,17 @@ class ProfileController extends BaseFileHelper{
 			throw new NotFoundHttpException;
 		}
 
+		$langs = $profile->getAttribute('languages');//csv e.g. au,av,en
+		$LANGUAGES = Languages::$data;
+
+		$langNames = [];
+		foreach (explode(',', $langs) as $langCode){
+			array_push($langNames, ArrayHelper::getValue($LANGUAGES,$langCode,""));
+		}
+
 		return $this->render('show', [
 			'profile' => $profile,
+			'languages' => implode(', ', $langNames)
 		]);
 	}
 }

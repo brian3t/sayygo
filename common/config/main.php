@@ -94,7 +94,8 @@ return [
 				'User'             => 'common\models\User',
 				'RegistrationForm' => 'common\models\RegistrationForm',
 				'Profile'          => 'common\models\Profile',
-				'Token'             => 'common\models\Token'
+				'Token'             => 'common\models\Token',
+				'SettingsForm'      => 'common\models\SettingsForm'
 			],
 			'controllerMap'       => [
 				'settings' => 'common\controllers\SettingsController',

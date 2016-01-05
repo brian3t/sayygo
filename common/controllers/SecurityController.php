@@ -26,6 +26,7 @@ use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\Response;
 use dektrium\user\traits\AjaxValidationTrait;
+use dektrium\user\controllers\SecurityController as BaseSecurityController;
 
 /**
  * Controller that manages user authentication process.
@@ -34,59 +35,8 @@ use dektrium\user\traits\AjaxValidationTrait;
  *
  * @author Dmitry Erofeev <dmeroff@gmail.com>
  */
-class SecurityController extends Controller
+class SecurityController extends BaseSecurityController
 {
-    use AjaxValidationTrait;
-    
-    /** @var Finder */
-    protected $finder;
-
-    /**
-     * @param string $id
-     * @param Module $module
-     * @param Finder $finder
-     * @param array  $config
-     */
-    public function __construct($id, $module, Finder $finder, $config = [])
-    {
-        $this->finder = $finder;
-        parent::__construct($id, $module, $config);
-    }
-
-    /** @inheritdoc */
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    ['allow' => true, 'actions' => ['login', 'auth'], 'roles' => ['?']],
-                    ['allow' => true, 'actions' => ['login', 'auth', 'logout'], 'roles' => ['@']],
-                ]
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post']
-                ]
-            ]
-        ];
-    }
-
-    /** @inheritdoc */
-    public function actions()
-    {
-        return [
-            'auth' => [
-                'class' => AuthAction::className(),
-                // if user is not logged in, will try to log him in, otherwise
-                // will try to connect social account to user.
-                'successCallback' => \Yii::$app->user->isGuest
-                    ? [$this, 'authenticate']
-                    : [$this, 'connect'],
-            ]
-        ];
-    }
 
     /**
      * Displays the login page.
@@ -139,51 +89,4 @@ class SecurityController extends Controller
         ]);
     }
 
-    /**
-     * Logs the user out and then redirects to the homepage.
-     * @return Response
-     */
-    public function actionLogout()
-    {
-        Yii::$app->getUser()->logout();
-        return $this->goHome();
-    }
-
-    /**
-     * Tries to authenticate user via social network. If user has alredy used
-     * this network's account, he will be logged in. Otherwise, it will try
-     * to create new user account.
-     *  
-     * @param  ClientInterface $client
-     */
-    public function authenticate(ClientInterface $client)
-    {
-        $account = forward_static_call([
-            $this->module->modelMap['Account'],
-            'createFromClient'
-        ], $client);
-        
-        if (null === ($user = $account->user)) {
-            $this->action->successUrl = Url::to([
-                '/user/registration/connect',
-                'account_id' => $account->id
-            ]);
-        } else {
-            Yii::$app->user->login($user, $this->module->rememberFor);
-        }
-    }
-
-    /**
-     * Tries to connect social account to user.
-     * 
-     * @param ClientInterface $client
-     */
-    public function connect(ClientInterface $client)
-    {
-        forward_static_call([
-            $this->module->modelMap['Account'],
-            'connectWithUser',
-        ], $client);
-        $this->action->successUrl = Url::to(['/user/settings/networks']);
-    }
 }

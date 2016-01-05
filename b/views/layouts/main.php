@@ -153,13 +153,12 @@ $this->beginPage() ?>
                             <!--						</li>-->
                             <li class="divider"></li>
 
-                            <li><a class="yii-controls" type="button" data-method="post"
-                                   href="/b/web/admin/del-temp-user"><i
-                                            class="fa fa-sign-out fa-fw"></i> Delete temporary users</a>
-                            </li>
-                            <li class="divider"></li>
+<!--                            <li><a class="yii-controls" type="button" data-method="post"-->
+<!--                                   href="/b/web/admin/del-temp-user"><i-->
+<!--                                            class="fa fa-sign-out fa-fw"></i> Delete temporary users</a>-->
+<!--                            </li>-->
                             <li><a class="yii-controls" type="button" data-method="post" href="/b/web/site/logout"><i
-                                            class="fa fa-sign-out fa-fw"></i> Logout</a>
+                                            class="fa fa-sign-out fa-fw"></i> Log Out</a>
                             </li>
                         </ul>
                         <!-- /.dropdown-user -->

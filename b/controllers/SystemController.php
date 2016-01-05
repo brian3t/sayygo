@@ -26,7 +26,7 @@ class SystemController extends Controller
 		}
 		$token = Token::findOne(['user_id' => $id, 'code' => $code]);
 		/** @var Token $token */
-		if (!$token->isExpired && $token->type !== Token::TYPE_CONFIRM_NEW_EMAIL) {
+		if (!is_object($token) || $token->isExpired || $token->type !== Token::TYPE_CONFIRM_NEW_EMAIL) {
 			\Yii::$app->session->addFlash(Alert::TYPE_WARNING, ["title" => "Error",
 				"body" => "Wrong confirmation code"]);
 			return $this->goHome();

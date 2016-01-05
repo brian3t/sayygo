@@ -387,6 +387,8 @@ class SayygoController extends Controller
 					'body' => 'You are creating Sayygo as a guest.<br/> You can sign up later on.<br/> This Sayygo will still be saved.']);
 				$create_form = 'create_as_guest';
 			}
+			$model->user_id = Yii::$app->user->id;
+
 			return $this->render($create_form, [
 				'model' => $model,
 			]);
