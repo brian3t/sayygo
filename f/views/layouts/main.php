@@ -12,6 +12,8 @@ use kartik\widgets\Alert;
 AppAsset::register($this);
 \frontend\assets\FrontEndAsset::register($this);
 //\backend\assets\AdminAsset::register( $this );
+$is_admin = (Yii::$app->user->can('admin'));
+
 ?>
 <?php if (is_object(\Yii::$app->user->identity)) {
     $profilePhoto = \Yii::$app->user->identity->getProfilePhoto();

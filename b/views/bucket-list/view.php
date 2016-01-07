@@ -59,24 +59,44 @@ $this->params['breadcrumbs'][] = $this->title;
     $gridColumnBucketItem = [
 //        ['class' => 'yii\grid\SerialColumn'],
         ['attribute' => 'id', 'hidden' => true],
-        ['label' => 'Item Description', 'value' => 'name'],
+            ['label' => 'Item Description', 'value' => 'name'],
+            ['label' => 'Order', 'value' => 'order'],
 //        [
 //            'attribute' => 'bucketList.name',
 //            'label' => 'Bucket List',
 //        ],
     ];
-    echo Gridview::widget([
-        'dataProvider' => $providerBucketItem,
-        'pjax' => true,
-        'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container']],
-        'panel' => [
-        'type' => GridView::TYPE_INFO,
-        'heading' => '<h3 class="panel-title">' . Html::encode('Bucket Items in this list:') . ' </h3>',
+//    echo Gridview::widget([
+//        'dataProvider' => $providerBucketItem,
+//        'pjax' => true,
+//        'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container']],
+//        'panel' => [
+//        'type' => GridView::TYPE_INFO,
+//        'heading' => '<h3 class="panel-title">' . Html::encode('Bucket Items in this list:') . ' </h3>',
+//        ],
+//        'columns' => $gridColumnBucketItem,
+//        'export'=>false,
+//        'toolbar'=>false
+//    ]);
+
+echo \yii\grid\GridView::widget([
+        'dataProvider' => $bucketitem_model_search,
+        'columns' => [
+                [
+                        'class' => \kotchuprik\sortable\grid\Column::className(),
+                ],
+//                'id',
+                'name',
+                'order',
         ],
-        'columns' => $gridColumnBucketItem,
-        'export'=>false,
-        'toolbar'=>false
-    ]);
+        'options' => [
+                'data' => [
+                        'sortable-widget' => 1,
+                        'sortable-url' => \yii\helpers\Url::toRoute(['bucket-item/sorting']),
+                ]
+        ],
+]);
+
 ?>
     </div>
 </div>

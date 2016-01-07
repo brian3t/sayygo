@@ -28,7 +28,7 @@ class BucketItemController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index', 'view', 'create', 'update','delete'],
+                        'actions' => ['index', 'view', 'create', 'update','delete','sorting'],
                         'roles' => ['@']
                     ],
                     [
@@ -132,4 +132,15 @@ class BucketItemController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    public function actions()
+    {
+        return [
+            'sorting' => [
+                'class' => \kotchuprik\sortable\actions\Sorting::className(),
+                'query' => BucketItem::find(),
+        ]
+    ];
+}
+
 }

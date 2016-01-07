@@ -11,6 +11,9 @@ use kartik\widgets\Alert;
 
 AppAsset::register($this);
 \backend\assets\AdminAsset::register($this);
+
+$is_admin = (Yii::$app->user->can('admin'));
+
 ?>
 <?php
 if (is_object(\Yii::$app->user->identity)) {
@@ -45,7 +48,8 @@ $this->beginPage() ?>
             </button>
         </div>
         <!-- /.navbar-header -->
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1"
+                aria-expanded="false"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
         <ul class="nav navbar-top-links navbar-left">
             <li class="dropdown">
                 <a class="dropdown-toggle navbar-brand" data-toggle="dropdown" href="#">
@@ -134,7 +138,7 @@ $this->beginPage() ?>
             </ul>
 
             <ul class="nav navbar-top-links navbar-right">
-                <?php if (! Yii::$app->user->getIsGuest() && !Yii::$app->user->identity->isTemp()): ?>
+                <?php if (! Yii::$app->user->getIsGuest() && ! Yii::$app->user->identity->isTemp()): ?>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                             <?php if (! empty($profilePhoto)) {
@@ -153,10 +157,12 @@ $this->beginPage() ?>
                             <!--						</li>-->
                             <li class="divider"></li>
 
-<!--                            <li><a class="yii-controls" type="button" data-method="post"-->
-<!--                                   href="/b/web/admin/del-temp-user"><i-->
-<!--                                            class="fa fa-sign-out fa-fw"></i> Delete temporary users</a>-->
-<!--                            </li>-->
+                            <?php if ($is_admin): ?>
+                                <li><a class="yii-controls" type="button" data-method="post"
+                                       href="/b/web/admin/del-temp-user"><i
+                                                class="fa fa-sign-out fa-fw"></i> Delete temporary users</a>
+                                </li>
+                            <?php endif; ?>
                             <li><a class="yii-controls" type="button" data-method="post" href="/b/web/site/logout"><i
                                             class="fa fa-sign-out fa-fw"></i> Log Out</a>
                             </li>

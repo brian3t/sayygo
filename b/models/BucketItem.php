@@ -18,7 +18,7 @@ class BucketItem extends BaseBucketItem
     {
         return [
             [['name', 'bucket_list_id'], 'required'],
-            [['bucket_list_id'], 'integer'],
+            [['bucket_list_id', 'order'], 'integer'],
             [['name'], 'string', 'max' => 255]
         ];
     }

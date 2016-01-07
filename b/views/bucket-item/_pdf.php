@@ -28,6 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'attribute' => 'bucketList.name',
             'label' => 'Bucket List',
         ],
+        'order',
     ];
     echo DetailView::widget([
         'model' => $model,

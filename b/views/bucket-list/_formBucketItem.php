@@ -4,6 +4,7 @@ use kartik\builder\TabularForm;
 use yii\data\ArrayDataProvider;
 use yii\helpers\Html;
 use yii\widgets\Pjax;
+
 /* @var int $id */
 
 Pjax::begin();
@@ -12,9 +13,12 @@ $dataProvider = new ArrayDataProvider([
     'pagination' => [
         'pagesize' => 50,
 //        'route' => 'bucket-list/update'
-    ]
+    ],
+
 
 ]);
+//$dataProvider->refresh();
+//$dataProvider->setSort([]);
 echo TabularForm::widget([
     'dataProvider' => $dataProvider,
     'formName' => 'BucketItem',
@@ -24,8 +28,9 @@ echo TabularForm::widget([
         'type' => TabularForm::INPUT_TEXT,
     ],
     'attributes' => [
-        "id" => ['type' => TabularForm::INPUT_HIDDEN, 'columnOptions'=>['hidden'=>true]],
-        'name' => ['type' => TabularForm::INPUT_TEXT, 'label'=>'Item Description'],
+        "id" => ['type' => TabularForm::INPUT_HIDDEN, 'columnOptions' => ['hidden' => true]],
+        'name' => ['type' => TabularForm::INPUT_TEXT, 'label' => 'Item Description'],
+        'order' => ['type' => TabularForm::INPUT_HIDDEN_STATIC, 'columnOptions' => ['hidden' => true]],
         'bucket_list_id' => [
             'label' => '',
             'type' => TabularForm::INPUT_HIDDEN,
@@ -34,13 +39,14 @@ echo TabularForm::widget([
                 'data' => \yii\helpers\ArrayHelper::map(\backend\models\BucketList::find()->orderBy('name')->asArray()->all(), 'id', 'name'),
                 'options' => ['placeholder' => 'Choose Bucket list'],
             ],
-            'columnOptions' => ['width' => '200px']
+            'columnOptions' => ['hidden' => true]
         ],
         'del' => [
             'type' => TabularForm::INPUT_STATIC,
             'label' => '',
-            'value' => function($model, $key) {
-                return Html::a('<i class="glyphicon glyphicon-trash"></i>', '#', ['title' =>  'Delete', 'onClick' => 'delRowBucketItem(' . $key . '); return false;', 'id' => 'bucket-item-del-btn']);
+            'value' => function ($model, $key) {
+                return Html::a('<i class="glyphicon glyphicon-trash"></i>', '#', ['title' => 'Delete',
+                    'onClick' => 'delRowBucketItem(' . $key . '); return false;', 'id' => 'bucket-item-del-btn']);
             },
         ],
     ],
@@ -50,9 +56,11 @@ echo TabularForm::widget([
             'type' => GridView::TYPE_INFO,
             'before' => false,
             'footer' => false,
-            'after' => Html::button('<i class="glyphicon glyphicon-plus"></i>' . 'Add an Item', ['type' => 'button', 'class' => 'btn btn-success kv-batch-create', 'onClick' => 'addRowBucketItem()']),
+            'after' => Html::button('<i class="glyphicon glyphicon-plus"></i>' . 'Add an Item', ['type' => 'button',
+                'class' => 'btn btn-success kv-batch-create', 'onClick' => 'addRowBucketItem()']),
         ]
     ]
 ]);
+echo $extra_message;
 Pjax::end();
 ?>

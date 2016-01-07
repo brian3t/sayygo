@@ -37,6 +37,7 @@ $this->registerJs($search);
             'attribute' => 'bucketList.name',
             'label' => 'Bucket List',
         ],
+        'order',
         [
             'class' => 'yii\grid\ActionColumn',
         ],

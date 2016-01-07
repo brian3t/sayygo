@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4990789ec84e326ecda2e895a66ffb06",
-    "content-hash": "ba91b5089f4089714c40cdada8536a82",
+    "hash": "6ea0f2edb50b0f234ebf4fc9fc86a597",
+    "content-hash": "7654443fd2399b2fd98d302d6bba3f33",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -1889,6 +1889,52 @@
                 "yii2"
             ],
             "time": "2015-12-05 10:37:16"
+        },
+        {
+            "name": "kotchuprik/yii2-sortable-widgets",
+            "version": "v2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kotchuprik/yii2-sortable-widgets.git",
+                "reference": "50ddd45e2888df2d2c40c2e38d3882630269cffa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kotchuprik/yii2-sortable-widgets/zipball/50ddd45e2888df2d2c40c2e38d3882630269cffa",
+                "reference": "50ddd45e2888df2d2c40c2e38d3882630269cffa",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "kotchuprik\\sortable\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Constantin Chuprik",
+                    "email": "constantinchuprik@gmail.com"
+                }
+            ],
+            "description": "Implementation the jQuery UI Sortable for the Yii2 widgets. Sortable grid view.",
+            "homepage": "http://github.com/kotchuprik/yii2-sortable-widgets",
+            "keywords": [
+                "dnd",
+                "grid",
+                "gridview",
+                "jQueryUI",
+                "sortable",
+                "sorting",
+                "yii2"
+            ],
+            "time": "2015-08-28 14:49:35"
         },
         {
             "name": "mitalcoi/yii2-cronjobs",

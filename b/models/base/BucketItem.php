@@ -11,6 +11,7 @@ use mootensai\behaviors\UUIDBehavior;
  * @property integer $id
  * @property string $name
  * @property integer $bucket_list_id
+ * @property integer $order
  *
  * @property \backend\models\BucketList $bucketList
  */
@@ -36,6 +37,7 @@ class BucketItem extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
             'bucket_list_id' => 'Bucket List ID',
+            'order' => 'Order',
         ];
     }
 
