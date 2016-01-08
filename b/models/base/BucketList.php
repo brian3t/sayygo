@@ -12,6 +12,7 @@ use mootensai\behaviors\UUIDBehavior;
  * @property integer $id
  * @property integer $user_id
  * @property string $name
+ * @property string $type
  * @property string $created_at
  * @property string $updated_at
  * @property integer $tbl_lock
@@ -52,6 +53,7 @@ class BucketList extends \yii\db\ActiveRecord
             'id' => 'ID',
             'user_id' => 'User ID',
             'name' => 'Name',
+            'type' => 'Type',
             'tbl_lock' => 'Tbl Lock',
         ];
     }
@@ -84,10 +86,6 @@ class BucketList extends \yii\db\ActiveRecord
                 'createdAtAttribute' => 'created_at',
                 'updatedAtAttribute' => 'updated_at',
                 'value' => new \yii\db\Expression('NOW()'),
-            ],
-            [
-                'class' => UUIDBehavior::className(),
-                'column' => 'id',
             ],
         ];
     }

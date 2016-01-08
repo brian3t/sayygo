@@ -28,6 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'label' => 'User',
         ],
         'name',
+        'type',
         ['attribute' => 'tbl_lock', 'hidden' => true],
     ];
     echo DetailView::widget([
@@ -47,6 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'attribute' => 'bucketList.name',
             'label' => 'Bucket List',
         ],
+        'order',
     ];
     echo Gridview::widget([
         'dataProvider' => $providerBucketItem,

@@ -19,7 +19,7 @@ use backend\models\BucketList;
     {
         return [
             [['id', 'user_id', 'tbl_lock'], 'integer'],
-            [['name', 'created_at', 'updated_at'], 'safe'],
+            [['name', 'type', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -63,7 +63,8 @@ use backend\models\BucketList;
             'tbl_lock' => $this->tbl_lock,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'type', $this->type]);
 
         return $dataProvider;
     }

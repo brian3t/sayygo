@@ -56,3 +56,4 @@ h1, h2, h3, th{
 span.hashtag{color:brown;}
 ul.dropdown-menu{margin-top: 0}
 .navbar-top-links .dropdown-user{right: auto}
+td.cap{text-transform: capitalize}

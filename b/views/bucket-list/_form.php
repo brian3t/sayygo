@@ -42,6 +42,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true, 'placeholder' => 'Name']) ?>
 
+    <?= $form->field($model, 'type')->dropDownList([ 'adventure' => 'Adventure', 'destination' => 'Destination', 'interest' => 'Interest', 'travel' => 'Travel', 'relationship' => 'Relationship', 'leisure' => 'Leisure', 'sexual' => 'Sexual', 'other' => 'Other', ], ['prompt' => '']) ?>
+
     <?= $form->field($model, 'tbl_lock', ['template' => '{input}'])->textInput(['style' => 'display:none']); ?>
 
     <div class="form-group" id="add-bucket-item"></div>

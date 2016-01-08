@@ -230,7 +230,7 @@ class BucketListController extends Controller
             }
             if ((Yii::$app->request->post('isNewRecord') && Yii::$app->request->post('action') == 'load' && empty($row)) || Yii::$app->request->post('action') == 'add') {
                 if (count($row) < 50) {
-                    $row[] = ['order'=>count($row)];
+                    $row[] = ['order'=>count($row)+1];
                 }
             }
             return $this->renderAjax('_formBucketItem', ['row' => $row, 'page' => $page,

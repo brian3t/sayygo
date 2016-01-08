@@ -36,6 +36,11 @@ $this->params['breadcrumbs'][] = $this->title;
         <p>This bucket list was created on <?= \usv\yii2helper\PHPHelper::date_time_format($model->created_at) ?>
         <br/>
         It was last updated on <?= \usv\yii2helper\PHPHelper::date_time_format($model->updated_at) ?></p>
+        <?php if (!empty($model)): ?>
+        <p>
+            Type of this bucket list: <?= $model->type?>
+        </p>
+        <?php endif;?>
         <br/>
 <?php //
 //    $gridColumn = [

@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use kartik\export\ExportMenu;
 use kartik\grid\GridView;
+
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\BucketListSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -24,54 +25,61 @@ $this->registerJs($search);
         <?= Html::a('Create Bucket List', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <div class="search-form" style="display:none">
-        <?=  $this->render('_search', ['model' => $searchModel]); ?>
+        <?= $this->render('_search', ['model' => $searchModel]); ?>
     </div>
 
-    <?php 
+    <?php
     $gridColumn = [
-        ['class' => 'yii\grid\SerialColumn'],
-        ['attribute' => 'id', 'hidden' => true],
-        [
-            'attribute' => 'user.username',
-            'label' => 'Created by',
-        ],
-        [
-               'attribute' => 'name',
-                'format' => 'raw',
-                'value' => function ($model){
-                    return Html::a($model->name,\yii\helpers\Url::to(['bucket-list/view/','id'=>$model->id]), ['data-pjax'=>0]);
-                }
-        ],
-        ['attribute' => 'tbl_lock', 'hidden' => true],
-'created_at',
-        [
-            'attribute' => 'updated_at',
-            'label' => 'Last updated at',
-        ],
+            ['class' => 'yii\grid\SerialColumn'],
+            ['attribute' => 'id', 'hidden' => true],
+            [
+                    'attribute' => 'user.username',
+                    'label' => 'Created by',
+            ],
+            ['attribute' => 'type',
+                    'contentOptions' => [
+                        'class'=>'cap'
 
-        [
-            'class' => 'yii\grid\ActionColumn',
-        ],
+                    ]
+            ],
+            [
+                    'attribute' => 'name',
+                    'format' => 'raw',
+                    'value' => function ($model) {
+                        return Html::a($model->name, \yii\helpers\Url::to(['bucket-list/view/',
+                                'id' => $model->id]), ['data-pjax' => 0]);
+                    }
+            ],
+            ['attribute' => 'tbl_lock', 'hidden' => true],
+            'created_at',
+            [
+                    'attribute' => 'updated_at',
+                    'label' => 'Last updated at',
+            ],
 
-    ]; 
+            [
+                    'class' => 'yii\grid\ActionColumn',
+            ],
+
+    ];
     ?>
     <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => $gridColumn,
-        'pjax' => true,
-        'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container']],
-        'panel' => [
-            'type' => GridView::TYPE_PRIMARY,
-            'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i>  ' . Html::encode($this->title) . ' </h3>',
-        ],
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'columns' => $gridColumn,
+            'pjax' => true,
+            'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container']],
+            'panel' => [
+                    'type' => GridView::TYPE_PRIMARY,
+                    'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i>  ' . Html::encode($this->title) . ' </h3>',
+            ],
         // set a label for default menu
-        'export' => [
-            'label' => 'Page',
-            'fontAwesome' => true,
-        ],
+            'export' => [
+                    'label' => 'Page',
+                    'fontAwesome' => true,
+            ],
         // your toolbar can include the additional full export menu
-        'toolbar' => [
+            'toolbar' => [
 //            '{export}',
 //            ExportMenu::widget([
 //                'dataProvider' => $dataProvider,
@@ -87,7 +95,7 @@ $this->registerJs($search);
 //                ],
 //            ]) ,
 
-        ],
+            ],
     ]); ?>
 
 </div>

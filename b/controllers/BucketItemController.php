@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\override\actions\Sorting;
 use Yii;
 use backend\models\BucketItem;
 use backend\models\BucketItemSearch;
@@ -137,7 +138,7 @@ class BucketItemController extends Controller
     {
         return [
             'sorting' => [
-                'class' => \kotchuprik\sortable\actions\Sorting::className(),
+                'class' => Sorting::className(),
                 'query' => BucketItem::find(),
         ]
     ];
