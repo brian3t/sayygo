@@ -55,6 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     
     <div class="row">
+        <p>You can drag the items to sort their rankings</p>
 <?php
     $gridColumnBucketItem = [
 //        ['class' => 'yii\grid\SerialColumn'],
@@ -87,7 +88,7 @@ echo \yii\grid\GridView::widget([
                 ],
 //                'id',
                 'name',
-                'order',
+//                'order',
         ],
         'options' => [
                 'data' => [
@@ -95,6 +96,7 @@ echo \yii\grid\GridView::widget([
                         'sortable-url' => \yii\helpers\Url::toRoute(['bucket-item/sorting']),
                 ]
         ],
+    'layout' => "{items}"
 ]);
 
 ?>

@@ -532,16 +532,16 @@
         },
         {
             "name": "kartik-v/bootstrap-star-rating",
-            "version": "v3.5.5",
+            "version": "v3.5.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/bootstrap-star-rating.git",
-                "reference": "0f729ea50a69224b643e2d9c955b9183e387f03a"
+                "reference": "3c9b6d685c23acccec1c85df4bf4e02b536714ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/bootstrap-star-rating/zipball/0f729ea50a69224b643e2d9c955b9183e387f03a",
-                "reference": "0f729ea50a69224b643e2d9c955b9183e387f03a",
+                "url": "https://api.github.com/repos/kartik-v/bootstrap-star-rating/zipball/3c9b6d685c23acccec1c85df4bf4e02b536714ea",
+                "reference": "3c9b6d685c23acccec1c85df4bf4e02b536714ea",
                 "shasum": ""
             },
             "type": "library",
@@ -569,7 +569,7 @@
                 "jquery",
                 "star"
             ],
-            "time": "2015-11-22 17:08:34"
+            "time": "2015-12-29 05:44:07"
         },
         {
             "name": "kartik-v/dependent-dropdown",
@@ -854,16 +854,16 @@
         },
         {
             "name": "kartik-v/yii2-krajee-base",
-            "version": "v1.8.0",
+            "version": "v1.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-krajee-base.git",
-                "reference": "602e7203680642ac4a2a5f9355316eaa9939b6ff"
+                "reference": "9e50c30aa8d6ac56b90250456a951edf32cb7175"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-krajee-base/zipball/602e7203680642ac4a2a5f9355316eaa9939b6ff",
-                "reference": "602e7203680642ac4a2a5f9355316eaa9939b6ff",
+                "url": "https://api.github.com/repos/kartik-v/yii2-krajee-base/zipball/9e50c30aa8d6ac56b90250456a951edf32cb7175",
+                "reference": "9e50c30aa8d6ac56b90250456a951edf32cb7175",
                 "shasum": ""
             },
             "require": {
@@ -896,7 +896,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-12-11 19:01:49"
+            "time": "2015-12-27 15:42:59"
         },
         {
             "name": "kartik-v/yii2-mpdf",
@@ -1093,16 +1093,16 @@
         },
         {
             "name": "kartik-v/yii2-widget-colorinput",
-            "version": "v1.0.1",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widget-colorinput.git",
-                "reference": "c00c3fc46a63a738b038366febc08a21112ff9f2"
+                "reference": "b84ed3db199c71b71f3b1f0fe57b1b893a7d82c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-widget-colorinput/zipball/c00c3fc46a63a738b038366febc08a21112ff9f2",
-                "reference": "c00c3fc46a63a738b038366febc08a21112ff9f2",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widget-colorinput/zipball/b84ed3db199c71b71f3b1f0fe57b1b893a7d82c3",
+                "reference": "b84ed3db199c71b71f3b1f0fe57b1b893a7d82c3",
                 "shasum": ""
             },
             "require": {
@@ -1138,20 +1138,20 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-11-22 06:32:23"
+            "time": "2015-12-27 16:47:58"
         },
         {
             "name": "kartik-v/yii2-widget-datepicker",
-            "version": "v1.3.3",
+            "version": "v1.3.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widget-datepicker.git",
-                "reference": "368b181ef658c05707fe41dd16eee4d9ffd9da38"
+                "reference": "8e80915be1a9364387ceab36f2e7b19360352600"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-widget-datepicker/zipball/368b181ef658c05707fe41dd16eee4d9ffd9da38",
-                "reference": "368b181ef658c05707fe41dd16eee4d9ffd9da38",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widget-datepicker/zipball/8e80915be1a9364387ceab36f2e7b19360352600",
+                "reference": "8e80915be1a9364387ceab36f2e7b19360352600",
                 "shasum": ""
             },
             "require": {
@@ -1187,7 +1187,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-07-19 04:49:03"
+            "time": "2015-12-29 11:07:49"
         },
         {
             "name": "kartik-v/yii2-widget-datetimepicker",
@@ -1240,16 +1240,16 @@
         },
         {
             "name": "kartik-v/yii2-widget-depdrop",
-            "version": "v1.0.2",
+            "version": "v1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widget-depdrop.git",
-                "reference": "40bbe95d8d5afe4eef5eecc4c2f1a5a21f9edf43"
+                "reference": "3ede2f96c04b93398c9c241a531eb281638caeb9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-widget-depdrop/zipball/40bbe95d8d5afe4eef5eecc4c2f1a5a21f9edf43",
-                "reference": "40bbe95d8d5afe4eef5eecc4c2f1a5a21f9edf43",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widget-depdrop/zipball/3ede2f96c04b93398c9c241a531eb281638caeb9",
+                "reference": "3ede2f96c04b93398c9c241a531eb281638caeb9",
                 "shasum": ""
             },
             "require": {
@@ -1285,7 +1285,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-06-26 20:20:32"
+            "time": "2015-12-16 19:33:49"
         },
         {
             "name": "kartik-v/yii2-widget-fileinput",
@@ -1488,16 +1488,16 @@
         },
         {
             "name": "kartik-v/yii2-widget-select2",
-            "version": "v2.0.4",
+            "version": "v2.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widget-select2.git",
-                "reference": "ffc59cef18864d773c79f3b2da2f34c948ff5648"
+                "reference": "f8475c5b895726e082a1614993c1aff64f77e367"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-widget-select2/zipball/ffc59cef18864d773c79f3b2da2f34c948ff5648",
-                "reference": "ffc59cef18864d773c79f3b2da2f34c948ff5648",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widget-select2/zipball/f8475c5b895726e082a1614993c1aff64f77e367",
+                "reference": "f8475c5b895726e082a1614993c1aff64f77e367",
                 "shasum": ""
             },
             "require": {
@@ -1532,7 +1532,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-12-16 19:38:06"
+            "time": "2015-12-22 17:42:57"
         },
         {
             "name": "kartik-v/yii2-widget-sidenav",
@@ -1984,12 +1984,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/mootensai/yii2-enhanced-gii.git",
-                "reference": "e55e6d59c50ed5d5b80a40041dcd6ae785ef21fc"
+                "reference": "7419e859c4cc9de500e2e2151842c88707ca1658"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/mootensai/yii2-enhanced-gii/zipball/7419e859c4cc9de500e2e2151842c88707ca1658",
-                "reference": "e55e6d59c50ed5d5b80a40041dcd6ae785ef21fc",
+                "reference": "7419e859c4cc9de500e2e2151842c88707ca1658",
                 "shasum": ""
             },
             "require": {
@@ -2035,7 +2035,7 @@
                 "yii",
                 "yii2"
             ],
-            "time": "2015-08-26 06:45:20"
+            "time": "2015-12-22 07:28:11"
         },
         {
             "name": "mootensai/yii2-jsblock",

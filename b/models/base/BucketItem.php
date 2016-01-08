@@ -49,19 +49,6 @@ class BucketItem extends \yii\db\ActiveRecord
         return $this->hasOne(\backend\models\BucketList::className(), ['id' => 'bucket_list_id']);
     }
 
-/**
-     * @inheritdoc
-     * @return type mixed
-     */ 
-    public function behaviors()
-    {
-        return [
-            [
-                'class' => UUIDBehavior::className(),
-                'column' => 'id',
-            ],
-        ];
-    }
 
     /**
      * @inheritdoc
@@ -70,5 +57,13 @@ class BucketItem extends \yii\db\ActiveRecord
     public static function find()
     {
         return new \backend\models\BucketItemQuery(get_called_class());
+    }
+
+    public function beforeSave($insert)
+    {
+        if ($insert){
+            $this->id = null;
+        }
+        return parent::beforeSave($insert);
     }
 }

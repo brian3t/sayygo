@@ -28,9 +28,9 @@ echo TabularForm::widget([
         'type' => TabularForm::INPUT_TEXT,
     ],
     'attributes' => [
-        "id" => ['type' => TabularForm::INPUT_HIDDEN, 'columnOptions' => ['hidden' => true]],
+//        "id" => ['type' => TabularForm::INPUT_HIDDEN, 'columnOptions' => ['hidden' => true]],
         'name' => ['type' => TabularForm::INPUT_TEXT, 'label' => 'Item Description'],
-        'order' => ['type' => TabularForm::INPUT_HIDDEN_STATIC, 'columnOptions' => ['hidden' => true]],
+        'order' => ['label'=>'Rank', 'type' => TabularForm::INPUT_TEXT],
         'bucket_list_id' => [
             'label' => '',
             'type' => TabularForm::INPUT_HIDDEN,
