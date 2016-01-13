@@ -79,7 +79,6 @@ AppAsset::register($this);
     <script>window.jQuery || document.write('<script src="../../assets/plugins/jquery/jquery.min.js"><\/script>')</script>
     <script src="../../assets/plugins/jquery.ui/jquery-ui-1.10.1.custom.min.js"></script>
     <script src="../../assets/plugins/jquery.ui.touch-punch/jquery.ui.touch-punch.js"></script>
-    <script src="../../assets/plugins/twitter-bootstrap/bootstrap.js"></script>
 
     <script src="../../assets/plugins/jquery.slimscroll/jquery.slimscroll.min.js"></script>
     <script src="../../assets/plugins/jquery.cookie/jquery.cookie.js"></script>

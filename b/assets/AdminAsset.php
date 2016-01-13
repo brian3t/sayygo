@@ -22,7 +22,7 @@ class AdminAsset extends AssetBundle
 		"js/sb-admin.js",
 		"js/brianadd.js",
 		"js/plugins/metisMenu/jquery.metisMenu.js",
-		"//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"
+		"js/underscore-min.js"
 
 	];
 	public $depends = [

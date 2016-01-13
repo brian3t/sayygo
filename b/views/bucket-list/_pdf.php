@@ -29,6 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         'name',
         'type',
+        'state',
         ['attribute' => 'tbl_lock', 'hidden' => true],
     ];
     echo DetailView::widget([

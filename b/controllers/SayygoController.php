@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\BucketItem;
 use dektrium\user\models\LoginForm;
 use dektrium\user\models\User;
 use backend\models\Keyword;
@@ -124,7 +125,6 @@ class SayygoController extends Controller
 			$newMatch->save();
 		}
 	}
-
 
 	/**
 	 * Lists all Sayygo models matching a specific sayygo, specific keyword.
@@ -313,10 +313,13 @@ class SayygoController extends Controller
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 * @return mixed
 	 */
-	public function actionCreate()
+	public function actionCreate($bucketitem_id = null)
 	{
 		$model = new Sayygo();
 		$model->user_id = Yii::$app->user->id;
+        if ($bucketitem_id !== null){
+            $model->full_text = BucketItem::findOne($bucketitem_id)->name;
+        }
 		$create_form = ((Yii::$app->user->isGuest || Yii::$app->user->identity->isTemp() )?'create_as_guest':'create');
 
 

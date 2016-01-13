@@ -19,7 +19,7 @@ class BucketList extends BaseBucketList
         return [
             [['user_id', 'name'], 'required'],
             [['user_id', 'tbl_lock'], 'integer'],
-            [['type'], 'string'],
+            [['type', 'state'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
             [['name'], 'string', 'max' => 500],
             [['user_id', 'name'], 'unique', 'targetAttribute' => ['user_id', 'name'], 'message' => 'You already have a bucket with this name.'],

@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use kartik\export\ExportMenu;
 use kartik\grid\GridView;
+use yii\helpers\ArrayHelper;
+use kartik\daterange\DateRangePicker;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\BucketListSearch */
@@ -15,7 +17,9 @@ $search = "$('.search-button').click(function(){
 	return false;
 });";
 $this->registerJs($search);
+
 ?>
+
 <div class="bucket-list-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -38,10 +42,20 @@ $this->registerJs($search);
             ],
             ['attribute' => 'type',
                     'contentOptions' => [
-                        'class'=>'cap'
+                            'class' => 'cap'
 
                     ]
             ],
+            ['attribute' => 'state',
+                    'contentOptions' => [
+                            'class' => 'cap'
+
+                    ],
+                    'filter' => Html::activeDropDownList($searchModel, 'state', ['active' => 'Active',
+                            'inactive' => 'Inactive', 'on hold' => 'On hold',
+                            'fulfilled' => 'Fulfilled'], ['class' => 'form-control', 'prompt' => 'All'])
+            ]
+        ,
             [
                     'attribute' => 'name',
                     'format' => 'raw',
@@ -51,10 +65,30 @@ $this->registerJs($search);
                     }
             ],
             ['attribute' => 'tbl_lock', 'hidden' => true],
-            'created_at',
+            ['attribute' => 'created_at',
+//                'filterType' => GridView::FILTER_DATE_RANGE,
+                    'format' => 'date',
+
+                    'filter' => DateRangePicker::widget([
+                            'useWithAddon' => true,
+                            'hideInput' => true,
+                            'name' => 'created_at_range',
+                            'value' => Yii::$app->request->getQueryParam('created_at_range'),
+                            'convertFormat' => true,
+                            'pluginOptions' => [
+                                    'locale' => [
+                                            'format' => 'd-M-y',
+                                            'separator' => ' to ',
+                                    ],
+                                    'opens' => 'left'
+                            ]
+                    ]),
+            ],
             [
                     'attribute' => 'updated_at',
                     'label' => 'Last updated at',
+                    'class' => kartik\grid\DataColumn::className(),
+//                'filterType' => GridView::FILTER_DATE_RANGE
             ],
 
             [
@@ -67,7 +101,9 @@ $this->registerJs($search);
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
             'columns' => $gridColumn,
-            'pjax' => true,
+            'filterRowOptions' => ['class' => 'kartik-sheet-style'],
+
+            'pjax' => false,
             'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container']],
             'panel' => [
                     'type' => GridView::TYPE_PRIMARY,
