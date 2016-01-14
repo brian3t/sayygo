@@ -58,3 +58,4 @@ ul.dropdown-menu{margin-top: 0}
 .navbar-top-links .dropdown-user{right: auto}
 td.cap{text-transform: capitalize}
 #filter-container, .drp-container{max-width: 250px}
+hr.transparent{border-top: none;}

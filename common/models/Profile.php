@@ -25,7 +25,7 @@ use dektrium\user\models\Profile as BaseProfile;
  *
  * @property string  $avatar
  * @property string  $isShowFullName
- *
+ * @property string $languages
  *
  * @var UploadedFile avatarFile attribute
  * @author Dmitry Erofeev <dmeroff@gmail.com
@@ -34,7 +34,7 @@ class Profile extends BaseProfile {
 	public $avatarFile;
 	public $isShowFullName;
 	public $nameOrFullName;//depends on isShowFullName
-
+    private $languages;
 	public function rules() {
 		$rules                        = parent::rules();
 		$rules['avatarLength']        = [ 'avatar','string','max' => 255 ];
@@ -42,7 +42,7 @@ class Profile extends BaseProfile {
 		$rules['myExp']               = [ [ 'my_experience' ],'string' ];
 		$rules['homeLocation']        = [ [ 'home_location' ],'string','max' => 800 ];
 		$rules['phoneNumMax']         = [ [ 'phone_number' ],'string','max' => 20 ];
-		$rules['languageMax']         = [ [ 'languages' ],'string','max' => 200 ];
+//		$rules['languageMax']         = [ [ 'languages' ],'string','max' => 200 ];
 		$rules['showFullName']        = [ 'is_show_full_name','safe' ];
 
 
@@ -66,5 +66,15 @@ class Profile extends BaseProfile {
 	public function getFullName(){
 		return ($this->is_show_full_name?$this->name:false);
 	}
+
+    public function getLanguages()
+    {
+        return $this->languages;
+    }
+
+    public function setLanguages($new_languages = "")
+    {
+        $this->languages = $new_languages;
+    }
 
 }

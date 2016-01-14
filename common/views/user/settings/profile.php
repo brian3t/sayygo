@@ -18,6 +18,7 @@ use yii\web\JsExpression;
  * @var yii\web\View $this
  * @var yii\widgets\ActiveForm $form
  * @var dektrium\user\models\Profile $profile
+ * @var \common\models\Profile $model
  */
 
 $this->title = Yii::t('user', 'Profile settings');
@@ -87,41 +88,48 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= $form->field($model, 'phone_number')->textInput(['maxlength' => 20])->label('Your text phone number (optional)') ?>
 
-                <?php
-                //init languages
-                $LANGUAGES = \backend\models\Languages::$data;
-                $initLanguages = [];
-                foreach (explode(',', $model->languages) as $langCode) {
-                    array_push($initLanguages, ['id' => $langCode,
-                            'text' => ArrayHelper::getValue($LANGUAGES, $langCode, '')]);
-                }
-                $initLanguages = json_encode($initLanguages);
-                // Script to initialize the selection based on the value of the select2 element
-                $initScriptLanguages = <<< SCRIPT
-				function (element, callback) {
-					var initLanguages = JSON.parse('{$initLanguages}');
-				     callback(initLanguages);
-				    }
-SCRIPT;
-//                echo $form->field($model, 'languages')->label('Languages that you know (optional)')->widget(Select2::classname(), [
-//                        'language' => 'en',
-//                        'data' => [],
-//                        'pluginOptions' => [
-//                                'placeholder' => '',
-//                                'minimumInputLength' => 0,
-//                                'allowClear' => true,
-//                                'multiple' => true,
-//                                'ajax' => [
-//                                        'url' => yii\helpers\Url::to(['/languages/get']),
-//                                        'dataType' => 'json',
-//                                        'data' => new JsExpression('function(term, page) { return {id:term}; }'),
-//                                        'results' => new JsExpression('function(data, page) { return {results: data.results}; }')
-//                                ],
-////                                'initSelection' => new JsExpression($initScriptLanguages),
-//                        ],
-//                ]);
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Your languages skill</label>
+                    <div class="col-lg-9">
+                        <hr class="transparent"/>
+                        <?php
+                        //init languages
+                        $LANGUAGES = \backend\models\Languages::$data;
+                        //                echo $form->field($model, 'languages')->label('Languages that you know (optional)')->widget(Select2::classname(), [
+                        //                        'language' => 'en',
+                        //                        'data' => $LANGUAGES,
+                        //                        'showToggleAll' => false,
+                        //                        'pluginOptions' => [
+                        //                                'placeholder' => '',
+                        //                                'minimumInputLength' => 0,
+                        //                                'allowClear' => true,
+                        //                                'multiple' => true,
+                        //                        ],
+                        //                ]);
+                        //
+                        //                $this->registerJs("$('#profile-languages').val(". $model->languages .").change();");
 
-                ?>
+                        $init_lang = json_decode($model->languages);//{"en":{"selected":"en","level":"3"},"el":{"selected":"el","level":"2"}}
+
+                        foreach ($LANGUAGES as $lang_code => $language):?>
+
+                            <span class="checkbox col-md-3">
+                            <label>
+                                <input name="lang[<?=$lang_code?>][selected]" type="checkbox" <?= (property_exists($init_lang, $lang_code)?"checked=\"checked\"":"") ?>" value="<?= $lang_code ?>"><?= $language ?>
+                            </label>
+                            </span>
+                            <div class="col-md-3"><select name="lang[<?=$lang_code?>][level]" title="Level" class="form-control form-control-mini col-md-2">
+                                    <option value="0" <?= ((property_exists($init_lang, $lang_code) && $init_lang->$lang_code->level == 0)?"selected=\"selected\"":"") ?>>--Level--</option>
+                                    <option value="1" <?= ((property_exists($init_lang, $lang_code) && $init_lang->$lang_code->level == 1)?"selected=\"selected\"":"") ?>">Beginner</option>
+                                    <option value="2" <?= ((property_exists($init_lang, $lang_code) && $init_lang->$lang_code->level == 2)?"selected=\"selected\"":"") ?>">Intermediate</option>
+                                    <option value="3" <?= ((property_exists($init_lang, $lang_code) && $init_lang->$lang_code->level == 3)?"selected=\"selected\"":"") ?>">Fluent</option>
+                                </select>
+                            </div>
+                            <?php
+                        endforeach;
+                        ?>
+                    </div>
+                </div>
 
                 <div class="form-group">
                     <div class="col-lg-offset-3 col-lg-9">

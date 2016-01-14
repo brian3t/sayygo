@@ -11,6 +11,7 @@
 
 namespace common\controllers;
 
+use common\models\Profile;
 use dektrium\user\models\SettingsForm;
 use dektrium\user\models\User;
 use yii\web\UploadedFile;
@@ -27,13 +28,15 @@ class SettingsController extends BaseSettingsController {
 	 */
 	public function actionProfile() {
 		$model = $this->finder->findProfileById( \Yii::$app->user->identity->getId() );
-
+        /** @var $model Profile */
 		$this->performAjaxValidation( $model );
 		if ( \Yii::$app->request->isPost ) {
 			$model->load( \Yii::$app->request->post() );
-
-
-
+            $languages = \Yii::$app->request->post('lang');
+            if (isset($languages)){
+                $languages = array_filter($languages, function($e){return count($e) ==2 ;});
+                $model->languages = json_encode($languages);
+            }
 			$model->avatarFile = UploadedFile::getInstance( $model,'avatarFile' );
 			$avatarFolder = dirname(\Yii::$app->getBasePath()) . "/uploads/avatar/" . \Yii::$app->user->id;
 			if ( $model->avatarFile) {
