@@ -391,6 +391,7 @@ class SayygoController extends Controller
 				$create_form = 'create_as_guest';
 			}
 			$model->user_id = Yii::$app->user->id;
+            $model->special_needs = Yii::$app->user->identity->profile->special_needs;
 
 			return $this->render($create_form, [
 				'model' => $model,

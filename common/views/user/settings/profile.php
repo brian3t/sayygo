@@ -110,7 +110,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         //                $this->registerJs("$('#profile-languages').val(". $model->languages .").change();");
 
                         $init_lang = json_decode($model->languages);//{"en":{"selected":"en","level":"3"},"el":{"selected":"el","level":"2"}}
-
+                        if (is_null($init_lang)){
+                            $init_lang = new stdClass();
+                        }
                         foreach ($LANGUAGES as $lang_code => $language):?>
 
                             <span class="checkbox col-md-3">
@@ -130,6 +132,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         ?>
                     </div>
                 </div>
+                <?=
+                $form->field($model, 'special_needs')->textInput(['maxlength'=>800])->label('Your special needs (wheelchair, diet restrictions, etc..)')
+                ?>
 
                 <div class="form-group">
                     <div class="col-lg-offset-3 col-lg-9">

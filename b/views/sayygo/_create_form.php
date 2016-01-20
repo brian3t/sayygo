@@ -120,7 +120,9 @@ SCRIPT;
 	                                                            'Never traveled'                => 'Never traveled',
 	                                                          ],[ 'prompt' => 'Doesn\'t matter' ] ) ?>
 
-	<?= $form->field( $model,'partner_num_preference' )->dropDownList( [
+    <?= $form->field($model, 'age_range')->dropDownList([ 'All' => 'All', '18-25' => '18-25', '25-35' => '25-35', '36-45' => '36-45', '46-55' => '46-55', '56-65' => '56-65', '66+' => '66+', ], ['prompt' => '']) ?>
+
+    <?= $form->field( $model,'partner_num_preference' )->dropDownList( [
 		                                                                   'One'          => 'One',
 		                                                                   '2 to 10'      => '2 to 10',
 		                                                                   'More than 10' => 'More than 10',
@@ -128,6 +130,8 @@ SCRIPT;
 
 	<?= $form->field( $model,'num_of_partner',
 	                  [ 'options' => $model->partner_num_preference === '2 to 10' ? [ ] : [ 'class' => 'hidden' ] ] )->textInput()->label( 'Ideal number of travel partners:' ) ?>
+
+    <?= $form->field($model, 'special_needs')->textInput(['maxlength' => true]) ?>
 
 	<div class="form-group">
 		<?php

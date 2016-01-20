@@ -38,7 +38,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'partner_num_preference')->dropDownList([ 'One' => 'One', '2 to 10' => '2 to 10', 'More than 10' => 'More than 10', '' => '', ], ['prompt' => '']) ?>
 
+    <?= $form->field($model, 'age_range')->dropDownList([ 'All' => 'All', '18-25' => '18-25', '25-35' => '25-35', '36-45' => '36-45', '46-55' => '46-55', '56-65' => '56-65', '66+' => '66+', ], ['prompt' => '']) ?>
+
     <?= $form->field($model, 'num_of_partner')->textInput() ?>
+
+    <?= $form->field($model, 'special_needs')->textInput(['maxlength' => true]) ?>
 
 	<div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

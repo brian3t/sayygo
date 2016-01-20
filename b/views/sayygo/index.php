@@ -25,7 +25,11 @@ $this->params['breadcrumbs'][] = $this->title;
 		                      'columns'      => [
 			                      [ 'class' => 'yii\grid\SerialColumn' ],
 //            'id',
-			                      'full_text',
+			                      ['label'=>'full_text',
+                                  'format'=>'raw',
+                                  'value' => function($data){
+                                      return Html::a($data->full_text,Url::to(['sayygo/view','id'=> $data->id]));
+                                  }],
 //            'user_id',
 			                      'created_at',
 			                      'updated_at',

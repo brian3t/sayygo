@@ -26,6 +26,7 @@ use dektrium\user\models\Profile as BaseProfile;
  * @property string  $avatar
  * @property string  $isShowFullName
  * @property string $languages
+ * @property string $special_needs
  *
  * @var UploadedFile avatarFile attribute
  * @author Dmitry Erofeev <dmeroff@gmail.com
@@ -40,7 +41,7 @@ class Profile extends BaseProfile {
 		$rules['avatarLength']        = [ 'avatar','string','max' => 255 ];
 		$rules['avatarFileSkipEmpty'] = [ 'avatarFile','file','skipOnEmpty' => true, ];
 		$rules['myExp']               = [ [ 'my_experience' ],'string' ];
-		$rules['homeLocation']        = [ [ 'home_location' ],'string','max' => 800 ];
+		$rules['homeLocation']        = [ [ 'home_location', 'special_needs' ],'string','max' => 800 ];
 		$rules['phoneNumMax']         = [ [ 'phone_number' ],'string','max' => 20 ];
 //		$rules['languageMax']         = [ [ 'languages' ],'string','max' => 200 ];
 		$rules['showFullName']        = [ 'is_show_full_name','safe' ];
@@ -57,7 +58,8 @@ class Profile extends BaseProfile {
 			'my_experience'     => 'My Experience',
 			'home_location'     => 'Home Location',
 			'phone_number'      => 'Phone Number',
-			'languages'         => 'Languages',
+            'languages'         => 'Languages',
+            'special_needs'         => 'Special Needs',
 			'is_show_full_name' => 'Show full name'
 		] );
 
