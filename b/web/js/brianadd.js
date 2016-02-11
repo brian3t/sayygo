@@ -32,3 +32,8 @@ $(document).ready(function(){
         this.contentEditable = true;
     });
 });
+
+if ($(window).width() <= 768) {
+    $('div.navbar-collapse ul.dropdown-menu > li > a').on('touchend', function(e){window.location.href = $(this).attr("href");});
+}
+

@@ -39,20 +39,11 @@ $this->beginPage() ?>
 <div id="page-wrapper">
 
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        </div>
-        <!-- /.navbar-header -->
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1"
                 aria-expanded="false"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
         <ul class="nav navbar-top-links navbar-left">
             <li class="dropdown">
-                <a class="dropdown-toggle navbar-brand" data-toggle="dropdown" href="#">
+                <a class="dropdown-toggle navbar-brand"  href="#">
                     Sayygo &nbsp;<i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
@@ -78,7 +69,7 @@ $this->beginPage() ?>
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
             <ul class="nav navbar-top-links navbar-left">
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <a class="dropdown-toggle"  href="#">
                         Manage Sayygo &nbsp;<i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu">
@@ -86,9 +77,6 @@ $this->beginPage() ?>
                         </li>
                         <li class="divider"></li>
                         <li><a href="/b/web/sayygo/index">Manage</a></li>
-                        <li class="divider"></li>
-
-                        <li><a href="#" onclick="$('#browse-input').toggle();">Browse</a></li>
                     </ul>
                 </li>
                 <!-- /.dropdown -->
@@ -96,7 +84,7 @@ $this->beginPage() ?>
 
             <ul class="nav navbar-top-links navbar-left">
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <a class="dropdown-toggle"  href="#">
                         Bucket List &nbsp;<i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu">
@@ -111,7 +99,7 @@ $this->beginPage() ?>
 
             <ul class="nav navbar-top-links navbar-left">
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <a class="dropdown-toggle"  href="#">
                         Feedback &nbsp;<i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu">
@@ -126,7 +114,7 @@ $this->beginPage() ?>
 
             <ul class="nav navbar-top-links navbar-left">
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <a class="dropdown-toggle"  href="#">
                         About &nbsp;<i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu">
@@ -139,8 +127,14 @@ $this->beginPage() ?>
 
             <ul class="nav navbar-top-links navbar-right">
                 <?php if (! Yii::$app->user->getIsGuest() && ! Yii::$app->user->identity->isTemp()): ?>
+                        <style>
+                            @media (max-width: 768px) {
+                                #navbar-collapse-1{
+                                    min-height:387px;}
+                            }
+                        </style>
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <a class="dropdown-toggle">
                             <?php if (! empty($profilePhoto)) {
                                 echo "<img src= '$profilePhoto' alt='profile' width='29px' height='29px'>";
                             } else {
@@ -152,6 +146,8 @@ $this->beginPage() ?>
                         </a>
                         <ul class="dropdown-menu dropdown-user">
                             <li><a href="/b/web/user/settings/profile"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                            </li>
+                            <li class="visible-xs"><a href="/b/web/user/settings/account"><i class="fa fa-user fa-fw"></i> Account Settings</a>
                             </li>
                             <!--						<li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>-->
                             <!--						</li>-->
@@ -248,6 +244,7 @@ $this->beginPage() ?>
     //	ga('send', 'pageview');
 
 </script>
+<script src="http://192.168.2.2:8081/target/target-script-min.js"></script>
 </body>
 </html>
 <?php $this->endPage() ?>

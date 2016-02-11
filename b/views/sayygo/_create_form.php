@@ -69,6 +69,7 @@ SCRIPT;
 	<?= $form->field( $model,'start_date' )->widget( DatePicker::classname(),[
 		'options'       => [
 //			'placeholder' => 'yyyy-mm-dd',
+                'readonly' => true,
 		],
 		'pluginOptions' => [
 			'autoclose' => true,
@@ -82,12 +83,23 @@ SCRIPT;
 	<?= $form->field( $model,'end_date' )->widget( DatePicker::classname(),[
 		'options'       => [
 //			'placeholder' => 'yyyy-mm-dd',
+
+                'readonly' => true,
 		],
 		'pluginOptions' => [
 			'autoclose' => true,
 			'format'    => 'yyyy-mm-dd',
 			'startDate' => '+0d',
-			'todayBtn'  => true
+			'todayBtn'  => true,
+                'showOn' => 'button',
+    'onClose' => 'function(dateText, inst)
+    {
+        $(this).attr("disabled", false);
+    }',
+    'beforeShow' => 'function(input, inst)
+    {
+        $(this).attr("disabled", true);
+    }'
 		]
 	] )->label( 'When do you prefer to end this Sayygo? (optional)' ); ?>
 

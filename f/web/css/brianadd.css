@@ -70,7 +70,9 @@ div.home-pic {
 #home-page #top > img{
     width: 100%;
 }
-#browse-input{width: 40%;margin: 0 auto;font-size: 180%;}
+#browse-input{width: 60%;
+    text-align: center;
+    margin: 227px auto;}
 #browse-input label{text-shadow: 1px 1px beige;}
 #browse-input *{margin-bottom: 8px;}
 #browse-input #keyword {text-align: center;padding: 3px;width: 100%}
@@ -84,3 +86,10 @@ div.home-pic {
     color: #444;  font-style: normal;
 }
 ul.dropdown-menu{margin-top: 0}
+
+@media (max-width: 768px) {
+    .navbar-collapse.in {
+        overflow: visible;
+    }
+    
+}

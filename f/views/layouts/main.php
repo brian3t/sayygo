@@ -41,10 +41,13 @@ $this->beginPage() ?>
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
             <ul class="nav navbar-top-links navbar-left">
                 <li class="dropdown">
-                    <a class="dropdown-toggle navbar-brand" data-toggle="dropdown" href="<?= \yii\helpers\Url::to('index')?>">
-                        Sayygo &nbsp;<i class="fa fa-caret-down"></i>
+                    <a class="dropdown-toggle navbar-brand" href="/">
+                        Sayygo &nbsp;<i class="fa fa-caret-down dropdown-toggle"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
+                        <li class="visible-xs"><a href="/">Home</a>
+                        </li>
+                        <li class="divider"></li>
                         <?php if (Yii::$app->user->isGuest): ?>
                             <li><a href="/b/web/user/login">Log In</a>
                             </li>
@@ -67,7 +70,7 @@ $this->beginPage() ?>
             <div class="collapse navbar-collapse" id="navbar-collapse-1">
                 <ul class="nav navbar-top-links navbar-left">
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <a class="dropdown-toggle"  href="#">
                             Manage Sayygo &nbsp;<i class="fa fa-caret-down"></i>
                         </a>
                         <ul class="dropdown-menu">
@@ -77,7 +80,7 @@ $this->beginPage() ?>
                             <li><a href="/b/web/sayygo/index">Manage</a></li>
                             <li class="divider"></li>
 
-                            <li><a href="#" onclick="$('#browse-input').toggle();">Browse</a></li>
+                            <li><a href="#" id="toggle_browse">Browse</a></li>
                         </ul>
                     </li>
                     <!-- /.dropdown -->
@@ -85,7 +88,7 @@ $this->beginPage() ?>
 
                 <ul class="nav navbar-top-links navbar-left">
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <a class="dropdown-toggle"  href="#">
                             Bucket List &nbsp;<i class="fa fa-caret-down"></i>
                         </a>
                         <ul class="dropdown-menu">
@@ -100,7 +103,7 @@ $this->beginPage() ?>
 
                 <ul class="nav navbar-top-links navbar-left">
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <a class="dropdown-toggle"  href="#">
                             Feedback &nbsp;<i class="fa fa-caret-down"></i>
                         </a>
                         <ul class="dropdown-menu">
@@ -115,7 +118,7 @@ $this->beginPage() ?>
 
                 <ul class="nav navbar-top-links navbar-left">
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <a class="dropdown-toggle"  href="#">
                             About &nbsp;<i class="fa fa-caret-down"></i>
                         </a>
                         <ul class="dropdown-menu">

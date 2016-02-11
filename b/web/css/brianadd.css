@@ -1,3 +1,4 @@
+body {background-color: #fff}
 .navbar-default a.navbar-brand {
     text-transform: uppercase;
     text-shadow: 1px 1px silver;
@@ -59,3 +60,10 @@ ul.dropdown-menu{margin-top: 0}
 td.cap{text-transform: capitalize}
 #filter-container, .drp-container{max-width: 250px}
 hr.transparent{border-top: none;}
+
+@media (max-width: 768px) {
+    div.table-responsive > table > thead {display: none}
+    a.btn {
+        margin: 5px;
+    }
+}
