@@ -32,23 +32,27 @@ return [
 		'errorHandler' => [
 			'errorAction' => 'site/error',
 		],
-/* for different sessions on backend and frontend
-//	        'session' => [
-//		        'name' => 'PHPBACKSESSID',
-//		        'savePath' => __DIR__ . '/../tmp',
-//		        'cookieParams' => [
-//			        'path'=>'http://localhost/b'
-//		        ],
-//        ],
-//        'user' => [
-//	        'identityClass' => 'common\models\User',
-//	        'enableAutoLogin' => true,
-//	        'identityCookie' => [
-//		        'name' => '_backendUser', // unique for backend
-//		        'path'=>'/b/web'  // correct path for the backend app.
-//	        ]
-//        ],
-*/
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+        ],
+
+        /* for different sessions on backend and frontend
+        //	        'session' => [
+        //		        'name' => 'PHPBACKSESSID',
+        //		        'savePath' => __DIR__ . '/../tmp',
+        //		        'cookieParams' => [
+        //			        'path'=>'http://localhost/b'
+        //		        ],
+        //        ],
+        //        'user' => [
+        //	        'identityClass' => 'common\models\User',
+        //	        'enableAutoLogin' => true,
+        //	        'identityCookie' => [
+        //		        'name' => '_backendUser', // unique for backend
+        //		        'path'=>'/b/web'  // correct path for the backend app.
+        //	        ]
+        //        ],
+        */
 	],
 	'params'              => $params,
 

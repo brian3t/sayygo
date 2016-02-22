@@ -18,7 +18,7 @@ class FrontEndAsset extends AssetBundle
     ];
     public $js = [
         "js/brianadd.js",
-        "//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"
+        "js/underscore-min.js"
 
     ];
     public $depends = [

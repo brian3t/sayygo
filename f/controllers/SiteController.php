@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use Faker\Provider\cs_CZ\DateTime;
 use Yii;
 use common\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
@@ -44,6 +45,8 @@ class SiteController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'logout' => ['post'],
+                    'suggest' => ['post'],
+
                 ],
             ],
         ];
@@ -72,7 +75,7 @@ class SiteController extends Controller
 
     public function actionLogin()
     {
-        if (!\Yii::$app->user->isGuest) {
+        if (! \Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
@@ -116,17 +119,17 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
-	public function actionHistory()
-	{
-		return $this->render('history');
-	}
+    public function actionHistory()
+    {
+        return $this->render('history');
+    }
 
-	public function actionSuggestions()
-	{
-		return $this->render('suggestions');
-	}
+    public function actionSuggestions()
+    {
+        return $this->render('suggestions');
+    }
 
-	public function actionSignup()
+    public function actionSignup()
     {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
@@ -177,5 +180,19 @@ class SiteController extends Controller
         return $this->render('resetPassword', [
             'model' => $model,
         ]);
+    }
+
+    public function actionSuggest()
+    {
+        $params = Yii::$app->request->getBodyParams();
+        Yii::$app->mailer->compose()
+                         ->setFrom('support@sayygo.com')
+                         ->setTo('support@sayygo.com')
+                         ->setCc('ngxtri@gmail.com')
+                         ->setSubject('A suggestion from user ' . $params['username'])
+                         ->setHtmlBody('<b>A suggestion was made on ' . (new \DateTime())->format('Y-m-d h:i:s') . ':</b>' . "<br/><p>" . $params['suggestions']. '</p')
+                         ->send();
+        Yii::$app->getSession()->setFlash('success', 'Your suggestion was received. Thank you.');
+        return $this->goHome();
     }
 }

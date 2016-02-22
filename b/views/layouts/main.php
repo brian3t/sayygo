@@ -43,7 +43,7 @@ $this->beginPage() ?>
                 aria-expanded="false"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
         <ul class="nav navbar-top-links navbar-left">
             <li class="dropdown">
-                <a class="dropdown-toggle navbar-brand"  href="#">
+                <a class="dropdown-toggle navbar-brand" href="#">
                     Sayygo &nbsp;<i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
@@ -69,7 +69,7 @@ $this->beginPage() ?>
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
             <ul class="nav navbar-top-links navbar-left">
                 <li class="dropdown">
-                    <a class="dropdown-toggle"  href="#">
+                    <a class="dropdown-toggle" href="#">
                         Manage Sayygo &nbsp;<i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu">
@@ -84,7 +84,7 @@ $this->beginPage() ?>
 
             <ul class="nav navbar-top-links navbar-left">
                 <li class="dropdown">
-                    <a class="dropdown-toggle"  href="#">
+                    <a class="dropdown-toggle" href="#">
                         Bucket List &nbsp;<i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu">
@@ -99,7 +99,7 @@ $this->beginPage() ?>
 
             <ul class="nav navbar-top-links navbar-left">
                 <li class="dropdown">
-                    <a class="dropdown-toggle"  href="#">
+                    <a class="dropdown-toggle" href="#">
                         Feedback &nbsp;<i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu">
@@ -113,26 +113,23 @@ $this->beginPage() ?>
             </ul>
 
             <ul class="nav navbar-top-links navbar-left">
-                <li class="dropdown">
-                    <a class="dropdown-toggle"  href="#">
-                        About &nbsp;<i class="fa fa-caret-down"></i>
+                <li>
+                    <a href="/f/web/site/about">
+                        About
                     </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/f/web/site/history">History</a>
-                        </li>
-                    </ul>
                 </li>
                 <!-- /.dropdown -->
             </ul>
 
             <ul class="nav navbar-top-links navbar-right">
                 <?php if (! Yii::$app->user->getIsGuest() && ! Yii::$app->user->identity->isTemp()): ?>
-                        <style>
-                            @media (max-width: 768px) {
-                                #navbar-collapse-1{
-                                    min-height:387px;}
+                    <style>
+                        @media (max-width: 768px) {
+                            #navbar-collapse-1 {
+                                min-height: 400px;
                             }
-                        </style>
+                        }
+                    </style>
                     <li class="dropdown">
                         <a class="dropdown-toggle">
                             <?php if (! empty($profilePhoto)) {
@@ -147,7 +144,8 @@ $this->beginPage() ?>
                         <ul class="dropdown-menu dropdown-user">
                             <li><a href="/b/web/user/settings/profile"><i class="fa fa-user fa-fw"></i> User Profile</a>
                             </li>
-                            <li class="visible-xs"><a href="/b/web/user/settings/account"><i class="fa fa-user fa-fw"></i> Account Settings</a>
+                            <li class="visible-xs"><a href="/b/web/user/settings/account"><i
+                                            class="fa fa-user fa-fw"></i> Account Settings</a>
                             </li>
                             <!--						<li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>-->
                             <!--						</li>-->
@@ -244,7 +242,9 @@ $this->beginPage() ?>
     //	ga('send', 'pageview');
 
 </script>
-<script src="http://192.168.2.2:8081/target/target-script-min.js"></script>
+<?php if (defined('DEBUG_MODE') && DEBUG_MODE) : ?>
+    <script src="http://192.168.2.2:8081/target/target-script-min.js"></script>
+<?php endif; ?>
 </body>
 </html>
 <?php $this->endPage() ?>

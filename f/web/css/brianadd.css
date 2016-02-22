@@ -1,3 +1,7 @@
+div.navbar-collapse a {
+    color: #fff
+}
+
 .navbar a.navbar-brand {
     text-transform: uppercase;
     text-shadow: 1px 1px silver;
@@ -5,27 +9,52 @@
     font-family: cursive;
     color: #AFAFAF;
 }
-li.dropdown.open > a.navbar-brand:hover{color:#AFAFAF}
-nav li.dropdown{display: inline-block}
-#wrapper>div{
+
+.nav .open > a, .nav .open > a:focus, .nav .open > a:hover, .nav > li > a:focus, .nav > li > a:hover, .navbar-inverse, .nav, .nav ul.dropdown-menu {
+    background-color: black
+}
+
+nav.navbar a, button.navbar-toggle {
+    color: white
+}
+
+li.dropdown.open > a.navbar-brand:hover {
+    color: #AFAFAF
+}
+
+nav li.dropdown {
+    display: inline-block
+}
+
+.navbar-toggle {
+    margin-top: 0
+}
+
+#wrapper > div {
     position: inherit;
     margin: 0 0 0 250px;
     padding: 8px 30px;
     min-height: 1300px;
     border-left: 1px solid #e7e7e7;
 }
+
 ul.select2-choices span {
     padding: 4px;
     margin-right: 4px;
     color: cadetblue;
     border: 1px dotted;
 }
-.keyword a{
+
+.keyword a {
     background: #7cdbfc;
     padding: 2px 4px;
     text-transform: capitalize;
 }
-.datepicker table tr td.disabled, .datepicker table tr td.disabled:hover{color: #ccc}
+
+.datepicker table tr td.disabled, .datepicker table tr td.disabled:hover {
+    color: #ccc
+}
+
 /*
 for sayygo temp fix
 */
@@ -67,29 +96,93 @@ div.home-pic {
     color: rgb(255, 255, 255);
     text-shadow: black 1px 1px 1px;
 }
-#home-page #top > img{
+
+#home-page #top > img {
     width: 100%;
 }
-#browse-input{width: 60%;
+
+#browse-input {
+    width: 60%;
     text-align: center;
-    margin: 227px auto;}
-#browse-input label{text-shadow: 1px 1px beige;}
-#browse-input *{margin-bottom: 8px;}
-#browse-input #keyword {text-align: center;padding: 3px;width: 100%}
-.dimmed{opacity: 0.2}
+    margin: 227px auto;
+}
+
+#browse-input label {
+    text-shadow: 1px 1px beige;
+}
+
+#browse-input * {
+    margin-bottom: 8px;
+}
+
+#browse-input #keyword {
+    text-align: center;
+    padding: 3px;
+    width: 100%
+}
+
+.dimmed {
+    opacity: 0.2
+}
+
 .jumbotron {
-    text-align: center;}
+    text-align: center;
+}
+
 .jumbotron .btn {
     font-size: 21px;
 }
+
 #home-page .jumbotron a {
-    color: #444;  font-style: normal;
+    color: #444;
+    font-style: normal;
 }
-ul.dropdown-menu{margin-top: 0}
+
+ul.dropdown-menu {
+    margin-top: 0
+}
 
 @media (max-width: 768px) {
     .navbar-collapse.in {
         overflow: visible;
     }
-    
+
 }
+
+#home_page_img {
+    width: 100%
+}
+
+#img_wrapper > a {
+    position: absolute;
+    width: 15.6%;
+    height: 13.39%;
+}
+
+div#img_wrapper {
+    position: relative;
+}
+
+#img_wrapper > a#img_login {
+    top: 44.5%;
+    left: 15%;
+    height: 7%;
+}
+
+#cr_sayygo {
+    top: 87%;
+    left: 35.8%;
+}
+
+#img_wrapper > a#img_register {
+    top: 62%;
+    left: 81.3%;
+    height: 7%;
+}
+
+#cr_bucket_list {
+    left: 0.7%;
+    top: 33.2406%;
+}
+
+/* 1032 x 769 */
