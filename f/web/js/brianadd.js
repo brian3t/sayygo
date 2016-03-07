@@ -33,11 +33,8 @@ if ($(window).width() <= 768) {
     $('a.navbar-brand').removeAttr('href');
     $('#navbar-collapse-1 a.dropdown-toggle').removeAttr('href');
     $('div.navbar-collapse ul.dropdown-menu > li > a').on('touchend', function(e){window.location.href = $(this).attr("href");});
-    $('#toggle_browse').on('touchend', function(event){
-        $('#browse-input').toggle();
-    });
 }
 
-$('#toggle_browse').on('click', function(event){
-    $('#browse-input').toggle();
+$('#toggle_browse').on('click touchend', function(event){
+    $('#browse-input').slideToggle();
 });

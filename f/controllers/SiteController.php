@@ -106,7 +106,8 @@ class SiteController extends Controller
                 Yii::$app->session->setFlash('error', 'There was an error sending email.');
             }
 
-            return $this->refresh();
+            Yii::$app->getSession()->setFlash('success', 'Thank you for contacting us! We will get in touch with you as soon as possible.');
+            return $this->goHome();
         } else {
             return $this->render('contact', [
                 'model' => $model,

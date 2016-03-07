@@ -28,12 +28,6 @@ $this->registerJsFile('/f/web/js/respond.min.js');
 <!-- Put your page content here! -->
 
 
-<form id="browse-input" style="display: none;" action="/b/web/sayygo/browse" method="post"
-      data-method="post">
-    <label class="control-label">Enter destination</label>
-    <input id="keyword" name="keyword">
-    <button type="submit" id="create_save_btn" class="btn btn-lg btn-success">Browse</button>
-</form>
 
 
 <div class="body-content">
@@ -64,7 +58,6 @@ $this->registerJs($js, \yii\web\View::POS_END);
 </div>
 </body>
 <?php
-$this->registerJsFile("/f/web/js/imageMapResizer.min.js", ['postion' => \yii\web\View::POS_HEAD]);
 $this->registerJs('jQuery(document).ready(function($) {
 
 });

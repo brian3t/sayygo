@@ -37,3 +37,6 @@ if ($(window).width() <= 768) {
     $('div.navbar-collapse ul.dropdown-menu > li > a').on('touchend', function(e){window.location.href = $(this).attr("href");});
 }
 
+$('#toggle_browse').on('click touchend', function(event){
+    $('#browse-input').slideToggle();
+});

@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>Sayygo was created for people who have always wanted to do something fun or adventurous but had no one to do it
     with. Now there’s an easy and safe was to connect with others who want to do the same thing. What happens next
     is up to YOU!</p>
-    <h3>Our commitment to you</h3>
-    <p>We will never share your information with ANYONE without your permission, you can count on it!</p>
+    <h3>Complete Privacy</h3>
+    <p>We will never share your email or other information with ANYONE without your permission, that's our commitment to you!</p>
 
 </div>

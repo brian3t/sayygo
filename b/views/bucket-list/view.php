@@ -98,9 +98,19 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
 //                'id',
                         'name',
-                    ['format'=>'raw',
-                    'value' => function($model, $key, $index, $grid){
-                        return \Yii::$app->user->identity->isTemp()?'':Html::a('Convert to Sayygo', Url::to(['sayygo/create','bucketitem_id'=>$model->id]));}],
+                        [
+                                'format' => 'raw',
+                                'value' => function ($model, $key, $index, $grid) {
+                                    /** @var \backend\models\BucketItem $model */
+                                    if ($model->sayygo_id) {
+                                        $link = Html::a('Converted to a Sayygo on ' . \usv\yii2helper\PHPHelper::date_time_format($model->converted_on), Url::to(['sayygo/view',
+                                                'id' => $model->sayygo_id]));
+                                    } else {
+                                        $link = Html::a('Convert to Sayygo', Url::to(['sayygo/create',
+                                                'bucketitem_id' => $model->id]));
+                                    }
+                                    return \Yii::$app->user->identity->isTemp() ? '' : $link;
+                                }],
 //                'order',
                 ],
                 'options' => [

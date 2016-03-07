@@ -17,11 +17,13 @@ use yii\helpers\ArrayHelper;
 
 	<?php
 	$form = ActiveForm::begin(); ?>
+    <?= Html::hiddenInput('bucketitem_id', yii::$app->request->get('bucketitem_id')) ?>
 	<?= $form->field( $model,'full_text' )->textarea( [
 		                                                  'maxlength' => 10000,
 		                                                  'rows'      => 6
-	                                                  ] )->label( "Tell us what you want to do. Type # to begin hashtag. When you are done hashtagging, type # to finish. You can have multiple hashtags.
-	                                                  For example, you can type: <br/><br/> <i>I want to go to <span class='hashtag'>#</span>Shanghai<span class='hashtag'>#</span> and <span class='hashtag'>#</span>San Francisco<span class='hashtag'>#</span> around this fall 2015 when there is World Food Convention.</i><br/><br/>Begin here:" ) ?>
+	                                                  ] )->label( "Tell us what you want to do and put hashtags (<span class='hashtag'>#</span>) at the beginning and end of key words or phrases. You can have multiple hashtags.<br/>
+	                                                  For example, you can type: <br/><i>I want to go to <span class='hashtag'>#</span>Shanghai<span class='hashtag'>#</span> or
+	                                                  <span class='hashtag'>#</span>San Francisco<span class='hashtag'>#</span>  in autumn 2016 when there is a <span class='hashtag'>#</span>World Food Convention<span class='hashtag'>#</span>.</i><br/><br/>Begin here:" ) ?>
 
 	<?= BaseHtml::activeHiddenInput( $model,'user_id' ) ?>
 

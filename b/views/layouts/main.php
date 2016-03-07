@@ -37,13 +37,19 @@ $this->beginPage() ?>
 <body class="fixed-top">
 <?php $this->beginBody() ?>
 <div id="page-wrapper">
+    <form id="browse-input" style="display: none;" action="/b/web/sayygo/browse" method="post"
+          data-method="post">
+        <label class="control-label">Enter Adventure</label>
+        <input id="keyword" name="keyword">
+        <button type="submit" id="create_save_btn" class="btn btn-lg btn-success">Browse</button>
+    </form>
 
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1"
                 aria-expanded="false"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
         <ul class="nav navbar-top-links navbar-left">
             <li class="dropdown">
-                <a class="dropdown-toggle navbar-brand" href="#">
+                <a class="dropdown-toggle navbar-brand" href="/f/web">
                     Sayygo &nbsp;<i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
@@ -68,9 +74,12 @@ $this->beginPage() ?>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
             <ul class="nav navbar-top-links navbar-left">
+                <li><a href="#" id="toggle_browse">Search</a></li>
+            </ul>
+            <ul class="nav navbar-top-links navbar-left">
                 <li class="dropdown">
                     <a class="dropdown-toggle" href="#">
-                        Manage Sayygo &nbsp;<i class="fa fa-caret-down"></i>
+                        Manage Sayygos &nbsp;<i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="/b/web/sayygo/create">Create</a>

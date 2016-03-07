@@ -2,8 +2,10 @@
 
 namespace backend\models;
 
+use backend\models\base\BucketItem;
 use common\models\User;
 use console\controllers\MatchController;
+use Faker\Provider\tr_TR\DateTime;
 use Yii;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
@@ -34,6 +36,7 @@ use vova07\console\ConsoleRunner;
  * @property Keyword[] $keywords
  * @property MatchSayygo[] $matchSayygos
  * @property \common\models\User $user
+ * @property BucketItem[] $bucketItems
  *
  * @property string keywordIds;
  */
@@ -126,6 +129,14 @@ class Sayygo extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getBucketItems()
+    {
+        return $this->hasMany(BucketItem::className(), ['sayygo_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getKeywordSayygos()
     {
         return $this->hasMany(KeywordSayygo::className(), ['sayygo_id' => 'id']);
@@ -192,6 +203,12 @@ class Sayygo extends \yii\db\ActiveRecord
             $this->link('keywords', $keyword);
         }
         $this->populateKeywordIds();
+        $bucket_item = BucketItem::findOne(Yii::$app->request->get('bucketitem_id'));
+        /** @var BucketItem $bucket_item */
+        $this->link('bucketItems', $bucket_item);
+        $bucket_item->converted_on = (new \DateTime('now'))->format('Y-m-d h:i:d');
+        $bucket_item->save();
+
         if ($insert) {
             $cr = new ConsoleRunner(['file' => '@appRootFolder/yii']);
             $cr->run(' match/updatesinglesayygo ' . $this->id);

@@ -12,8 +12,11 @@ use mootensai\behaviors\UUIDBehavior;
  * @property string $name
  * @property integer $bucket_list_id
  * @property integer $order
+ * @property integer $sayygo_id
+ * @property string $converted_on
  *
  * @property \backend\models\BucketList $bucketList
+ * @property \backend\models\Sayygo $sayygo
  */
 class BucketItem extends \yii\db\ActiveRecord
 {
@@ -38,6 +41,8 @@ class BucketItem extends \yii\db\ActiveRecord
             'name' => 'Name',
             'bucket_list_id' => 'Bucket List ID',
             'order' => 'Order',
+            'sayygo_id' => 'Sayygo ID',
+            'converted_on' => 'Converted On',
         ];
     }
 
@@ -49,6 +54,27 @@ class BucketItem extends \yii\db\ActiveRecord
         return $this->hasOne(\backend\models\BucketList::className(), ['id' => 'bucket_list_id']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSayygo()
+    {
+        return $this->hasOne(\backend\models\Sayygo::className(), ['id' => 'sayygo_id']);
+    }
+
+/**
+     * @inheritdoc
+     * @return type mixed
+     */ 
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => UUIDBehavior::className(),
+                'column' => 'id',
+            ],
+        ];
+    }
 
     /**
      * @inheritdoc
@@ -66,4 +92,5 @@ class BucketItem extends \yii\db\ActiveRecord
         }
         return parent::beforeSave($insert);
     }
+
 }

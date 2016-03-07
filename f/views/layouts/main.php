@@ -71,18 +71,19 @@ $this->beginPage() ?>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="navbar-collapse-1">
                 <ul class="nav navbar-top-links navbar-left">
+                    <li><a href="#" id="toggle_browse">Search</a></li>
+                </ul>
+
+                <ul class="nav navbar-top-links navbar-left">
                     <li class="dropdown">
                         <a class="dropdown-toggle" href="#">
-                            Manage Sayygo &nbsp;<i class="fa fa-caret-down"></i>
+                            Manage Sayygos &nbsp;<i class="fa fa-caret-down"></i>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="/b/web/sayygo/create">Create</a>
                             </li>
                             <li class="divider"></li>
                             <li><a href="/b/web/sayygo/index">Manage</a></li>
-                            <li class="divider"></li>
-
-                            <li><a href="#" id="toggle_browse">Browse</a></li>
                         </ul>
                     </li>
                     <!-- /.dropdown -->
@@ -125,6 +126,51 @@ $this->beginPage() ?>
                     </li>
                 </ul>
 
+                <ul class="nav navbar-top-links navbar-right">
+                    <?php if (! Yii::$app->user->getIsGuest() && ! Yii::$app->user->identity->isTemp()): ?>
+                        <style>
+                            @media (max-width: 768px) {
+                                #navbar-collapse-1 {
+                                    min-height: 400px;
+                                }
+                            }
+                        </style>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle">
+                                <?php if (! empty($profilePhoto)) {
+                                    echo "<img src= '$profilePhoto' alt='profile' width='29px' height='29px'>";
+                                } else {
+                                    echo '<i class="fa fa-user fa-fw">';
+                                };
+                                ?>
+                                <span class="username"><?= Yii::$app->user->identity->getFullName() ?>
+                                    <i class="fa fa-caret-down"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="/b/web/user/settings/profile"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                                </li>
+                                <li class="visible-xs"><a href="/b/web/user/settings/account"><i
+                                                class="fa fa-user fa-fw"></i> Account Settings</a>
+                                </li>
+                                <!--						<li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>-->
+                                <!--						</li>-->
+                                <li class="divider"></li>
+
+                                <?php if ($is_admin): ?>
+                                    <li><a class="yii-controls" type="button" data-method="post"
+                                           href="/b/web/admin/del-temp-user"><i
+                                                    class="fa fa-sign-out fa-fw"></i> Delete temporary users</a>
+                                    </li>
+                                <?php endif; ?>
+                                <li><a class="yii-controls" type="button" data-method="post" href="/b/web/site/logout"><i
+                                                class="fa fa-sign-out fa-fw"></i> Log Out</a>
+                                </li>
+                            </ul>
+                            <!-- /.dropdown-user -->
+                        </li>
+                    <?php endif; ?>
+                    <!-- /.dropdown -->
+                </ul>
 
             </div>
             <!-- /.navbar-collapse -->
@@ -134,12 +180,18 @@ $this->beginPage() ?>
 
 
     <div class="container">
+        <form id="browse-input" style="display: none;" action="/b/web/sayygo/browse" method="post"
+              data-method="post">
+            <label class="control-label">Enter Adventure</label>
+            <input id="keyword" name="keyword">
+            <button type="submit" id="create_save_btn" class="btn btn-lg btn-success">Browse</button>
+        </form>
         <?= Breadcrumbs::widget([
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
         <?php
         foreach (\Yii::$app->session->getAllFlashes(true) as $key => $message) {
-            if (is_array($message[0])) {
+            if (is_array($message) && isset($message[0]) && is_array($message[0])) {
                 echo Alert::widget(
                         ['type' => $key,
                                 'title' => $message[0]['title'],
@@ -148,10 +200,10 @@ $this->beginPage() ?>
                         ]
                 );
             } else {
-                if (is_array($message)) {
+                if (is_array($message) && isset($message['message'])) {
                     echo Alert::widget(
-                            ['type' => $key,
-                                    'body' => $message[0],
+                            ['type' => $message['type'],
+                                    'body' => $message['message'],
                                     'delay' => 10000
                             ]
                     );
