@@ -1,4 +1,3 @@
-# realestateteamapp
 Sayygo Web App
 Custom web app that matches people with similar travel destination and helps them plan their travel better.
 
